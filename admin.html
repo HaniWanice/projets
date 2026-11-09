@@ -48,7 +48,7 @@ input.code { width: 100%; height: 50px; padding: 0 16px; border: 1px solid var(-
 
   <section class="panel" id="live">
     <h2>Présenter en direct</h2>
-    <div class="big"><div><b>Diffuser mon écran</b><br><span class="help">Les visiteurs suivent votre navigation, vos défilements, vos clics et les réglages du site Qualyz.</span></div><input type="checkbox" class="sw live" id="cast" aria-label="Diffuser en direct"></div>
+    <div class="big"><div><b>Diffuser mon écran</b><br><span class="help">Les visiteurs suivent votre navigation, vos défilements et vos clics.</span></div><input type="checkbox" class="sw live" id="cast" aria-label="Diffuser en direct"></div>
     <div class="link"><input id="viewer" readonly aria-label="Lien à envoyer"><button class="btn btn-line" type="button" id="copy">Copier le lien</button></div>
     <p class="msg" id="castMsg"></p>
   </section>
@@ -61,7 +61,7 @@ input.code { width: 100%; height: 50px; padding: 0 16px; border: 1px solid var(-
   </section>
 </main>
 <script>
-var P = [['vitesse', 'Le même site, lent puis rapide', 'vitesse/'], ['equipe', 'ToDo Smart Équipe', 'equipe/'], ['prospection', 'Prospection CSE et emails', 'prospection/'], ['qualyz', 'Refonte du site Qualyz', 'qualyz/']];
+var P = [['vitesse', 'Le même site, lent puis rapide', 'vitesse/'], ['equipe', 'ToDo Smart Équipe', 'equipe/'], ['prospection', 'Prospection CSE et emails', 'prospection/']];
 var $ = function (s) { return document.querySelector(s); };
 var STATUS = { local: 'Hors ligne (rien ne se synchronise)', connecting: 'Connexion…', synced: 'Synchronisé', error: 'Erreur : règles Firestore à publier ?' };
 HW.onStatus(function (s) { $('#status').dataset.s = s; $('#status span').textContent = STATUS[s] || s; });
