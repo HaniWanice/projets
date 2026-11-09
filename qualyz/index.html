@@ -1,0 +1,1406 @@
+<!doctype html>
+<html lang="fr" data-project="qualyz" data-back data-palette="qualyz-sable" data-typo="qualyz" data-forme="qualyz">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Qualyz, formations des élus du CSE</title>
+<meta name="description" content="Formations SSCT, économique, référent harcèlement, secrétaire et trésorier du CSE. Certifié Qualiopi, en salle ou à distance, partout en France. Rappel en 15 minutes.">
+<script>(function(){var h=document.documentElement;h.classList.add('qz-js');try{var p=JSON.parse(localStorage.getItem('qz-perso')||'{}');for(var k in p)if(/^[a-z][a-z0-9-]*$/.test(k)&&typeof p[k]==='string')h.setAttribute('data-'+k,p[k]);}catch(e){}})()</script>
+<link rel="stylesheet" href="assets/site.css">
+<script src="../shared/live.js"></script>
+<style>
+html, body { margin: 0; overflow-x: clip; }
+body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); }
+.qz-band { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.qz-cell { min-width: 0; }
+.qz-cell > [data-s] { display: block; height: 100%; }
+.qz-todo { box-sizing: border-box; margin: 12px; padding: 24px; border: 2px dashed var(--color-rule-2); border-radius: 12px; background: var(--color-paper-2); color: var(--color-ink-2); font: 500 16px/1.5 system-ui, sans-serif; display: flex; flex-direction: column; gap: 12px; }
+.qz-todo b { color: var(--color-ink); }
+.qz-todo .imgs { display: flex; gap: 8px; flex-wrap: wrap; }
+.qz-todo .imgs img { height: 96px; width: auto; border-radius: 6px; }
+@media (max-width: 760px) { .qz-cell { grid-column: 1 / -1 !important; } }
+
+.qz-variants[data-group="formations"] > [data-variant] { display: none; }
+html:not([data-v-formations]) .qz-variants[data-group="formations"] > [data-variant="prod-formations-liste"], html[data-v-formations="prod-formations-liste"] .qz-variants[data-group="formations"] > [data-variant="prod-formations-liste"], html[data-v-formations="prod-formations-bento"] .qz-variants[data-group="formations"] > [data-variant="prod-formations-bento"], html[data-v-formations="prod-formations-programme"] .qz-variants[data-group="formations"] > [data-variant="prod-formations-programme"], html[data-v-formations="prod-formations-parcours"] .qz-variants[data-group="formations"] > [data-variant="prod-formations-parcours"], html[data-v-formations="prod-formations-illustre"] .qz-variants[data-group="formations"] > [data-variant="prod-formations-illustre"] { display: block; }
+.qz-variants[data-group="formateurs"] > [data-variant] { display: none; }
+html:not([data-v-formateurs]) .qz-variants[data-group="formateurs"] > [data-variant="prod-formateurs"], html[data-v-formateurs="prod-formateurs"] .qz-variants[data-group="formateurs"] > [data-variant="prod-formateurs"], html[data-v-formateurs="prod-formateurs-arches"] .qz-variants[data-group="formateurs"] > [data-variant="prod-formateurs-arches"], html[data-v-formateurs="prod-formateurs-vedette"] .qz-variants[data-group="formateurs"] > [data-variant="prod-formateurs-vedette"] { display: block; }
+
+@scope ([data-s="prod-perso"]) {
+:scope { display: block; height: 0; font-family: var(--font-body); color: var(--color-ink); }
+*, ::before, ::after { box-sizing: border-box; }
+.bubble { position: fixed; z-index: 95; top: 92px; left: 14px; display: grid; place-items: center; width: 42px; height: 42px; padding: 0; border: 1px solid var(--color-rule-2); border-radius: 50%; background: color-mix(in oklch, var(--color-paper) 80%, transparent); color: var(--color-accent); cursor: pointer; opacity: 0.45; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: opacity 200ms ease, transform 200ms var(--ease-out); }
+.bubble svg { width: 20px; height: 20px; }
+.bubble:hover, .bubble:focus-visible, .bubble[aria-expanded="true"] { opacity: 1; }
+.bubble:active { transform: scale(0.94); }
+.bubble:focus-visible, .panel :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.panel { position: fixed; z-index: 96; top: 92px; left: 14px; bottom: 14px; width: min(360px, calc(100vw - 28px)); display: flex; flex-direction: column; border: 1px solid var(--color-rule); border-radius: 20px; background: color-mix(in oklch, var(--color-paper) 88%, transparent); backdrop-filter: blur(22px) saturate(1.3); -webkit-backdrop-filter: blur(22px) saturate(1.3); box-shadow: 0 24px 60px -30px rgb(0 0 0 / 0.35); opacity: 0; transform: translateX(-12px); transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out); }
+.panel[hidden] { display: none; }
+.panel[data-open] { opacity: 1; transform: none; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 16px 12px 20px; border-bottom: 1px solid var(--color-rule); }
+.top b { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 1.15rem; }
+.x { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 50%; background: transparent; color: var(--color-ink); cursor: pointer; }
+.x:hover { background: var(--color-paper-2); }
+.body { flex: 1; overflow-y: auto; padding: 8px 20px 20px; overscroll-behavior: contain; }
+fieldset { margin: 0; padding: 16px 0 4px; border: 0; border-bottom: 1px solid var(--color-rule); }
+legend { padding: 0 0 10px; font-weight: 600; font-size: 0.92rem; }
+.opts { display: flex; flex-wrap: wrap; gap: 6px; }
+.opt { position: relative; }
+.opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.opt > span { display: inline-flex; align-items: center; gap: 8px; min-height: 34px; padding: 6px 12px; border: 1px solid var(--color-rule-2); border-radius: 10px; background: var(--color-card); color: var(--color-ink); font-size: 0.86rem; line-height: 1.25; transition: border-color 150ms ease, background-color 150ms ease; }
+.opt input:checked + span { border-color: var(--color-accent); background: var(--color-accent-soft); color: var(--color-accent-soft-ink); font-weight: 600; }
+.opt input:focus-visible + span { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.opts.col { flex-direction: column; } .opts.col .opt > span { width: 100%; justify-content: flex-start; }
+.sw { display: inline-flex; } .sw i { width: 14px; height: 14px; border-radius: 50%; margin-left: -4px; border: 1px solid rgb(0 0 0 / 0.12); } .sw i:first-child { margin-left: 0; }
+.font { font-size: 1.15rem; line-height: 1.1; }
+.tog { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 0; font-size: 0.9rem; cursor: pointer; }
+.tog input { appearance: none; flex: none; width: 40px; height: 24px; margin: 0; border-radius: 999px; background: var(--color-rule-2); position: relative; cursor: pointer; transition: background-color 200ms ease; }
+.tog input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--color-card); transition: transform 200ms var(--ease-out); }
+.tog input:checked { background: var(--color-accent); }
+.tog input:checked::after { transform: translateX(16px); }
+.foot { display: grid; gap: 8px; padding: 14px 20px 18px; border-top: 1px solid var(--color-rule); }
+.foot .row { display: flex; gap: 8px; }
+.foot button { flex: 1; min-height: 40px; padding: 0 12px; border: 1px solid var(--color-rule-2); border-radius: 10px; background: var(--color-card); color: var(--color-ink); font: 600 0.86rem var(--font-body); cursor: pointer; }
+.foot button.main { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+.foot .done { margin: 0; min-height: 1lh; color: var(--color-accent); font-size: 0.82rem; }
+/* On phones the top-left corner holds the hero text: the bubble and its panel move to the bottom. */
+@media (max-width: 760px) { .bubble { top: auto; bottom: 14px; } .panel { top: 72px; } }
+@media (prefers-reduced-motion: reduce) { .panel, .bubble { transition: none; } }
+}
+
+
+@scope ([data-s="prod-en-tete"]) {
+:scope { display: block; font-family: var(--font-body); color: var(--color-ink); }
+*, ::before, ::after { box-sizing: border-box; }
+.hd { position: relative; z-index: 50; height: 76px; transition: background-color 250ms ease, box-shadow 250ms ease, transform 400ms var(--ease-out); }
+.qz-js :scope > .hd { position: fixed; inset: 0 0 auto; }
+/* Reserves the room of the fixed bar (a studio rule forces the wrapper height, so it cannot carry it). */
+.sp { display: none; }
+.qz-js :scope > .sp { display: block; height: 76px; }
+.hd[data-scrolled], .hd[data-menu] { background: color-mix(in oklch, var(--color-paper) 86%, transparent); backdrop-filter: blur(14px) saturate(1.3); -webkit-backdrop-filter: blur(14px) saturate(1.3); box-shadow: 0 1px 0 var(--color-rule); }
+/* backdrop-filter would make the bar the containing block of the fixed menu sheet and trap it. */
+.hd[data-menu] { background: var(--color-paper); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.hd[data-hidden] { transform: translateY(-100%); }
+.bar { height: 100%; display: flex; align-items: center; gap: 40px; }
+.brand { display: block; flex: none; border-radius: 6px; }
+.brand .logo { display: block; height: 34px; width: auto; aspect-ratio: 4016 / 1332; color: var(--color-accent); overflow: visible; }
+.brand .logo path { transform-box: fill-box; transform-origin: center; transition: transform 500ms var(--ease-out); }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (hover: hover) and (pointer: fine) { .brand:hover .lq { transform: scale(1.12) rotate(-4deg); } .brand:hover .lc { transform: translate(6%, -10%) rotate(-8deg); } }
+.brand:focus-visible, .nav a:focus-visible, .tel:focus-visible, .burger:focus-visible, .sheet a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+.nav { display: flex; gap: 30px; margin-left: auto; }
+.nav a { position: relative; padding: 8px 0; color: var(--color-ink-2); font-weight: 500; font-size: 0.95rem; text-decoration: none; transition: color 200ms ease; }
+.nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 1px; height: 2px; border-radius: 2px; background: var(--color-accent); transform: scaleX(0); transform-origin: left; transition: transform 300ms var(--ease-out); }
+.nav a[aria-current="true"] { color: var(--color-ink); }
+.nav a[aria-current="true"]::after { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { .nav a:hover { color: var(--color-ink); } .nav a:hover::after { transform: scaleX(1); } .tel:hover { color: var(--color-accent); } }
+.act { display: flex; align-items: center; gap: 22px; }
+.tel { display: inline-flex; align-items: center; gap: 8px; color: var(--color-ink); font-weight: 600; font-size: 0.95rem; text-decoration: none; font-variant-numeric: tabular-nums; transition: color 200ms ease; }
+.tel svg { width: 17px; height: 17px; color: var(--color-accent); }
+.act .qz-btn { min-height: 44px; padding: 0 20px; font-size: 0.95rem; }
+.burger { display: none; place-items: center; width: 44px; height: 44px; margin-right: -8px; border: 0; border-radius: 12px; background: transparent; color: var(--color-ink); cursor: pointer; }
+.burger span { grid-area: 1 / 1; display: block; width: 22px; height: 2px; border-radius: 2px; background: currentColor; transition: transform 300ms var(--ease-out); }
+.burger span:first-child { transform: translateY(-4px); }
+.burger span:last-child { transform: translateY(4px); }
+.burger[aria-expanded="true"] span:first-child { transform: rotate(45deg); }
+.burger[aria-expanded="true"] span:last-child { transform: rotate(-45deg); }
+.sheet { position: fixed; inset: 76px 0 0; z-index: 49; padding: 24px var(--page-gutter) 40px; background: var(--color-paper); display: flex; flex-direction: column; gap: 4px; opacity: 0; transform: translateY(-8px); transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out); overflow-y: auto; }
+.sheet[hidden] { display: none; }
+.sheet[data-open] { opacity: 1; transform: none; }
+.sheet a:not(.qz-btn) { display: block; padding: 14px 0; border-bottom: 1px solid var(--color-rule); color: var(--color-ink); font-family: var(--font-display); font-weight: var(--display-weight); font-size: 1.9rem; letter-spacing: var(--tracking-display); text-decoration: none; }
+.sheet .qz-btn { margin-top: 28px; }
+.sheet .tel { margin-top: 18px; justify-content: center; font-size: 1.05rem; }
+@media (max-width: 920px) { .nav, .act .tel { display: none; } .burger { display: inline-grid; } .act { margin-left: auto; gap: 10px; } }
+@media (max-width: 380px) { .act .qz-btn { display: none; } }
+@media (prefers-reduced-motion: reduce) { .hd, .sheet, .burger span { transition: none; } }
+}
+
+
+@scope ([data-s="prod-hero"]) {
+:scope { display: block; font-family: var(--font-body); color: var(--color-ink); }
+*, ::before, ::after { box-sizing: border-box; }
+.hero { position: relative; overflow: clip; padding-block: clamp(28px, 4vw, 64px) clamp(56px, 7vw, 96px); }
+.grid { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr); gap: clamp(40px, 6vw, 88px); align-items: center; }
+.copy { position: relative; z-index: 2; min-width: 0; }
+.pre { margin: 0 0 22px; color: var(--color-accent); font-weight: 600; font-size: 0.98rem; }
+h1 { margin: 0 0 26px; font-family: var(--font-display); font-weight: var(--display-weight); font-size: calc(clamp(2.75rem, 1.4rem + 4.4vw, 5.2rem) * var(--display-scale, 1) * var(--display-boost, 1)); line-height: 1.0; letter-spacing: -0.032em; text-wrap: balance; }
+h1 .w { display: inline-block; overflow: clip; overflow-clip-margin: 0.1em; vertical-align: top; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+h1 .w > span { display: inline-block; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.proof { list-style: none; margin: 36px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 24px; color: var(--color-ink-2); font-weight: 500; font-size: 0.93rem; }
+.proof li { display: inline-flex; align-items: center; gap: 8px; }
+.proof li::before { content: ""; width: 18px; height: 18px; flex: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='m5.5 9.2 2.3 2.3 4.7-5' fill='none' stroke='%230C6A67' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 18px no-repeat; }
+.media { position: relative; margin: 0; aspect-ratio: 4 / 4.5; border-radius: var(--radius-card); overflow: hidden; background: var(--color-ink); }
+.media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgb(15 42 46 / 0.78), rgb(15 42 46 / 0) 52%); pointer-events: none; }
+.cap { position: absolute; z-index: 1; left: clamp(20px, 3vw, 32px); right: clamp(20px, 3vw, 32px); bottom: clamp(20px, 3vw, 30px); margin: 0; color: var(--color-on-dark); }
+.lab { display: block; color: var(--color-on-dark-2); font-weight: 500; font-size: 0.98rem; }
+.word { position: relative; display: block; height: 1.2em; overflow: hidden; font-family: var(--font-display); font-weight: var(--display-weight); font-size: clamp(1.9rem, 1.2rem + 1.7vw, 2.75rem); line-height: 1.2; letter-spacing: -0.02em; }
+.word span { position: absolute; left: 0; top: 0; white-space: nowrap; }
+.ticks { display: flex; gap: 6px; margin-top: 14px; }
+.ticks i { width: 26px; height: 3px; border-radius: 2px; background: var(--color-on-dark-3); transition: background-color 300ms ease; }
+.ticks i[data-on] { background: var(--color-on-dark); }
+.pause { position: absolute; z-index: 2; top: 16px; right: 16px; display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgb(15 42 46 / 0.45); color: var(--color-on-dark); cursor: pointer; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background-color 200ms ease, transform 160ms var(--ease-out); }
+.pause:active { transform: scale(0.94); }
+.pause:focus-visible { outline: 2px solid var(--color-on-dark); outline-offset: 3px; }
+.pause svg { width: 16px; height: 16px; }
+.pause .play, .pause[aria-pressed="true"] .stop { display: none; }
+.pause[aria-pressed="true"] .play { display: block; }
+@media (hover: hover) and (pointer: fine) { .pause:hover { background: rgb(15 42 46 / 0.7); } }
+.qz-js .media { clip-path: inset(10% 8% 0 8% round var(--radius-card)); transition: clip-path 1200ms var(--ease-in-out); }
+.qz-js .media[data-on] { clip-path: inset(0 0 0 0 round var(--radius-card)); }
+@media (max-width: 880px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .media { aspect-ratio: 4 / 3.3; }
+}
+@media (max-width: 520px) { .ctas .qz-btn { flex: 1 1 100%; } }
+@media (prefers-reduced-motion: reduce) { .qz-js .media { clip-path: none; transition: none; } }
+
+/* Media chosen in the customizer (html[data-media]): video by default, or photos, the logo, a callback form, nothing. */
+.m-photos, .m-brand, .m-form { display: none; }
+:root[data-media]:not([data-media="video"]) :scope .media > :is(video, .pause, .cap) { display: none; }
+:root[data-media="photos"] :scope .m-photos { display: block; position: absolute; inset: 0; }
+.m-photos img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity 1200ms var(--ease-out), transform 7000ms linear; }
+.m-photos img[data-on] { opacity: 1; transform: scale(1); }
+:root[data-media="photos"] :scope .media::after { background: linear-gradient(to top, color-mix(in oklch, var(--color-deep) 35%, transparent), transparent 40%); }
+:root[data-media="logo"] :scope .media { background: var(--color-accent); }
+:root[data-media="logo"] :scope .media::after { display: none; }
+:root[data-media="logo"] :scope .m-brand { display: block; position: absolute; inset: 0; }
+.m-brand .bq { position: absolute; left: 50%; top: 50%; width: 46%; height: auto; transform: translate(-50%, -52%); animation: qz-breathe 7s var(--ease-in-out) infinite; }
+.m-brand .bc { position: absolute; left: 62%; top: 16%; width: 22%; height: auto; animation: qz-orbit 9s var(--ease-in-out) infinite; }
+@keyframes qz-breathe { 0%, 100% { transform: translate(-50%, -52%) scale(1); } 50% { transform: translate(-50%, -52%) scale(1.04) rotate(-2deg); } }
+@keyframes qz-orbit { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 25% { transform: translate(-30%, 18%) rotate(-6deg); } 50% { transform: translate(-10%, 36%) rotate(4deg); } 75% { transform: translate(14%, 12%) rotate(-3deg); } }
+:root[data-media="rappel"] :scope .media { background: var(--color-accent); display: grid; place-items: center; aspect-ratio: auto; min-height: 420px; padding: clamp(28px, 4vw, 48px) 0; }
+:root[data-media="rappel"] :scope .ctas .qz-btn--ghost { display: none; }
+:root[data-media="rappel"] :scope .media::after { display: none; }
+:root[data-media="rappel"] :scope .m-form { display: grid; gap: 14px; position: relative; z-index: 1; width: min(380px, 86%); color: var(--color-on-dark); }
+.m-form .mt { margin: 0 0 6px; font-family: var(--font-display); font-weight: var(--display-weight); font-size: calc(clamp(1.7rem, 1.2rem + 1.2vw, 2.3rem) * var(--display-scale, 1)); line-height: 1.08; letter-spacing: var(--tracking-display); }
+.m-form label { display: grid; gap: 6px; font-weight: 600; font-size: 0.9rem; }
+.m-form input { height: 50px; padding: 0 16px; border: 1px solid var(--color-on-dark-3); border-radius: 12px; background: var(--color-on-dark-line); color: var(--color-on-dark); font: 500 1rem var(--font-body); }
+.m-form input:focus { outline: none; border-color: var(--color-on-dark); box-shadow: 0 0 0 4px var(--color-on-dark-line); }
+.m-form input[aria-invalid="true"] { border-color: var(--color-signal-ink); }
+.m-form .mn { margin: 0; color: var(--color-on-dark-2); font-size: 0.85rem; min-height: 1lh; }
+:root[data-media="aucun"] :scope .media { display: none; }
+:root[data-media="aucun"] :scope .grid { grid-template-columns: minmax(0, 1fr); }
+:root[data-media="aucun"] :scope .copy { max-width: 900px; padding-block: clamp(24px, 6vw, 96px); }
+:root[data-media="aucun"] :scope h1 { font-size: calc(clamp(3rem, 1.4rem + 5.4vw, 6.4rem) * var(--display-scale, 1) * var(--display-boost, 1)); }
+:root[data-media="aucun"]:is([data-hero="plein"], [data-hero="verre"]) :scope .copy { position: static; margin: 0; padding: clamp(24px, 6vw, 96px) 0; border: 0; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; color: var(--color-ink); }
+:root[data-media="aucun"][data-hero="plein"] :scope .copy :is(.pre, .qz-lede, .proof) { color: var(--color-ink-2); }
+:root[data-media="aucun"][data-hero="plein"] :scope .qz-btn--ghost { color: var(--color-ink); border-color: var(--color-rule-2); }
+:root[data-media="aucun"][data-hero="plein"] :scope .hero { min-height: 0; }
+:root[data-hero="plein"][data-media="rappel"] :scope .media { place-items: center end; padding-right: max(var(--page-gutter), calc((100% - var(--page-max)) / 2)); }
+:root[data-hero="plein"][data-media="logo"] :scope .m-brand { left: 45%; }
+@media (prefers-reduced-motion: reduce) { .m-photos img { transition: opacity 300ms ease; transform: none !important; } .m-brand :is(.bq, .bc) { animation: none; } }
+
+/* Layouts chosen in the customizer (html[data-hero]). Same markup, only the composition changes. */
+.media video { transform: translateY(var(--py, 0px)) scale(var(--vs, 1)); }
+:root[data-hero="plein"] :scope .hero { display: flex; align-items: center; min-height: min(880px, calc(100svh - 76px)); padding-block: 72px; }
+:root[data-hero="plein"] :scope .grid { position: static; grid-template-columns: minmax(0, 1fr); }
+:root[data-hero="plein"] :scope .copy { max-width: 640px; color: var(--color-on-dark); }
+:root[data-hero="plein"] :scope .copy :is(.pre, .qz-lede, .proof) { color: var(--color-on-dark-2); }
+:root[data-hero="plein"] :scope .copy .pre { color: var(--color-signal-ink); }
+:root[data-hero="plein"] :scope .proof li::before { filter: brightness(2.2); }
+:root[data-hero="plein"] :scope .qz-btn--ghost { color: var(--color-on-dark); border-color: var(--color-on-dark-3); }
+:root[data-hero="plein"] :scope .media { position: absolute; inset: 0; z-index: 0; aspect-ratio: auto; border-radius: 0; box-shadow: none; clip-path: none; }
+:root[data-hero="plein"] :scope .media::after { background: linear-gradient(90deg, color-mix(in oklch, var(--color-deep) 88%, transparent), color-mix(in oklch, var(--color-deep) 45%, transparent) 55%, color-mix(in oklch, var(--color-deep) 10%, transparent)); }
+:root[data-hero="plein"] :scope .cap { left: auto; text-align: right; right: max(var(--page-gutter), calc((100% - var(--page-max)) / 2)); }
+:root[data-hero="plein"] :scope .ticks { justify-content: flex-end; }
+:root:is([data-hero="plein"], [data-hero="verre"]) :scope .word span { left: auto; right: 0; }
+:root[data-hero="plein"] :scope .pause { top: 24px; right: max(var(--page-gutter), calc((100% - var(--page-max)) / 2)); }
+
+:root[data-hero="verre"] :scope .grid { grid-template-columns: minmax(0, 1fr); }
+:root[data-hero="verre"] :scope .media { grid-row: 1; grid-column: 1; aspect-ratio: 16 / 8.6; }
+:root[data-hero="verre"] :scope .copy { grid-row: 1; grid-column: 1; align-self: end; justify-self: start; z-index: 3; max-width: 560px; margin: 0 0 clamp(16px, 2.5vw, 32px) clamp(16px, 2.5vw, 32px); padding: clamp(24px, 3vw, 40px); border: 1px solid color-mix(in oklch, var(--color-card) 60%, transparent); border-radius: var(--radius-card); background: color-mix(in oklch, var(--color-paper) 84%, transparent); backdrop-filter: blur(28px) saturate(1.2); -webkit-backdrop-filter: blur(24px) saturate(1.4); }
+:root[data-hero="verre"] :scope h1 { font-size: calc(clamp(2.3rem, 1.3rem + 3vw, 3.9rem) * var(--display-scale, 1) * var(--display-boost, 1)); }
+:root[data-hero="verre"] :scope .proof { margin-top: 24px; }
+:root[data-hero="verre"] :scope .cap { left: auto; right: clamp(20px, 3vw, 32px); text-align: right; }
+:root[data-hero="verre"] :scope .ticks { justify-content: flex-end; }
+
+:root[data-hero="cinema"] :scope .grid { grid-template-columns: minmax(0, 1fr); gap: clamp(36px, 5vw, 64px); }
+:root[data-hero="cinema"] :scope .copy { text-align: center; max-width: 920px; margin-inline: auto; }
+:root[data-hero="cinema"] :scope .copy .qz-lede { margin-inline: auto; }
+:root[data-hero="cinema"] :scope :is(.ctas, .proof) { justify-content: center; }
+:root[data-hero="cinema"] :scope h1 { font-size: calc(clamp(2.9rem, 1.4rem + 5vw, 6rem) * var(--display-scale, 1) * var(--display-boost, 1)); }
+:root[data-hero="cinema"] :scope .media { aspect-ratio: 16 / 7.2; transform: scale(calc(0.88 + 0.12 * var(--grow, 0))); transform-origin: 50% 0; }
+
+@media (max-width: 880px) {
+  :root[data-hero="verre"] :scope .copy { grid-row: 2; grid-column: 1; margin: 0; padding: 0; border: 0; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; max-width: none; }
+  :root[data-hero="verre"] :scope .media { aspect-ratio: 4 / 3.3; }
+  :root[data-hero="cinema"] :scope .media { aspect-ratio: 4 / 3.3; transform: none; }
+}
+}
+
+
+@scope ([data-s="prod-logos"]) {
+:scope { display: block; font-family: var(--font-body); color: var(--color-ink); }
+*, ::before, ::after { box-sizing: border-box; }
+.logos { padding-block: 8px clamp(48px, 6vw, 80px); }
+.t { margin: 0 0 24px; font-family: var(--font-body); text-align: center; color: var(--color-muted); font-weight: 500; font-size: 0.95rem; }
+.rail { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.track { display: flex; width: max-content; animation: run 46s linear infinite; }
+.set { display: flex; align-items: center; gap: 72px; padding-right: 72px; margin: 0; list-style: none; padding-left: 0; }
+.set li { display: flex; align-items: center; height: 44px; }
+.set img { display: block; width: auto; height: calc(var(--h) * 0.72px); opacity: 0.78; }
+@media (hover: hover) and (pointer: fine) { .rail:hover .track { animation-play-state: paused; } }
+@keyframes run { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .rail { -webkit-mask-image: none; mask-image: none; }
+  .track { animation: none; width: auto; justify-content: center; }
+  .set { flex-wrap: wrap; justify-content: center; gap: 28px 48px; padding: 0 var(--page-gutter); }
+  .set[aria-hidden] { display: none; }
+}
+}
+
+
+@scope ([data-s="prod-formations-liste"]) {
+:scope { display: block; font-family: var(--font-body); color: var(--color-ink); }
+*, ::before, ::after { box-sizing: border-box; }
+.fl { padding-block: var(--section-space); background: var(--color-accent-soft); }
+.head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px 64px; align-items: end; margin-bottom: clamp(36px, 5vw, 56px); }
+.rows { margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--color-rule-2); }
+.row a { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 4.4fr) minmax(0, 4fr) minmax(0, 2.4fr) 44px; gap: 28px; align-items: center; padding: clamp(22px, 2.6vw, 34px) 20px; border-top: 1px solid var(--color-rule-2); color: inherit; text-decoration: none; outline: none; }
+.row a::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--color-accent); transform: scaleX(0); transform-origin: left; transition: transform 500ms var(--ease-out); }
+.row a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }
+.t { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--tracking-display); font-size: calc(clamp(1.6rem, 1.1rem + 1.4vw, 2.5rem) * var(--display-scale, 1)); line-height: 1.05; transition: transform 500ms var(--ease-out), color 300ms ease; }
+.tag { font-family: var(--font-body); font-weight: 600; font-size: 0.95rem; letter-spacing: 0; color: var(--color-accent); transition: color 300ms ease; }
+.d { color: var(--color-ink-2); line-height: 1.55; transition: color 300ms ease; }
+.m { display: grid; gap: 2px; font-size: 0.92rem; color: var(--color-ink-2); transition: color 300ms ease; }
+.m b { color: var(--color-ink); font-weight: 600; transition: color 300ms ease; }
+.go { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--color-rule-2); color: var(--color-ink); transition: transform 500ms var(--ease-out), background-color 300ms ease, border-color 300ms ease, color 300ms ease; }
+.go svg { width: 18px; height: 18px; }
+.row a:is(:hover, :focus-visible)::before { transform: scaleX(1); }
+.row a:is(:hover, :focus-visible) :is(.t, .d, .m, .m b, .tag) { color: var(--color-accent-ink); }
+.row a:is(:hover, :focus-visible) .t { transform: translateX(10px); }
+.row a:is(:hover, :focus-visible) .go { transform: rotate(-45deg); background: var(--color-accent-ink); border-color: var(--color-accent-ink); color: var(--color-accent); }
+@media (max-width: 900px) {
+  .head { grid-template-columns: minmax(0, 1fr); }
+  .row a { grid-template-columns: minmax(0, 1fr) 44px; gap: 10px 16px; padding-inline: 4px; }
+  .t { grid-column: 1; } .go { grid-column: 2; grid-row: 1; }
+  .d, .m { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) { .row a::before, .t, .go { transition: none; } }
+}
+
+
+@scope ([data-s="prod-formations-bento"]) {
+:scope { display: block; font-family: var(--font-body); color: var(--color-ink); }
+*, ::before, ::after { box-sizing: border-box; }
+.head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px 64px; align-items: end; margin-bottom: clamp(32px, 4vw, 52px); }
+.obj { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.obj li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; line-height: 1.5; }
+.obj li::before { content: ""; width: 20px; height: 20px; margin-top: 2px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m5 10.4 3.2 3.1L15 6.6' fill='none' stroke='%231C8F8C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 20px no-repeat; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 18px; color: var(--color-ink-2); font-size: 0.92rem; }
+.meta b { color: var(--color-ink); font-weight: 600; }
+.go { display: inline-flex; align-items: center; gap: 6px; color: var(--color-accent); font-weight: 600; text-decoration: none; border-radius: 6px; }
+.go svg { width: 18px; height: 18px; transition: transform 250ms var(--ease-out); }
+.go:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .go:hover svg { transform: translateX(4px); } }
+@media (max-width: 860px) { .head { grid-template-columns: minmax(0, 1fr); } }
+.fb { padding-block: var(--section-space); }
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: minmax(220px, auto); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.grid li { display: flex; }
+.grid li:has(.big) { grid-column: span 2; grid-row: span 2; }
+.grid li:has(.wide), .grid li:has(.wide2) { grid-column: span 2; }
+.t { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 12px; width: 100%; padding: clamp(22px, 2.4vw, 32px); border-radius: var(--radius-card); color: var(--color-ink); text-decoration: none; outline: none; transition: transform 400ms var(--ease-out); background-image: radial-gradient(360px circle at var(--mx, -999px) var(--my, -999px), color-mix(in oklch, var(--color-card) 22%, transparent), transparent 60%); }
+.t:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.t.accent { background-color: var(--color-accent); color: var(--color-accent-ink); }
+.t.signal { background-color: var(--color-signal); }
+.t.deep { background-color: var(--color-deep); color: var(--color-on-dark); }
+.t.paper { background-color: var(--color-card); }
+.t.sea { background-color: var(--color-accent-soft); }
+.t.sand { background-color: var(--color-signal-soft); }
+.tag { margin: 0; min-height: 1lh; font-weight: 600; font-size: 0.9rem; opacity: 0.9; }
+h3 { margin: auto 0 0; font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--tracking-display); font-size: calc(1.6rem * var(--display-scale, 1)); line-height: 1.08; }
+.big h3 { margin-top: 8px; font-size: calc(clamp(2.1rem, 1.4rem + 1.7vw, 3.1rem) * var(--display-scale, 1)); }
+.d { margin: 0; font-size: 0.98rem; line-height: 1.5; opacity: 0.9; max-width: 48ch; }
+.big .obj { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--color-on-dark-line); font-size: 1.02rem; }
+.big .obj li::before { filter: brightness(1.9); }
+.m { margin: 0; font-weight: 600; font-size: 0.9rem; }
+.go { position: absolute; right: 22px; top: 22px; width: 22px; height: 22px; opacity: 0; transform: translate(-6px, 6px); transition: opacity 250ms ease, transform 400ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .t:hover { transform: translateY(-4px); } .t:hover .go { opacity: 1; transform: rotate(-45deg); } }
+@media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .grid li:has(.big) { grid-row: span 1; } }
+@media (max-width: 640px) { .grid { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; } .grid li:is(:has(.big), :has(.wide), :has(.wide2)) { grid-column: auto; } .t { min-height: 200px; } }
+@media (prefers-reduced-motion: reduce) { .t, .go { transition: none; } }
+}
+
+
+@scope ([data-s="prod-formations-programme"]) {
+:scope { display: block; font-family: var(--font-body); color: var(--color-ink); }
+*, ::before, ::after { box-sizing: border-box; }
+.head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px 64px; align-items: end; margin-bottom: clamp(32px, 4vw, 52px); }
+.obj { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.obj li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; line-height: 1.5; }
+.obj li::before { content: ""; width: 20px; height: 20px; margin-top: 2px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m5 10.4 3.2 3.1L15 6.6' fill='none' stroke='%231C8F8C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 20px no-repeat; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 18px; color: var(--color-ink-2); font-size: 0.92rem; }
+.meta b { color: var(--color-ink); font-weight: 600; }
+.go { display: inline-flex; align-items: center; gap: 6px; color: var(--color-accent); font-weight: 600; text-decoration: none; border-radius: 6px; }
+.go svg { width: 18px; height: 18px; transition: transform 250ms var(--ease-out); }
+.go:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .go:hover svg { transform: translateX(4px); } }
+@media (max-width: 860px) { .head { grid-template-columns: minmax(0, 1fr); } }
+.fp { padding-block: var(--section-space); background: var(--color-accent-soft); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 28px; }
+.filters button { min-height: 42px; padding: 0 18px; border: 1px solid var(--color-rule-2); border-radius: var(--radius-pill); background: var(--color-card); color: var(--color-ink); font: 500 0.95rem var(--font-body); cursor: pointer; transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); }
+.filters button:active { transform: scale(0.97); }
+.filters button[aria-pressed="true"] { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+.filters button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.qz-js :scope .filters { display: flex; } .filters { display: none; }
+.list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.list > li[hidden] { display: none; }
+.b { display: flex; flex-direction: column; gap: 16px; height: 100%; padding: clamp(24px, 2.6vw, 34px); border-radius: var(--radius-card); background: var(--color-card); }
+.top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+h3 { margin: 0; font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--tracking-display); font-size: calc(clamp(1.5rem, 1.2rem + 0.8vw, 1.95rem) * var(--display-scale, 1)); line-height: 1.1; }
+.tag { color: var(--color-accent); font-weight: 600; font-size: 0.9rem; }
+.d { margin: 0; color: var(--color-ink-2); line-height: 1.55; }
+.lbl { margin: 4px 0 -4px; font-weight: 600; font-size: 0.92rem; }
+.foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--color-rule); }
+@media (max-width: 860px) { .list { grid-template-columns: minmax(0, 1fr); } .qz-js :scope .filters { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; } .filters button { flex: none; } }
+}
+
+
+@scope ([data-s="prod-formations-parcours"]) {
+:scope { display: block; font-family: var(--font-body); color: var(--color-ink); }
+*, ::before, ::after { box-sizing: border-box; }
+.head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px 64px; align-items: end; margin-bottom: clamp(32px, 4vw, 52px); }
+.obj { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.obj li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; line-height: 1.5; }
+.obj li::before { content: ""; width: 20px; height: 20px; margin-top: 2px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m5 10.4 3.2 3.1L15 6.6' fill='none' stroke='%231C8F8C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 20px no-repeat; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 18px; color: var(--color-ink-2); font-size: 0.92rem; }
+.meta b { color: var(--color-ink); font-weight: 600; }
+.go { display: inline-flex; align-items: center; gap: 6px; color: var(--color-accent); font-weight: 600; text-decoration: none; border-radius: 6px; }
+.go svg { width: 18px; height: 18px; transition: transform 250ms var(--ease-out); }
+.go:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .go:hover svg { transform: translateX(4px); } }
+@media (max-width: 860px) { .head { grid-template-columns: minmax(0, 1fr); } }
+.fs { padding-block: var(--section-space); }
+.box { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.5fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.sits { display: none; flex-direction: column; gap: 10px; position: sticky; top: 100px; }
+.qz-js :scope .sits { display: flex; }
+.sit { display: grid; gap: 4px; width: 100%; padding: 20px 22px; border: 1px solid var(--color-rule-2); border-radius: var(--radius-card); background: transparent; color: var(--color-ink); text-align: left; cursor: pointer; transition: background-color 250ms ease, border-color 250ms ease, color 250ms ease, transform 160ms var(--ease-out); }
+.sit b { font-family: var(--font-display); font-weight: var(--display-weight); font-size: calc(1.3rem * var(--display-scale, 1)); letter-spacing: var(--tracking-display); line-height: 1.15; }
+.sit span { color: var(--color-ink-2); font-size: 0.92rem; line-height: 1.45; }
+.sit:active { transform: scale(0.99); }
+.sit[aria-selected="true"] { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+.sit[aria-selected="true"] span { color: var(--color-on-dark-2); }
+.sit:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .sit:not([aria-selected="true"]):hover { border-color: var(--color-ink); } }
+.panel { display: grid; gap: 16px; }
+.qz-js :scope .panel:not([data-on]) { display: none; }
+.panel > h3 { margin: 8px 0 0; font-family: var(--font-display); font-weight: var(--display-weight); font-size: 1.4rem; }
+.qz-js :scope .panel > h3 { display: none; }
+.rec { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 20px 32px; padding: clamp(24px, 2.6vw, 34px); border-radius: var(--radius-card); background: var(--color-card); }
+.rec h4 { margin: 0 0 8px; font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--tracking-display); font-size: calc(clamp(1.5rem, 1.2rem + 0.8vw, 2rem) * var(--display-scale, 1)); line-height: 1.1; }
+.rec .tag { display: block; margin-bottom: 10px; color: var(--color-accent); font-weight: 600; font-size: 0.9rem; min-height: 1lh; }
+.rec .d { margin: 0 0 16px; color: var(--color-ink-2); line-height: 1.55; }
+.rec .meta { margin: 0 0 16px; }
+@media (max-width: 960px) { .box, .rec { grid-template-columns: minmax(0, 1fr); } .sits { position: static; } }
+}
+
+
+@scope ([data-s="prod-formations-illustre"]) {
+:scope { display: block; font-family: var(--font-body); color: var(--color-ink); }
+*, ::before, ::after { box-sizing: border-box; }
+.head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px 64px; align-items: end; margin-bottom: clamp(32px, 4vw, 52px); }
+.obj { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.obj li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; line-height: 1.5; }
+.obj li::before { content: ""; width: 20px; height: 20px; margin-top: 2px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m5 10.4 3.2 3.1L15 6.6' fill='none' stroke='%231C8F8C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 20px no-repeat; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 18px; color: var(--color-ink-2); font-size: 0.92rem; }
+.meta b { color: var(--color-ink); font-weight: 600; }
+.go { display: inline-flex; align-items: center; gap: 6px; color: var(--color-accent); font-weight: 600; text-decoration: none; border-radius: 6px; }
+.go svg { width: 18px; height: 18px; transition: transform 250ms var(--ease-out); }
+.go:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .go:hover svg { transform: translateX(4px); } }
+@media (max-width: 860px) { .head { grid-template-columns: minmax(0, 1fr); } }
+.fi { padding-block: var(--section-space); background: var(--color-paper-2); }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 0; padding: 0; list-style: none; }
+.c { position: relative; display: flex; flex-direction: column; height: 100%; border-radius: var(--radius-card); background: var(--color-card); overflow: hidden; transition: transform 400ms var(--ease-out); }
+.c:has(.go:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.ph { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--color-paper-3); }
+.ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ph .tag { position: absolute; left: 14px; top: 14px; padding: 5px 11px; border-radius: var(--radius-pill); background: var(--color-card); color: var(--color-ink); font-weight: 600; font-size: 0.82rem; }
+.in { display: flex; flex-direction: column; gap: 14px; flex: 1; padding: 24px 26px 26px; }
+h3 { margin: 0; font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--tracking-display); font-size: calc(1.5rem * var(--display-scale, 1)); line-height: 1.1; }
+.d { margin: 0; color: var(--color-ink-2); line-height: 1.55; }
+.obj { font-size: 0.95rem; }
+.foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--color-rule); }
+.go::after { content: ""; position: absolute; inset: 0; }
+@media (hover: hover) and (pointer: fine) { .c:hover { transform: translateY(-6px); } .c:hover .go svg { transform: translateX(4px); } }
+@media (max-width: 1040px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 680px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .c { transition: none; } }
+}
+
+
+@scope ([data-s="prod-deroulement"]) {
+:scope { display: block; font-family: var(--font-body); color: var(--color-ink); }
+*, ::before, ::after { box-sizing: border-box; }
+.dr { padding-block: var(--section-space); }
+.head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 20px 48px; margin-bottom: clamp(44px, 6vw, 72px); }
+.head .qz-h2 { max-width: 16ch; }
+.steps { position: relative; }
+.list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 36px; margin: 0; padding: 0; list-style: none; }
+.line { position: absolute; top: 23px; left: 24px; right: calc((100% - 108px) / 4 - 24px); height: 2px; border-radius: 2px; background: var(--color-rule); overflow: hidden; }
+.line::after { content: ""; position: absolute; inset: 0; background: var(--color-signal); transform: scaleX(0); transform-origin: left; transition: transform 1600ms var(--ease-in-out) 200ms; }
+.steps.is-drawn .line::after { transform: scaleX(1); }
+.list li { position: relative; }
+.n { position: relative; z-index: 1; display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 26px; border-radius: 50%; background: var(--color-paper); border: 2px solid var(--color-signal); color: var(--color-ink); font-family: var(--font-display); font-size: 1.25rem; font-weight: 500; transition: background-color 400ms ease, color 400ms ease; }
+.steps.is-drawn li .n { transition-delay: calc(200ms + var(--k) * 420ms); background: var(--color-signal); color: var(--color-ink); }
+h3 { margin: 0 0 10px; font-family: var(--font-display); font-weight: var(--display-weight); font-size: 1.4rem; line-height: 1.15; letter-spacing: -0.02em; }
+p { margin: 0; color: var(--color-ink-2); line-height: 1.6; text-wrap: pretty; }
+@media (max-width: 860px) {
+  .list { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .line { top: 24px; bottom: 24px; left: 23px; right: auto; width: 2px; height: auto; }
+  .line::after { transform: scaleY(0); transform-origin: top; }
+  .steps.is-drawn .line::after { transform: scaleY(1); }
+  .list li { display: grid; grid-template-columns: 48px minmax(0, 1fr); column-gap: 22px; }
+  .n { grid-row: span 2; margin: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .line::after, .n { transition: none !important; } }
+}
+
+
+@scope ([data-s="prod-qualiopi"]) {
+:scope { display: block; font-family: var(--font-body); }
+*, ::before, ::after { box-sizing: border-box; }
+.qa { padding-block: var(--section-space); color: var(--color-on-dark); background: var(--color-deep); }
+.grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(40px, 7vw, 104px); align-items: center; }
+.qz-h2 { max-width: 15ch; margin-bottom: 22px; }
+.lede { margin: 0 0 36px; max-width: 50ch; color: var(--color-on-dark-2); font-size: 1.1rem; line-height: 1.6; }
+.pts { display: grid; gap: 18px; margin: 0; padding: 0; list-style: none; }
+.pts li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 14px; color: var(--color-on-dark-2); line-height: 1.55; }
+.pts li::before { content: ""; width: 28px; height: 28px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Cpath d='m9 14.4 3.4 3.3L19.2 11' fill='none' stroke='%23E4BF82' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 28px no-repeat; }
+.pts b { color: var(--color-on-dark); font-weight: 600; }
+/* Qualiopi rule: the State mark always sits on pure white. */
+.plate { margin: 0; padding: clamp(28px, 3.4vw, 44px); border-radius: var(--radius-card); background: #fff; color: var(--color-deep); }
+.plate .q { display: block; width: min(100%, 300px); height: auto; margin: 0 auto 22px; }
+.plate figcaption { margin: 0; padding-bottom: 24px; border-bottom: 1px solid var(--color-rule); color: color-mix(in oklch, var(--color-deep) 82%, #fff); font-size: 0.95rem; line-height: 1.55; text-align: center; text-wrap: balance; }
+.plate figcaption b { color: var(--color-deep); }
+.plate .d { display: block; width: min(100%, 210px); height: auto; margin: 24px auto 0; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } .plate { max-width: 480px; } }
+}
+
+
+@scope ([data-s="prod-formateurs"]) {
+:scope { display: block; font-family: var(--font-body); color: var(--color-ink); }
+*, ::before, ::after { box-sizing: border-box; }
+.ft { padding-block: var(--section-space); }
+.head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 64px; align-items: end; margin-bottom: clamp(40px, 5vw, 60px); }
+.people { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.6vw, 32px); margin: 0; padding: 0; list-style: none; }
+figure { margin: 0 0 20px; aspect-ratio: 4 / 4.6; border-radius: var(--radius-card); overflow: hidden; background: var(--color-paper-3); }
+figure img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
+h3 { margin: 0 0 6px; font-family: var(--font-display); font-weight: var(--display-weight); font-size: 1.45rem; letter-spacing: -0.02em; }
+.role { margin: 0 0 10px; color: var(--color-accent); font-weight: 600; font-size: 0.95rem; }
+p { margin: 0; color: var(--color-ink-2); line-height: 1.6; text-wrap: pretty; }
+@media (max-width: 860px) {
+  .head { grid-template-columns: minmax(0, 1fr); }
+  .people { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .people li { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 0 20px; align-items: start; }
+  figure { grid-row: span 3; margin: 0; aspect-ratio: 1; }
+}
+}
+
+
+@scope ([data-s="prod-formateurs-arches"]) {
+:scope { display: block; font-family: var(--font-body); color: var(--color-ink); }
+*, ::before, ::after { box-sizing: border-box; }
+.fa { padding-block: var(--section-space); }
+.head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 64px; align-items: end; margin-bottom: clamp(44px, 6vw, 72px); }
+.people { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 44px); margin: 0; padding: 0; list-style: none; }
+.frame { position: relative; margin: 0 14px 30px 0; aspect-ratio: 4 / 5; }
+.frame::before { content: ""; position: absolute; inset: 0; border-radius: 999px 999px var(--radius-card) var(--radius-card); background: var(--tone); transform: translate(14px, 14px); transition: transform 600ms var(--ease-out); }
+.frame img { position: relative; display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 999px 999px var(--radius-card) var(--radius-card); transition: transform 600ms var(--ease-out); }
+li:nth-child(1) { --tone: var(--color-signal-soft); } li:nth-child(2) { --tone: var(--color-accent-soft); } li:nth-child(3) { --tone: var(--color-signal); }
+@media (hover: hover) and (pointer: fine) { li:hover .frame img { transform: translateY(-8px); } li:hover .frame::before { transform: translate(22px, 22px); } }
+h3 { margin: 0 0 6px; font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--tracking-display); font-size: calc(1.6rem * var(--display-scale, 1)); }
+.role { margin: 0 0 10px; color: var(--color-accent); font-weight: 600; }
+p { margin: 0; color: var(--color-ink-2); line-height: 1.6; }
+@media (max-width: 860px) { .head { grid-template-columns: minmax(0, 1fr); } .people { grid-template-columns: minmax(0, 1fr); max-width: 420px; gap: 48px; } }
+@media (prefers-reduced-motion: reduce) { .frame::before, .frame img { transition: none; } }
+}
+
+
+@scope ([data-s="prod-formateurs-vedette"]) {
+:scope { display: block; font-family: var(--font-body); color: var(--color-ink); }
+*, ::before, ::after { box-sizing: border-box; }
+.fv { padding-block: var(--section-space); background: var(--color-paper-2); }
+.box { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.pics { position: relative; aspect-ratio: 4 / 4.6; border-radius: var(--radius-card); overflow: hidden; background: var(--color-paper-3); }
+.pics img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 800ms var(--ease-out), transform 1400ms var(--ease-out); }
+.pics img[data-on] { opacity: 1; transform: none; }
+.txt .qz-h2 { margin-bottom: 28px; }
+.who { display: grid; }
+.who > div { grid-area: 1 / 1; opacity: 0; transform: translateY(10px); transition: opacity 500ms var(--ease-out), transform 600ms var(--ease-out); visibility: hidden; }
+.who > div[data-on] { opacity: 1; transform: none; visibility: visible; }
+h3 { margin: 0 0 8px; font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--tracking-display); font-size: calc(clamp(2rem, 1.4rem + 1.6vw, 3rem) * var(--display-scale, 1)); line-height: 1.05; }
+.role { margin: 0 0 14px; color: var(--color-accent); font-weight: 600; font-size: 1.05rem; }
+.who p:last-child { margin: 0; color: var(--color-ink-2); font-size: 1.1rem; line-height: 1.6; max-width: 44ch; }
+.thumbs { display: flex; gap: 14px; margin-top: 36px; }
+.thumbs button { position: relative; width: 84px; height: 84px; padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer; }
+.thumbs img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; opacity: 0.55; transition: opacity 250ms ease; }
+.thumbs button[aria-current="true"] img, .thumbs button:hover img { opacity: 1; }
+.thumbs svg { position: absolute; inset: -5px; width: calc(100% + 10px); height: calc(100% + 10px); transform: rotate(-90deg); }
+.thumbs circle { fill: none; stroke: var(--color-accent); stroke-width: 2.5; stroke-dasharray: 100; stroke-dashoffset: 100; }
+.thumbs button[aria-current="true"] circle { animation: ring var(--t, 7s) linear forwards; }
+.fv.paused .thumbs button[aria-current="true"] circle { animation-play-state: paused; }
+.thumbs button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 6px; }
+@keyframes ring { to { stroke-dashoffset: 0; } }
+@media (max-width: 860px) { .box { grid-template-columns: minmax(0, 1fr); } .pics { aspect-ratio: 4 / 3.6; } }
+@media (prefers-reduced-motion: reduce) { .pics img, .who > div { transition: none; } .thumbs circle { animation: none !important; stroke-dashoffset: 0; } }
+}
+
+
+@scope ([data-s="prod-questions"]) {
+:scope { display: block; font-family: var(--font-body); color: var(--color-ink); interpolate-size: allow-keywords; }
+*, ::before, ::after { box-sizing: border-box; }
+.qs { padding-block: var(--section-space); background: var(--color-paper); }
+.qs > .qz-wrap { padding-top: 0; }
+.qs::before { content: ""; display: block; width: min(100% - 2 * var(--page-gutter), var(--page-max)); height: 1px; margin: calc(var(--section-space) * -1) auto var(--section-space); background: var(--color-rule); }
+.grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(36px, 6vw, 96px); align-items: start; }
+.side { position: sticky; top: 112px; }
+.side .qz-h2 { margin-bottom: 20px; }
+.side a { color: var(--color-accent); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; white-space: nowrap; }
+.list { border-top: 1px solid var(--color-rule-2); }
+details { border-bottom: 1px solid var(--color-rule-2); }
+summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 0; cursor: pointer; list-style: none; font-family: var(--font-display); font-weight: var(--display-weight); font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem); letter-spacing: -0.015em; line-height: 1.25; transition: color 200ms ease; }
+summary::-webkit-details-marker { display: none; }
+summary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; border-radius: 4px; }
+.ic { position: relative; flex: none; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--color-rule-2); background: transparent; transition: background-color 250ms ease, transform 350ms var(--ease-out); }
+.ic::before, .ic::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; margin: -1px 0 0 -6px; border-radius: 2px; background: var(--color-ink); transition: transform 350ms var(--ease-out), background-color 250ms ease; }
+.ic::after { transform: rotate(90deg); }
+details[open] .ic { border-color: var(--color-accent); background: var(--color-accent); transform: rotate(180deg); }
+details[open] .ic::before, details[open] .ic::after { background: var(--color-accent-ink); }
+details[open] .ic::after { transform: rotate(0deg); }
+@media (hover: hover) and (pointer: fine) { summary:hover { color: var(--color-accent); } }
+details::details-content { block-size: 0; overflow: clip; transition: block-size 380ms var(--ease-out), content-visibility 380ms allow-discrete; }
+details[open]::details-content { block-size: auto; }
+.a { padding: 0 64px 26px 0; color: var(--color-ink-2); line-height: 1.65; font-size: 1.02rem; }
+.a p { margin: 0; max-width: 60ch; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } .side { position: static; } .a { padding-right: 0; } }
+@media (prefers-reduced-motion: reduce) { details::details-content, .ic, .ic::before, .ic::after { transition: none; } }
+}
+
+
+@scope ([data-s="prod-contact"]) {
+:scope { display: block; font-family: var(--font-body); }
+*, ::before, ::after { box-sizing: border-box; }
+.ct { padding-block: var(--section-space); color: var(--color-on-dark); background: var(--color-accent); }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 7vw, 104px); align-items: center; }
+.qz-h2 { max-width: 12ch; margin-bottom: 22px; font-size: calc(clamp(2.4rem, 1.4rem + 3vw, 4rem) * var(--display-scale, 1) * var(--display-boost, 1)); }
+.lede { margin: 0 0 34px; max-width: 44ch; color: var(--color-on-dark-2); font-size: 1.1rem; line-height: 1.6; }
+.tel { display: inline-flex; align-items: center; gap: 12px; color: var(--color-on-dark); text-decoration: none; font-family: var(--font-display); font-weight: var(--display-weight); font-size: clamp(1.7rem, 1.3rem + 1.2vw, 2.3rem); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; border-radius: 8px; }
+.tel:focus-visible { outline: 2px solid var(--color-on-dark); outline-offset: 6px; }
+.tel .i { display: grid; place-items: center; transition: transform 300ms var(--ease-out); }
+.tel svg { width: 26px; height: 26px; color: var(--color-signal-ink); }
+@media (hover: hover) and (pointer: fine) { .tel:hover .i { transform: rotate(-10deg); } }
+.small { margin: 12px 0 0; color: var(--color-on-dark-2); font-size: 0.95rem; }
+.panel { position: relative; padding: clamp(24px, 3vw, 40px); border-radius: var(--radius-card); background: var(--color-card); color: var(--color-ink); }
+.panel h3 { margin: 0 0 22px; font-family: var(--font-display); font-weight: var(--display-weight); font-size: 1.5rem; letter-spacing: -0.02em; }
+form { display: grid; gap: 16px; }
+form[hidden] { display: none; }
+.row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.f { display: grid; gap: 7px; }
+.f > span { font-weight: 600; font-size: 0.9rem; }
+.f > span i { color: var(--color-muted); font-style: normal; font-weight: 500; }
+input, select { width: 100%; height: 50px; padding: 0 16px; border: 1px solid color-mix(in oklch, var(--color-ink) 42%, var(--color-card)); border-radius: 12px; background: var(--color-card); color: var(--color-ink); font: 500 1rem var(--font-body); transition: border-color 200ms ease, box-shadow 200ms ease, background-color 600ms ease; }
+select { appearance: none; padding-right: 44px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m6 8 4 4 4-4' fill='none' stroke='%230F2A2E' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 20px; }
+input:focus, select:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 4px color-mix(in oklch, var(--color-accent) 18%, transparent); }
+select.flash { background-color: var(--color-signal-soft); transition: none; }
+.f[data-bad] input { border-color: var(--color-error); }
+.err { display: none; color: var(--color-error); font-size: 0.86rem; font-weight: 500; }
+.f[data-bad] .err { display: block; }
+button[type="submit"] { width: 100%; margin-top: 6px; }
+button[type="submit"][aria-busy="true"] { pointer-events: none; opacity: 0.85; }
+.note { margin: 0; color: var(--color-muted); font-size: 0.84rem; text-align: center; }
+.ok { display: grid; justify-items: start; gap: 10px; padding: 12px 0; }
+.ok[hidden] { display: none; }
+.ok svg { width: 56px; height: 56px; margin-bottom: 8px; }
+.ok circle { stroke-dasharray: 151; stroke-dashoffset: 151; animation: draw 700ms var(--ease-out) forwards; }
+.ok path { stroke-dasharray: 30; stroke-dashoffset: 30; animation: draw 400ms var(--ease-out) 450ms forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.ok h3 { margin: 0; }
+.ok p { margin: 0 0 12px; color: var(--color-ink-2); line-height: 1.6; }
+.again { padding: 0; border: 0; background: none; color: var(--color-accent); font: 600 0.95rem var(--font-body); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) { .row2 { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .ok circle, .ok path { animation: none; stroke-dashoffset: 0; } }
+}
+
+
+@scope ([data-s="prod-pied"]) {
+:scope { display: block; font-family: var(--font-body); }
+*, ::before, ::after { box-sizing: border-box; }
+.pf { padding-block: clamp(64px, 8vw, 96px) 36px; background: var(--color-deep); color: var(--color-on-dark-2); font-size: 0.95rem; }
+.top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.9fr); gap: 48px clamp(40px, 6vw, 96px); padding-bottom: 48px; border-bottom: 1px solid var(--color-on-dark-line); }
+.logo { display: block; height: 38px; width: auto; margin-bottom: 20px; }
+.id p { margin: 0 0 24px; max-width: 34ch; line-height: 1.6; }
+.q { display: inline-flex; align-items: center; gap: 14px; padding: 10px 16px 10px 12px; border-radius: 12px; background: #fff; color: var(--color-deep); font-size: 0.8rem; line-height: 1.35; }
+.q img { display: block; height: 40px; width: auto; }
+.cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+h3 { margin: 0 0 16px; color: var(--color-on-dark); font-weight: 600; font-size: 0.95rem; }
+ul { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+a { color: var(--color-on-dark-2); text-decoration: none; border-radius: 4px; transition: color 200ms ease; }
+a:focus-visible { outline: 2px solid var(--color-on-dark); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { a:hover { color: var(--color-on-dark); } }
+.bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; padding-top: 28px; color: var(--color-on-dark-3); font-size: 0.86rem; }
+.bottom p { margin: 0; }
+@media (max-width: 860px) { .top { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 520px) { .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+}
+</style>
+<script type="application/json" id="qz-options">{"palette":[{"id":"qualyz-sable","name":"Sable chaud (défaut)","swatch":["#F3E9D8","#0C6A67","#C98F3E","#10292C"]},{"id":"qualyz","name":"Lagon clair (première production)","swatch":["#FBF8F2","#0C6A67","#D2A05A","#0F2A2E"]},{"id":"qualyz-dune","name":"Dune, sable profond et caramel","swatch":["#E9D6B6","#0C6A67","#B5762E","#1B2A27"]},{"id":"qualyz-turquoise","name":"Turquoise, fond lagon et touches sable","swatch":["#E3EFEB","#0B5F5C","#D2A05A","#0D2A2C"]},{"id":"qualyz-nuit","name":"Nuit lagon (sombre)","swatch":["#0E2326","#178A86","#E0B06A","#EEF3EF"]}],"typo":[{"id":"qualyz","name":"Fraunces fin (première production)","face":"'Fraunces', Georgia, serif","weight":"420"},{"id":"qualyz-fraunces-gras","name":"Fraunces gras","face":"'Fraunces', Georgia, serif","weight":"640"},{"id":"qualyz-young","name":"Young Serif, rond et chaleureux","face":"'Young Serif', Georgia, serif","weight":"400"},{"id":"qualyz-bricolage","name":"Bricolage Grotesque, affirmé","face":"'Bricolage Grotesque', 'Figtree', sans-serif","weight":"700"},{"id":"qualyz-clash","name":"Clash Display, moderne","face":"'Clash Display', 'Figtree', sans-serif","weight":"600"},{"id":"qualyz-gloock","name":"Gloock, contrasté","face":"'Gloock', Georgia, serif","weight":"400"},{"id":"qualyz-dmserif","name":"DM Serif Display, éditorial","face":"'DM Serif Display', Georgia, serif","weight":"400"}],"groups":[{"group":"formations","label":"Section Formations","variants":[{"id":"prod-formations-liste","name":"Formations en liste éditoriale"},{"id":"prod-formations-bento","name":"Formations en mosaïque"},{"id":"prod-formations-programme","name":"Formations : ce que vous saurez faire, avec filtres"},{"id":"prod-formations-parcours","name":"Formations selon votre situation"},{"id":"prod-formations-illustre","name":"Formations en cartes illustrées"}]},{"group":"formateurs","label":"Section Formateurs","variants":[{"id":"prod-formateurs","name":"Formateurs, trois portraits (première production, en couleur)"},{"id":"prod-formateurs-arches","name":"Formateurs en arches colorées"},{"id":"prod-formateurs-vedette","name":"Formateurs, un à la fois"}]}],"kit":{"palette":"qualyz-sable","typo":"qualyz","forme":"qualyz"}}</script>
+</head>
+<body>
+<div class="qz-band"><div class="qz-cell" style="grid-column: span 12"><div data-s="prod-perso"><button class="bubble" type="button" aria-expanded="false" aria-controls="qz-perso" aria-label="Personnaliser le site"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2.5a7.5 7.5 0 1 0 0 15c1.1 0 1.7-.7 1.7-1.5 0-.9-.8-1.2-.8-2 0-.7.6-1.2 1.4-1.2h1.6a3.6 3.6 0 0 0 3.6-3.6C17.5 5.5 14.2 2.5 10 2.5Z" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="9" r="1.2" fill="currentColor"/><circle cx="9" cy="6" r="1.2" fill="currentColor"/><circle cx="12.6" cy="6.4" r="1.2" fill="currentColor"/></svg></button>
+<aside class="panel" id="qz-perso" hidden aria-label="Personnalisation">
+  <div class="top"><b>Personnaliser</b><button class="x" type="button" aria-label="Fermer"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></div>
+  <div class="body"></div>
+  <div class="foot">
+    <div class="row"><button type="button" class="main copy">Copier ma combinaison</button></div>
+    <div class="row"><button type="button" class="replay">Rejouer l’intro</button><button type="button" class="reset">Réinitialiser</button></div>
+    <p class="done" role="status"></p>
+  </div>
+</aside></div></div></div>
+<div class="qz-band"><div class="qz-cell" style="grid-column: span 12"><div data-s="prod-en-tete"><div class="sp" aria-hidden="true"></div>
+<header class="hd">
+  <div class="qz-wrap bar">
+    <a class="brand" href="#top" aria-label="Qualyz, retour en haut"><svg class="logo" viewBox="0 0 4016 1332" aria-hidden="true" focusable="false" fill="currentColor"><path class="lq" fill-rule="evenodd" d="M 369.3 257.0 C 364.2 257.4, 358.6 258.2, 356.8 258.8 C 354.9 259.3, 350.1 260.1, 346 260.5 C 341.8 260.9, 336.7 261.8, 334.5 262.5 C 332.3 263.3, 329.5 263.9, 328.4 263.9 C 327.3 263.9, 323.9 264.6, 320.9 265.5 C 317.9 266.3, 313.2 267.6, 310.5 268.4 C 304.8 270.0, 297.2 272.5, 292 274.4 C 279.5 279.1, 271.5 282.2, 270.1 282.9 C 234.8 300.3, 236.7 299.3, 217.5 312.2 C 203.3 321.6, 192.1 330.0, 178.9 341.1 C 173.5 345.7, 141.8 377.0, 140 379.6 C 138.4 381.7, 129.1 393.2, 126.6 396 C 122.9 400.0, 109.4 418.9, 104.4 426.8 C 103.9 427.7, 101.4 431.6, 98.8 435.5 C 94.5 441.9, 90.4 449.3, 83.1 463 C 81.5 466.0, 79.5 469.8, 78.6 471.5 C 74.8 478.6, 68 493.8, 68 495.2 C 68 496.0, 67.3 497.3, 66.5 498 C 65.6 498.6, 65 499.9, 65 500.9 C 65 501.8, 64.1 504.2, 63.1 506.2 C 62.0 508.3, 60.9 511.2, 60.5 512.7 C 60.2 514.2, 59.3 516.8, 58.5 518.5 C 56.8 522.1, 54.2 529.8, 52.5 536.5 C 51.8 539.3, 50.8 542.5, 50.2 543.5 C 49.6 544.6, 48.9 547.5, 48.5 550 C 48.0 552.4, 47.3 555.3, 46.7 556.3 C 46.2 557.4, 45.1 561.4, 44.4 565.3 C 43.6 569.2, 42.3 575.4, 41.5 579 C 40.7 582.5, 40.0 586.7, 40.0 588.3 C 40.0 589.8, 39.5 591.9, 38.9 593.0 C 38.4 594.0, 37.3 601.3, 36.5 609.1 C 35.7 617.0, 34.5 625.7, 33.9 628.5 C 31.4 640.2, 31.7 712.1, 34.4 728.5 C 34.6 730.1, 35.4 736.4, 35.9 742.5 C 36.5 748.5, 37.6 755.7, 38.4 758.5 C 39.1 761.2, 40.0 766.3, 40.4 769.7 C 40.8 773.2, 41.6 777.7, 42.4 779.7 C 43.1 781.8, 44.0 786.0, 44.4 789.0 C 44.9 792.0, 45.8 795.7, 46.6 797.2 C 47.3 798.6, 48 800.7, 48 801.8 C 48 804.1, 51.6 816.0, 56.2 829 C 57.8 833.6, 59.7 839.3, 60.4 841.5 C 61.7 845.8, 63.9 851.1, 67.0 857.6 C 68.1 859.8, 69 862.4, 69 863.2 C 69 864.0, 69.6 865.3, 70.5 866 C 71.3 866.6, 72 867.8, 72 868.5 C 72 870.1, 85.3 896.8, 88.8 902.5 C 91.4 906.5, 92.8 908.9, 96.3 915.1 C 98.8 919.5, 117.0 947.0, 118.6 949 C 119.4 949.8, 123.7 955.2, 128.3 961 C 140.4 976.2, 155.9 992.9, 168 1003.8 C 173.7 1009.0, 180.0 1014.7, 182 1016.4 C 183.9 1018.2, 190.6 1023.5, 197 1028.2 C 203.3 1033.0, 209.6 1037.8, 211.1 1038.9 C 212.6 1040.0, 214.3 1041, 214.9 1041 C 215.5 1041, 216 1041.4, 216 1042.0 C 216 1042.5, 217.0 1043.4, 218.2 1044.0 C 219.4 1044.5, 222.5 1046.3, 225 1048.0 C 227.4 1049.6, 230.6 1051.5, 232 1052.2 C 233.3 1052.9, 236.3 1054.6, 238.5 1056.1 C 240.7 1057.5, 249.2 1061.9, 257.5 1065.9 C 276.0 1074.8, 277.8 1075.7, 281 1076.5 C 282.3 1076.8, 284.8 1077.7, 286.5 1078.4 C 292.6 1081.1, 300.6 1083.9, 304 1084.6 C 305.9 1084.9, 308.6 1085.8, 310.0 1086.5 C 311.3 1087.2, 314.7 1088.1, 317.4 1088.5 C 320.2 1088.9, 323.8 1089.8, 325.4 1090.5 C 327.1 1091.2, 331.2 1092.1, 334.5 1092.4 C 337.8 1092.8, 342.9 1093.8, 346 1094.6 C 351.0 1095.9, 362.2 1097.2, 380.5 1098.7 C 395.3 1099.8, 422.6 1099.5, 434 1097.9 C 437.5 1097.4, 444.3 1096.8, 449 1096.4 C 453.6 1096.1, 459.7 1095.3, 462.5 1094.5 C 465.2 1093.8, 469.7 1092.9, 472.5 1092.5 C 475.2 1092.2, 479.7 1091.2, 482.5 1090.5 C 485.2 1089.7, 490.2 1088.4, 493.5 1087.5 C 505.7 1084.2, 517.7 1080.2, 521.1 1078.4 C 522.6 1077.6, 524.3 1077, 525.0 1077 C 525.7 1077, 528.3 1076.1, 530.6 1075 C 533.0 1073.9, 536.9 1072.1, 539.2 1071.1 C 553.8 1064.6, 570.8 1055.5, 582.5 1048 C 591.4 1042.2, 592.6 1041.8, 596.7 1043.6 C 614.5 1051.6, 641.8 1065.0, 647 1068.4 C 662.8 1078.8, 676.3 1098.7, 680.1 1117.5 C 681.7 1125.3, 680.6 1148.6, 678.4 1153.5 C 676.0 1158.7, 675.9 1176.8, 678.2 1182.0 C 679.1 1183.9, 680.1 1186.5, 680.5 1187.8 C 682.8 1195.7, 695.7 1208.9, 706.1 1213.8 C 731.3 1225.8, 761.5 1212.9, 773.8 1185 C 778.6 1174.0, 776.9 1156.8, 769.6 1142 C 763.5 1129.6, 745.2 1108.8, 730.7 1097.6 C 713.1 1084.2, 707.3 1080.0, 706.2 1080.0 C 705.5 1080.0, 705 1079.5, 705 1078.9 C 705 1078.4, 704.2 1077.6, 703.2 1077.2 C 702.2 1076.9, 700.1 1075.6, 698.4 1074.3 C 696.7 1073.0, 695.0 1072, 694.6 1072 C 694.3 1072, 691.4 1070.3, 688.2 1068.2 C 681.2 1063.6, 681.4 1063.7, 666 1054.9 C 659.1 1051.0, 652.8 1047.4, 652 1046.9 C 651.1 1046.5, 645.7 1043.7, 640 1040.9 C 634.2 1038.0, 628.8 1035.3, 628 1034.8 C 627.1 1034.3, 625.3 1033.5, 624 1032.9 C 616.0 1029.7, 611.8 1026.2, 614.7 1025.2 C 619.4 1023.6, 648.7 996.3, 666.5 977 C 670.9 972.2, 682.1 958.4, 686.5 952.5 C 687.4 951.4, 689.4 948.7, 691.1 946.5 C 693.7 943.0, 705.8 924.8, 709.7 918.5 C 721.8 898.6, 727.9 886.9, 739.2 862 C 740.4 859.5, 741.9 856.3, 742.6 854.8 C 743.3 853.3, 744 851.5, 744 850.8 C 744 850.0, 744.8 847.9, 745.8 845.9 C 746.8 844.0, 748.0 840.9, 748.4 839 C 748.8 837.0, 749.8 834.3, 750.5 833 C 751.2 831.6, 753.0 826.4, 754.5 821.5 C 755.9 816.5, 757.7 810.9, 758.4 809 C 759.1 807.0, 760.0 803.5, 760.4 801.1 C 760.8 798.6, 761.8 795.3, 762.5 793.6 C 763.2 791.8, 764.1 787.8, 764.5 784.5 C 764.9 781.2, 765.7 777.3, 766.2 776 C 766.7 774.6, 767.8 769.6, 768.5 765 C 769.2 760.3, 770.3 754.2, 770.9 751.5 C 771.4 748.7, 772.4 740.4, 773.0 733 C 773.6 725.5, 774.5 717.4, 774.8 715 C 775.4 711.0, 775.5 650.5, 775.0 639.5 C 774.9 637.3, 774.4 634.1, 774.0 632.5 C 773.5 630.8, 772.9 624.6, 772.5 618.6 C 772.2 612.7, 771.5 606.2, 771.0 604.1 C 770.5 602.1, 769.4 596.4, 768.6 591.5 C 766.6 579.3, 764.2 567.5, 762.5 561.5 C 761.7 558.7, 760.3 553.8, 759.4 550.5 C 755.5 535.5, 752.6 526.1, 750.4 521.5 C 749.7 519.8, 748.6 516.6, 748.0 514.2 C 747.4 511.9, 746.5 509.8, 745.9 509.4 C 745.4 509.1, 744.9 508.1, 744.9 507.1 C 744.9 506.2, 743.8 503.2, 742.5 500.5 C 741.1 497.7, 740.0 494.7, 740.0 493.8 C 740.0 492.9, 739.3 491.6, 738.5 491 C 737.6 490.3, 737 489.1, 737 488.4 C 737 486.5, 724.7 462.3, 717.0 449.1 C 713.4 442.9, 710.0 436.9, 709.4 435.9 C 708.8 434.8, 707.5 433.1, 706.6 432.1 C 705.7 431.1, 705 429.8, 705 429.2 C 705 428.6, 703.2 425.9, 701 423.1 C 698.8 420.3, 697 417.6, 697 417.1 C 697 416.7, 694.0 412.5, 690.5 408 C 686.9 403.4, 683.9 399.4, 683.9 399.0 C 683.9 398.7, 682.5 396.8, 680.7 394.9 C 678.9 392.9, 675.2 388.6, 672.5 385.4 C 653.9 363.1, 630.5 341.0, 606.4 323.2 C 603.3 320.9, 579.9 305.3, 576.5 303.2 C 566.9 297.5, 556.0 291.5, 549 288.2 C 533.7 281.0, 531.3 280, 529.8 280 C 528.9 280, 527.7 279.3, 527.0 278.6 C 526.4 277.8, 524.3 276.9, 522.3 276.5 C 520.4 276.1, 517.3 275.2, 515.6 274.5 C 511.8 272.8, 504.3 270.3, 497.5 268.4 C 494.7 267.6, 490.0 266.3, 487.0 265.5 C 484.0 264.6, 480.6 264, 479.4 264 C 478.3 264, 475.3 263.3, 472.9 262.5 C 470.4 261.7, 464.6 260.5, 460 260.0 C 455.3 259.4, 450.3 258.7, 449 258.4 C 437.4 256.2, 390.3 255.3, 369.3 257.0 M 394.5 277.1 C 386.8 277.4, 379.1 278.2, 377.4 278.7 C 375.7 279.3, 371.4 280.0, 367.9 280.4 C 364.3 280.9, 360.3 281.7, 359 282.4 C 357.6 283.1, 354.9 284.0, 353 284.3 C 345.0 285.8, 317.2 298.3, 311.1 303.1 C 309.8 304.1, 308.1 305, 307.4 305 C 306.8 305, 305.7 305.6, 305.0 306.4 C 304.4 307.1, 300.6 309.9, 296.7 312.6 C 289.1 317.8, 287.5 319.1, 273.4 331.7 C 261.8 342.0, 246.6 358.8, 236.5 372.5 C 234.1 375.8, 231.4 379.2, 230.5 380.2 C 229.7 381.2, 229 382.2, 229 382.6 C 229 383.0, 227.9 384.7, 226.6 386.4 C 225.3 388.1, 224.0 390.2, 223.7 391.2 C 223.3 392.2, 222.5 393, 222.0 393 C 221.4 393, 221 393.4, 221 393.9 C 221 394.5, 219.3 397.5, 217.2 400.7 C 215.1 403.9, 212.9 407.6, 212.2 409 C 211.5 410.3, 209.8 413.3, 208.5 415.5 C 206.4 419.0, 197.0 437.9, 190.4 451.6 C 189.1 454.4, 188 457.1, 188 457.7 C 188 458.3, 187.3 460.1, 186.5 461.6 C 183.7 467.0, 181.1 473.5, 180.4 476.5 C 180.0 478.1, 179.3 479.9, 178.9 480.5 C 177.9 481.7, 174.2 492.0, 172.4 498.5 C 170.9 503.8, 168.5 511.6, 166.8 516.5 C 166.2 518.1, 165.2 522.2, 164.5 525.5 C 163.8 528.8, 162.7 532.8, 162.1 534.5 C 160.8 538.2, 158.3 549.9, 156.5 560.5 C 155.8 564.9, 154.7 570.3, 154.1 572.5 C 153.5 574.7, 152.5 581.0, 152.0 586.6 C 151.4 592.3, 150.5 598.8, 150.0 601.1 C 149.4 603.5, 148.6 612.0, 148.0 620 C 147.5 627.9, 146.7 638.5, 146.3 643.5 C 145.0 660.0, 145.6 708.9, 147.3 722.5 C 147.6 725.2, 148.2 732.6, 148.5 739 C 148.8 745.3, 149.7 753.6, 150.5 757.5 C 151.2 761.3, 152.1 767.2, 152.4 770.5 C 153.2 778.3, 156.8 798.1, 158.5 804.5 C 159.3 807.2, 160.2 811.5, 160.5 814 C 160.9 816.4, 161.6 819.3, 162.1 820.2 C 162.7 821.2, 163.7 825.1, 164.4 828.7 C 165.2 832.4, 166.2 836.8, 166.8 838.5 C 169.1 844.9, 171.1 851.7, 172.1 856 C 172.7 858.4, 173.7 861.1, 174.5 862 C 175.2 862.8, 176.0 865.3, 176.4 867.6 C 176.8 869.9, 177.7 872.6, 178.5 873.6 C 179.3 874.6, 179.9 876.1, 179.9 877.0 C 179.9 877.8, 180.8 880.2, 181.9 882.3 C 183.0 884.4, 184.1 887.6, 184.5 889.3 C 184.9 891.0, 185.7 893.1, 186.4 894 C 187.1 894.8, 188.0 896.6, 188.4 898 C 189.7 902.4, 203.5 931.0, 208.5 939.5 C 211.8 945.1, 214.6 950.0, 216.1 953 C 216.8 954.3, 218.0 955.8, 218.7 956.3 C 219.4 956.7, 220 957.5, 220 958.1 C 220 959.6, 226.1 969, 227.1 969 C 227.6 969, 228 969.4, 228 970.0 C 228 971.3, 233.8 979.3, 244.3 992.5 C 254.7 1005.3, 275.1 1025.9, 286 1034.3 C 290.6 1037.9, 295.2 1041.6, 296.2 1042.4 C 297.2 1043.3, 298.2 1044, 298.5 1044 C 298.9 1044, 300.6 1045.0, 302.3 1046.2 C 304.0 1047.4, 306.2 1048.9, 307.1 1049.5 C 321.5 1057.8, 325.3 1059.9, 327.2 1060.5 C 328.5 1060.9, 331.0 1062.1, 332.9 1063.1 C 334.9 1064.1, 337.1 1065, 338.0 1065 C 338.8 1065, 340.0 1065.4, 340.5 1065.9 C 341.9 1067.3, 352.1 1070.8, 359.9 1072.5 C 363.5 1073.4, 366.9 1074.5, 367.4 1075.0 C 368.7 1076.3, 371.7 1076.2, 372.5 1074.9 C 372.8 1074.4, 372.2 1072.0, 371.1 1069.7 C 367.4 1062.1, 365 1052.8, 365 1046.6 C 365 1040.5, 368.1 1028.8, 370.6 1025.9 C 371.3 1025.0, 372 1023.8, 372 1023.2 C 372 1019.5, 394.7 1000, 399.0 1000 C 399.9 1000, 401.2 999.3, 401.9 998.5 C 402.5 997.7, 405.0 996.8, 407.3 996.4 C 409.6 996.0, 412.6 995.1, 414.0 994.4 C 418.2 992.3, 439.0 989.8, 453.5 989.7 C 466.6 989.6, 495.5 992.3, 504.5 994.4 C 507.8 995.2, 512.7 996.1, 515.5 996.5 C 518.2 996.8, 522.7 997.7, 525.5 998.5 C 528.2 999.2, 533.2 1000.5, 536.5 1001.3 C 539.8 1002.1, 544.4 1003.3, 546.8 1004.0 C 550.7 1005.1, 551.4 1005.0, 553.8 1003.3 C 557.3 1000.7, 582.6 968.8, 583.8 965.5 C 584.0 964.9, 586.7 960.6, 589.8 956 C 596.4 946.0, 596.0 946.7, 607.1 924.6 C 616.8 905.2, 621 896.5, 621 895.2 C 621 894.8, 621.9 892.6, 623 890.5 C 624.1 888.3, 625 885.9, 625 885.1 C 625 884.3, 625.6 882.9, 626.3 882.0 C 627.1 881.2, 628.1 878.7, 628.7 876.5 C 629.3 874.3, 631.0 869.3, 632.5 865.5 C 633.9 861.6, 635.7 856.2, 636.5 853.5 C 637.2 850.7, 638.3 847.1, 638.8 845.5 C 640.0 841.9, 643.2 830.9, 645.5 822.5 C 647.0 816.7, 647.8 813.0, 651.4 794 C 652.3 789.3, 653.7 782.5, 654.5 779 C 655.2 775.4, 656.2 768.9, 656.5 764.5 C 656.8 760.1, 657.7 753.3, 658.4 749.5 C 660.7 737.8, 663.4 659.2, 661.8 652.5 C 661.4 650.8, 660.8 640.8, 660.5 630.1 C 660.1 619.5, 659.4 609.7, 658.9 608.4 C 658.4 607.1, 657.5 600.9, 656.9 594.7 C 656.3 588.5, 655.2 580.5, 654.4 577 C 653.7 573.4, 652.8 568.0, 652.4 565 C 652.1 561.9, 651.2 557.4, 650.5 555 C 649.7 552.5, 648.8 548.7, 648.5 546.5 C 647.7 540.9, 641.2 516.2, 638.8 509.5 C 638.2 507.8, 637.1 504.2, 636.4 501.5 C 635.7 498.7, 633.9 493.3, 632.5 489.5 C 631.0 485.6, 629.2 480.4, 628.4 478.0 C 627.6 475.5, 626.5 473.1, 625.9 472.5 C 625.4 472.0, 624.9 470.9, 624.9 470.0 C 624.9 469.1, 623.8 466.2, 622.4 463.5 C 621.1 460.7, 620.0 457.7, 620.0 456.8 C 620.0 455.9, 619.3 454.6, 618.5 454 C 617.6 453.3, 617 452.2, 617 451.6 C 617 449.8, 605.1 425.4, 600.3 417.5 C 599.0 415.3, 597.2 412.1, 596.4 410.5 C 595.5 408.8, 594.0 406.1, 593.1 404.5 C 591.0 400.7, 575.9 378.0, 574.2 376.0 C 573.4 375.1, 569.9 370.6, 566.3 366 C 562.6 361.3, 558.2 355.9, 556.5 354 C 549.4 346.2, 534.1 331.1, 528 325.7 C 524.4 322.5, 520.8 319.4, 520 318.6 C 519.1 317.9, 516.1 315.8, 513.2 314.0 C 510.3 312.1, 508 310.2, 508 309.8 C 508 309.3, 507.4 309, 506.8 309 C 506.2 309, 504.2 307.9, 502.5 306.6 C 500.8 305.3, 498.8 304.0, 498 303.6 C 497.1 303.2, 494.7 301.8, 492.5 300.5 C 481.0 293.7, 465.6 287.1, 455.3 284.5 C 452.4 283.8, 449.5 282.8, 448.8 282.4 C 448.1 281.9, 444.1 281.0, 440.0 280.4 C 435.8 279.7, 430.0 278.7, 427 278.1 C 419.1 276.6, 410.5 276.4, 394.5 277.1 M 444.7 1009.5 C 444.3 1009.9, 439.1 1010.9, 433.2 1011.6 C 427.3 1012.3, 420.9 1013.6, 419 1014.4 C 417.0 1015.1, 413.4 1016.5, 410.9 1017.4 C 404.2 1019.7, 394.2 1026.5, 392.4 1030.0 C 391.6 1031.6, 390.5 1033, 390.1 1033 C 388.9 1033, 386.1 1043.9, 386.4 1047.5 C 387.1 1056.7, 392.0 1065.7, 398.6 1070.1 C 408.8 1076.8, 407.3 1076.5, 423.5 1076.5 C 436.4 1076.5, 439.5 1076.1, 446 1074.1 C 466.3 1067.7, 485.5 1058.9, 502 1048.3 C 505.5 1046.1, 509.0 1044.0, 509.6 1043.8 C 510.2 1043.6, 512.5 1042.0, 514.6 1040.2 C 516.7 1038.5, 521.4 1034.7, 525 1031.9 C 535.0 1024.0, 535.4 1021.7, 526.9 1020.5 C 524.0 1020.2, 520.1 1019.2, 518.4 1018.5 C 516.6 1017.7, 512.5 1016.8, 509.3 1016.4 C 506.1 1016.0, 502.3 1015.3, 501 1014.7 C 498.8 1013.9, 483.5 1011.8, 470 1010.4 C 460.1 1009.4, 445.4 1008.9, 444.7 1009.5"/><path class="ll" fill-rule="evenodd" d="M 981 509.0 C 977.9 509.4, 974.3 510.2, 973 510.7 C 971.6 511.2, 968.2 512.0, 965.5 512.4 C 962.7 512.8, 959.3 513.7, 958.0 514.4 C 956.6 515.1, 953.9 516.0, 952 516.4 C 947.2 517.4, 931.1 524.9, 908 537.0 C 898.1 542.1, 883.0 549, 881.6 549 C 880.8 549, 879.6 549.6, 879 550.5 C 878.3 551.3, 877.0 552, 876.1 552 C 875.3 552, 872.8 552.8, 870.5 553.8 C 856.5 560.3, 835.5 564.8, 818.8 564.9 C 804.4 565.0, 798.4 569.8, 801.0 579.2 C 802.1 583.3, 807.1 585.9, 815 586.5 C 823.0 587.2, 833.4 589.1, 835.5 590.4 C 836.6 591.1, 838.8 592.0, 840.4 592.4 C 842.0 592.8, 844.4 593.9, 845.8 595.0 C 847.1 596.1, 848.6 597, 849.2 597 C 850.6 597, 864.5 608.5, 866.9 611.7 C 868.1 613.2, 870.4 616.1, 872.0 618.1 C 877.5 624.6, 883.6 638.8, 885.0 647.9 C 885.5 651.5, 886.2 681.7, 886.4 715 C 887.9 905.4, 888.5 947.4, 889.8 950.5 C 890.5 952.1, 891.7 956.6, 892.4 960.5 C 893.9 968.3, 896.2 975.4, 899.0 981.6 C 900.1 983.8, 901 986.4, 901 987.2 C 901 988.0, 901.6 989.3, 902.5 990 C 903.3 990.6, 904 992.0, 904 992.9 C 904 993.9, 904.9 995.8, 906 997.2 C 907.1 998.6, 908 1000.1, 908 1000.5 C 908 1003.9, 928.9 1030.7, 939.6 1041.0 C 955.7 1056.5, 968.6 1065.4, 990 1075.9 C 1005.7 1083.7, 1006.2 1083.9, 1009.7 1084.6 C 1011.5 1084.9, 1013.2 1085.6, 1013.5 1086.1 C 1013.8 1086.5, 1015.9 1087.4, 1018.2 1088.0 C 1020.6 1088.5, 1025.4 1089.8, 1029 1090.9 C 1041.6 1094.5, 1049.8 1096.0, 1061.5 1097.2 C 1084.5 1099.5, 1117.8 1098.2, 1130 1094.5 C 1132.4 1093.8, 1136.7 1092.8, 1139.5 1092.5 C 1142.2 1092.1, 1145.3 1091.3, 1146.4 1090.7 C 1147.5 1090.1, 1150.4 1089.1, 1152.9 1088.4 C 1158.7 1086.7, 1165.6 1084.3, 1169.5 1082.5 C 1203.8 1066.5, 1218.8 1055.4, 1243.3 1027.7 C 1247.1 1023.5, 1250.5 1020.2, 1250.9 1020.4 C 1251.4 1020.7, 1251.9 1024.6, 1252.2 1029.2 C 1252.8 1041.7, 1260.5 1062.4, 1267.0 1069.2 C 1267.8 1070.0, 1269.6 1072.2, 1271 1074.0 C 1275.1 1079.3, 1287.5 1088.6, 1295.3 1092.4 C 1309.4 1099.1, 1313.2 1099.4, 1380.5 1099.7 C 1439.8 1100.0, 1440.5 1100.0, 1444.7 1097.9 C 1451.8 1094.4, 1453.6 1088.8, 1449.5 1083.4 C 1446.7 1079.8, 1443.7 1078.8, 1428.7 1077.0 C 1424.0 1076.4, 1417.9 1075.0, 1415.3 1073.9 C 1407.5 1070.5, 1401.5 1067.5, 1400.5 1066.4 C 1399.9 1065.8, 1398.1 1064.5, 1396.5 1063.4 C 1385.7 1056.7, 1370.3 1035.7, 1368.3 1025 C 1368.0 1023.0, 1367.1 1019.9, 1366.3 1018 C 1365.2 1015.0, 1364.9 973.7, 1364.7 764.7 L 1364.5 515.0 1361.2 511.7 C 1358.0 508.5, 1357.7 508.5, 1350.1 508.7 C 1345.8 508.8, 1341 509.4, 1339.4 510.0 C 1337.8 510.6, 1333.5 511.7, 1330.0 512.4 C 1323.1 513.9, 1315.4 516.2, 1310.5 518.4 C 1308.8 519.1, 1304.3 521.1, 1300.5 522.7 C 1296.6 524.4, 1291.4 526.9, 1289 528.2 C 1274.9 535.9, 1247.7 549, 1245.7 549 C 1245.0 549, 1243.8 549.5, 1243.2 550.1 C 1242.6 550.7, 1239.7 552.1, 1236.8 553.1 C 1233.8 554.2, 1229.0 555.9, 1226 557.0 C 1212.5 562.0, 1196.9 564.8, 1182.8 564.9 C 1168.4 565.0, 1161.9 570.2, 1164.9 579.4 C 1166.2 583.2, 1171.3 585.9, 1178.4 586.4 C 1186.8 587.1, 1197.3 589.0, 1199.8 590.3 C 1201.3 591.1, 1205.4 593.1, 1208.9 594.9 C 1217.4 599.0, 1224.6 604.8, 1232.4 614.0 C 1238.3 620.7, 1245 632.0, 1245 635.0 C 1245 635.8, 1245.5 637.1, 1246.1 637.7 C 1249.0 640.6, 1249.3 649.9, 1250.1 763 C 1250.6 826.5, 1251.2 898.2, 1251.5 922.3 L 1252.0 966.2 1249.7 970.8 C 1247.6 975.0, 1241.4 985.1, 1238.4 989 C 1237.8 989.8, 1232.6 995.2, 1226.9 1001.0 C 1216.2 1011.8, 1203.4 1021.2, 1192.5 1026.3 C 1189.2 1027.9, 1185.6 1029.6, 1184.6 1030.1 C 1181.0 1032.0, 1168.3 1035.8, 1161.9 1036.9 C 1158.4 1037.5, 1154.0 1038.5, 1152.2 1039.1 C 1148.0 1040.4, 1115.5 1040.4, 1112.1 1039.1 C 1110.6 1038.5, 1106.4 1037.6, 1102.6 1037.0 C 1090.8 1035.1, 1077.4 1029.9, 1061.2 1021.0 C 1051.5 1015.7, 1028.0 993.9, 1024.4 986.8 C 1023.6 985.2, 1022.5 984, 1021.9 984 C 1021.4 984, 1021 983.5, 1021 982.9 C 1021 982.3, 1020.1 980.6, 1019.1 979.1 C 1014.8 973.0, 1005 951.3, 1005 947.9 C 1005 947.0, 1004.0 942.8, 1002.9 938.4 C 1001.0 930.6, 1000.9 926.8, 1000.7 723.4 L 1000.5 516.4 998 513.2 C 995.5 510.1, 991.1 507.8, 988.1 508.1 C 987.2 508.2, 984.0 508.6, 981 509.0 M 2189.4 256.9 C 2186.6 257.4, 2183.4 258.1, 2182.4 258.7 C 2181.3 259.3, 2178.6 260.0, 2176.3 260.4 C 2174.0 260.8, 2171.3 261.7, 2170.3 262.5 C 2169.3 263.3, 2167.8 263.9, 2167.1 263.9 C 2165.3 264.0, 2163.2 265.0, 2133 279.7 C 2119.5 286.3, 2106.3 292.6, 2103.7 293.8 C 2101.1 295.0, 2097.0 296.9, 2094.6 298 C 2092.3 299.1, 2089.9 300, 2089.5 300 C 2089.0 300, 2086.8 300.8, 2084.6 301.9 C 2078.3 304.8, 2071.3 306.9, 2061.9 308.8 C 2057.2 309.8, 2052.9 310.8, 2052.4 311.2 C 2051.8 311.5, 2045.5 312.1, 2038.4 312.5 C 2020.9 313.4, 2016.7 315.4, 2016.7 322.8 C 2016.7 329.8, 2020.0 333, 2027.5 333 C 2032.5 333, 2049.8 336.8, 2055 339.1 C 2061.7 342.1, 2067.3 345.1, 2069 346.6 C 2069.8 347.4, 2072.3 349.5, 2074.6 351.2 C 2078.1 353.9, 2083 359.1, 2090.2 368.0 C 2091.6 369.8, 2094.8 376.2, 2097.9 383.4 C 2099.1 386.1, 2100.5 391.4, 2101.0 395.2 C 2102.3 404.4, 2102.3 1008.0, 2101.0 1017.0 C 2098.9 1031.5, 2088.2 1049.9, 2076.2 1059.7 C 2068.1 1066.2, 2057.0 1073, 2054.2 1073 C 2053.5 1073, 2051.9 1073.6, 2050.7 1074.4 C 2049.4 1075.2, 2043.7 1076.3, 2038 1077.0 C 2026.0 1078.3, 2020.6 1080.0, 2016.8 1083.6 L 2014.1 1086.1 2012.8 1083.4 C 2011.4 1080.5, 2008.7 1079.3, 2002 1078.5 C 1985.5 1076.5, 1977.2 1074.3, 1970 1070.1 C 1949.4 1058.1, 1937.3 1043.3, 1931.1 1022.5 C 1929.0 1015.5, 1929.0 1014.2, 1928.6 860.5 C 1928.3 725.9, 1928.1 704.5, 1926.7 698 C 1925.9 693.8, 1924.9 686.9, 1924.5 682.5 C 1924.1 678.1, 1923.2 672.7, 1922.4 670.5 C 1921.7 668.3, 1920.8 664.2, 1920.5 661.5 C 1920.1 658.7, 1919.3 655.6, 1918.7 654.5 C 1918.2 653.5, 1917.1 650.3, 1916.4 647.5 C 1914.2 638.9, 1911.0 630.6, 1904.8 617.6 C 1896.1 599.3, 1883.2 581.1, 1868.8 566.8 C 1860.9 559.0, 1847.6 548, 1846.0 548 C 1845.4 548, 1845 547.5, 1845 546.9 C 1845 546.4, 1843.9 545.5, 1842.7 544.9 C 1841.5 544.4, 1838.4 542.6, 1836 541.0 C 1829.8 537.0, 1811.6 528, 1809.7 528 C 1808.9 528, 1807.7 527.3, 1807.0 526.6 C 1806.4 525.8, 1804.3 524.9, 1802.3 524.5 C 1800.3 524.1, 1797.7 523.2, 1796.6 522.5 C 1795.4 521.7, 1792.7 520.8, 1790.5 520.4 C 1788.3 520.0, 1785.3 519.1, 1784 518.4 C 1782.6 517.7, 1779.4 516.9, 1777 516.5 C 1774.5 516.1, 1770.4 515.2, 1768 514.4 C 1765.5 513.6, 1759.2 512.5, 1754 511.9 C 1748.7 511.4, 1742.7 510.4, 1740.5 509.7 C 1734.9 508.1, 1680.2 508.2, 1673.5 509.8 C 1670.7 510.5, 1664.1 511.5, 1658.7 512.0 C 1653.4 512.5, 1647.1 513.4, 1644.7 514.0 C 1642.4 514.6, 1637.1 515.7, 1633 516.4 C 1628.8 517.2, 1624.1 518.3, 1622.5 518.9 C 1620.8 519.5, 1617.0 520.6, 1614 521.4 C 1603.2 524.1, 1589.9 528.5, 1584.3 531.0 C 1582.1 532.1, 1579.8 533, 1579.2 533 C 1577.8 533, 1562.8 540.7, 1560.9 542.5 C 1560.0 543.3, 1558.9 544.0, 1558.4 544.0 C 1557.5 544.0, 1551.5 547.8, 1547.5 551 C 1543.4 554.1, 1528 570.1, 1528 571.2 C 1528 571.8, 1527.3 573.0, 1526.6 573.9 C 1522.2 579.1, 1519.2 596.4, 1520.7 608.5 C 1522.4 622.9, 1531.7 637.4, 1544.4 645.4 C 1554.2 651.6, 1571.5 653.6, 1583.5 649.8 C 1595.8 645.9, 1608.5 635.2, 1613.0 624.7 C 1613.5 623.5, 1614.4 621.8, 1614.9 621 C 1617.2 617.2, 1619.3 607.4, 1620.1 596 C 1622.6 562.1, 1639.8 539.3, 1669 531.3 C 1682.6 527.6, 1701.7 529.2, 1714.5 535.1 C 1716.8 536.1, 1719.1 537, 1719.7 537 C 1721.1 537, 1731.0 542.6, 1740.5 548.8 C 1746.1 552.5, 1764.9 570.2, 1770.3 577 C 1772.9 580.2, 1781 592.6, 1781 593.4 C 1781 593.9, 1781.6 595.0, 1782.3 595.9 C 1785.4 599.4, 1794.6 619.0, 1798.0 629.4 C 1801.2 639.3, 1801.2 657.8, 1798.0 667.0 C 1789.9 690.8, 1775.1 703.6, 1733.8 722.8 C 1731.3 724.0, 1728.6 725, 1727.8 725 C 1727.0 725, 1725.5 725.6, 1724.4 726.3 C 1723.3 727.1, 1720.9 728.0, 1719.0 728.5 C 1717.0 728.9, 1714.1 729.8, 1712.5 730.5 C 1705.9 733.3, 1668.4 744.8, 1654 748.4 C 1650.9 749.1, 1647.1 750.2, 1645.5 750.8 C 1641.9 752.0, 1632.5 754.6, 1625 756.4 C 1621.9 757.1, 1618.3 758.2, 1617 758.7 C 1615.6 759.3, 1610.4 761.0, 1605.5 762.5 C 1591.1 766.7, 1583.7 769.0, 1580 770.4 C 1578.0 771.1, 1573.1 772.9, 1569 774.4 C 1559.3 777.9, 1550.5 781.9, 1538.1 788.3 C 1533.4 790.7, 1518.0 800.8, 1515.8 802.9 C 1514.9 803.7, 1512.2 806.0, 1509.8 808 C 1499.9 816.0, 1494.1 822.0, 1482.7 835.9 C 1469.1 852.5, 1456.6 883.9, 1452.9 910.7 C 1451.5 920.6, 1452.4 952.5, 1454.3 958.5 C 1455.1 961.2, 1456.1 965.5, 1456.5 968 C 1456.9 970.4, 1457.8 973.6, 1458.5 975 C 1459.1 976.3, 1460.0 979.3, 1460.4 981.6 C 1460.8 983.9, 1461.7 986.4, 1462.5 987.0 C 1463.3 987.7, 1464 988.9, 1464 989.8 C 1464 991.2, 1465.1 994.1, 1468.8 1002 C 1469.5 1003.3, 1471.1 1006.3, 1472.4 1008.5 C 1473.8 1010.7, 1475.3 1013.4, 1475.8 1014.6 C 1476.4 1015.8, 1479.0 1019.9, 1481.6 1023.6 C 1497.5 1046.8, 1522.4 1068.2, 1547.5 1080.4 C 1563.2 1088.0, 1568.2 1089.9, 1579.1 1092.4 C 1582.2 1093.1, 1585.3 1094.0, 1585.9 1094.4 C 1587.0 1095.1, 1603.9 1097.6, 1615.5 1098.7 C 1623.3 1099.5, 1643.4 1099.5, 1648.5 1098.7 C 1650.7 1098.4, 1656.5 1097.6, 1661.5 1097.0 C 1670.0 1095.9, 1672.5 1095.3, 1684.5 1091.4 C 1687.2 1090.6, 1691.3 1089.3, 1693.5 1088.7 C 1695.7 1088.2, 1698.2 1087.1, 1699.0 1086.3 C 1699.9 1085.6, 1701.1 1085, 1701.6 1085 C 1705.7 1085, 1741.1 1065.0, 1749 1058.3 C 1749.8 1057.6, 1754.3 1054.0, 1759 1050.3 C 1772.3 1039.8, 1792.3 1020.8, 1803.3 1008.2 C 1813.4 996.6, 1813.8 996.8, 1814.2 1013.7 C 1814.9 1036.3, 1816.2 1042.7, 1823.1 1057.5 C 1828.6 1069.4, 1844.8 1085.5, 1856.6 1090.9 C 1859.3 1092.1, 1862.6 1093.7, 1864.0 1094.5 C 1865.4 1095.2, 1870.6 1096.6, 1875.5 1097.6 C 1883.4 1099.2, 1891.3 1099.5, 1944.8 1099.7 C 2004.7 1100.0, 2005.2 1100.0, 2008.6 1097.9 C 2010.4 1096.7, 2012.5 1094.9, 2013.0 1093.8 C 2014.1 1091.8, 2014.1 1091.8, 2016.3 1093.7 C 2017.5 1094.7, 2020.2 1096.6, 2022.3 1097.8 L 2026.1 1100 2159.6 1100 L 2293.1 1100 2297.0 1097.7 C 2299.4 1096.3, 2301.5 1094.0, 2302.6 1091.7 C 2304.2 1088.1, 2304.2 1087.9, 2301.7 1084.1 C 2299.1 1080.2, 2297.2 1079.4, 2289 1078.4 C 2274.0 1076.6, 2265.0 1074.2, 2258 1070.1 C 2237.4 1058.1, 2225.3 1043.3, 2219.0 1022.5 L 2216.9 1015.5 2216.7 639.9 L 2216.5 264.3 2214.0 260.7 C 2212.6 258.7, 2210.6 256.8, 2209.5 256.5 C 2206.8 255.8, 2195.6 256.0, 2189.4 256.9 M 1807.3 693.9 C 1801.3 702.6, 1788.9 715.8, 1779.3 723.6 C 1773.8 728.2, 1760.7 736.9, 1759.3 736.9 C 1758.7 736.9, 1757.6 737.7, 1756.9 738.6 C 1756.1 739.4, 1754.6 740.6, 1753.5 741.1 C 1752.4 741.6, 1749.8 743.0, 1747.8 744.3 C 1745.8 745.5, 1740.0 748.8, 1734.8 751.8 C 1729.7 754.7, 1724.8 757.5, 1724 758.0 C 1723.1 758.5, 1715.7 762.3, 1707.5 766.5 C 1699.2 770.7, 1688.9 776.1, 1684.5 778.6 C 1680.1 781.0, 1675.1 783.7, 1673.5 784.5 C 1667.2 787.8, 1664.3 789.6, 1659.7 792.7 C 1657.0 794.5, 1654.5 796.0, 1654.2 796.0 C 1653.8 796.0, 1650.5 798.0, 1647 800.5 C 1643.4 802.9, 1640.1 804.9, 1639.6 804.9 C 1639.2 804.9, 1634.5 808.4, 1629.1 812.6 C 1608.5 828.8, 1590.6 849.0, 1583.1 864.5 C 1581.8 867.2, 1579.9 871.1, 1578.9 873.1 C 1577.9 875.1, 1576.8 878.5, 1576.4 880.6 C 1576.0 882.7, 1575.1 885.6, 1574.4 887 C 1571.0 893.8, 1569.9 925.4, 1572.4 947.5 C 1574.2 963.8, 1578.9 983.9, 1582.0 989 C 1582.5 989.8, 1583.4 991.6, 1584.0 993 C 1589.0 1004.8, 1593.9 1012.0, 1603.3 1021.5 C 1613.1 1031.2, 1620.5 1036.3, 1634 1042.3 C 1647.3 1048.2, 1675.1 1050.0, 1691.5 1046 C 1695.9 1044.9, 1700.2 1044.0, 1701.2 1044.0 C 1702.1 1044.0, 1704.4 1043.3, 1706.2 1042.6 C 1708.0 1041.8, 1712.8 1039.9, 1716.8 1038.4 C 1720.8 1036.8, 1728.3 1033.4, 1733.3 1030.8 C 1738.3 1028.1, 1743.6 1025.4, 1745 1024.7 C 1746.3 1024.1, 1747.8 1022.9, 1748.3 1022.2 C 1748.7 1021.5, 1749.5 1021, 1750.1 1021 C 1750.6 1021, 1752.6 1019.8, 1754.4 1018.5 C 1756.2 1017.1, 1757.9 1016, 1758.3 1016 C 1758.7 1016, 1759.7 1015.3, 1760.7 1014.4 C 1761.7 1013.6, 1766.1 1010.0, 1770.5 1006.5 C 1784.7 995.2, 1811.4 966.4, 1813.4 960.2 C 1815.6 953.3, 1815.7 743.2, 1813.5 726.5 C 1813.2 724.3, 1812.8 715.6, 1812.7 707.2 C 1812.3 689.6, 1811.6 687.8, 1807.3 693.9 M 2276.4 508.8 C 2271.1 510.5, 2268.8 513.4, 2268.7 518.3 C 2268.6 525.8, 2271.5 528.1, 2282.2 528.9 C 2286.8 529.3, 2291.1 529.9, 2291.7 530.3 C 2292.3 530.7, 2295.3 531.5, 2298.4 532.0 C 2322.0 536.4, 2347.1 557.0, 2365.7 587.5 C 2367.8 590.9, 2373 601.8, 2373 602.8 C 2373 603.4, 2373.6 605.1, 2374.4 606.6 C 2375.7 609.2, 2377.4 613.7, 2383.2 630 C 2384.3 633.0, 2385.8 636.8, 2386.5 638.5 C 2387.2 640.1, 2388.1 642.6, 2388.5 644 C 2388.8 645.3, 2389.7 647.8, 2390.4 649.5 C 2391.2 651.1, 2393.0 655.8, 2394.5 660 C 2395.9 664.1, 2397.7 668.8, 2398.5 670.5 C 2399.2 672.1, 2400.1 674.6, 2400.5 676 C 2400.8 677.3, 2401.7 679.8, 2402.4 681.5 C 2405.1 687.4, 2409 698.0, 2409 699.3 C 2409 700.0, 2409.9 702.3, 2411 704.5 C 2412.1 706.6, 2413 709.0, 2413 709.7 C 2413 710.4, 2413.6 712.0, 2414.4 713.2 C 2415.1 714.5, 2416.1 717.0, 2416.5 719 C 2416.8 720.9, 2417.7 723.4, 2418.4 724.5 C 2419.1 725.6, 2419.9 727.8, 2420.3 729.5 C 2420.7 731.1, 2421.6 733.8, 2422.4 735.5 C 2423.1 737.1, 2425.0 741.8, 2426.5 746 C 2427.9 750.1, 2429.8 754.8, 2430.5 756.5 C 2431.3 758.1, 2432.2 760.9, 2432.6 762.7 C 2432.9 764.5, 2433.6 766.2, 2434.1 766.5 C 2434.5 766.8, 2435.4 768.9, 2436.0 771.2 C 2436.6 773.6, 2437.7 776.8, 2438.4 778.5 C 2439.2 780.1, 2441.0 784.8, 2442.5 789 C 2443.9 793.1, 2445.7 797.8, 2446.5 799.5 C 2447.2 801.1, 2448.1 803.6, 2448.5 805 C 2448.8 806.3, 2449.7 808.8, 2450.4 810.5 C 2451.1 812.1, 2452.6 815.9, 2453.7 819 C 2458.8 833.0, 2461.2 839.7, 2462.5 842.5 C 2463.2 844.1, 2464.1 846.6, 2464.5 848 C 2464.8 849.3, 2465.7 851.8, 2466.4 853.5 C 2469.5 860.5, 2473 870.1, 2473 871.9 C 2473 873.0, 2473.4 874.1, 2473.9 874.4 C 2474.4 874.7, 2475.3 876.7, 2476.0 878.7 C 2476.6 880.8, 2477.7 883.8, 2478.4 885.5 C 2481.1 891.5, 2485 902.0, 2485 903.3 C 2485 904.0, 2485.9 906.3, 2487 908.5 C 2488.1 910.6, 2489 913.0, 2489 913.7 C 2489 914.4, 2489.6 916.0, 2490.4 917.2 C 2491.1 918.5, 2492.1 921.0, 2492.5 923 C 2492.8 924.9, 2493.7 927.4, 2494.4 928.5 C 2495.1 929.6, 2495.9 931.8, 2496.3 933.5 C 2496.7 935.1, 2497.6 937.8, 2498.4 939.5 C 2499.1 941.1, 2501.0 945.8, 2502.5 950 C 2503.9 954.1, 2505.8 958.8, 2506.5 960.5 C 2507.3 962.1, 2508.2 964.9, 2508.6 966.7 C 2508.9 968.5, 2509.6 970.2, 2510.1 970.5 C 2510.5 970.8, 2511.4 972.9, 2512.0 975.2 C 2512.6 977.6, 2513.7 980.8, 2514.4 982.5 C 2515.2 984.1, 2517.0 988.8, 2518.5 993 C 2519.9 997.1, 2521.7 1001.8, 2522.5 1003.5 C 2523.2 1005.1, 2524.1 1007.6, 2524.5 1009 C 2524.8 1010.3, 2525.7 1012.8, 2526.4 1014.5 C 2527.1 1016.1, 2528.6 1019.9, 2529.7 1023 C 2534.8 1037.0, 2537.2 1043.7, 2538.5 1046.5 C 2539.2 1048.1, 2540.1 1050.6, 2540.5 1052 C 2540.8 1053.3, 2541.7 1055.8, 2542.4 1057.5 C 2543.8 1060.5, 2547.1 1069.8, 2550.5 1080 C 2552.6 1086.1, 2553.4 1111.3, 2551.9 1122.5 C 2550.5 1133.2, 2545.9 1149.5, 2541.7 1159 C 2537.8 1167.7, 2527.7 1187.5, 2526.4 1189.0 C 2525.6 1189.9, 2524.9 1191.0, 2524.9 1191.5 C 2524.9 1192.0, 2522.9 1195.4, 2520.5 1199 C 2518.0 1202.5, 2516.0 1206.0, 2516.0 1206.7 C 2516.0 1207.4, 2515.6 1208, 2515.1 1208 C 2514.7 1208, 2512.8 1210.3, 2510.9 1213.2 C 2504.1 1223.9, 2488.3 1242.8, 2477.1 1253.8 C 2464.1 1266.4, 2464.2 1266.3, 2458 1270.5 C 2455.5 1272.1, 2453.2 1273.8, 2452.9 1274.2 C 2451.1 1276.7, 2420.6 1292.9, 2417.7 1293.0 C 2417.0 1293.0, 2415.6 1293.6, 2414.6 1294.4 C 2413.6 1295.2, 2410.9 1296.1, 2408.6 1296.5 C 2406.3 1296.9, 2403.3 1297.8, 2402 1298.4 C 2392.8 1303.1, 2355.8 1303.1, 2348.5 1298.5 C 2347.4 1297.7, 2345.4 1296.8, 2344.0 1296.4 C 2335.5 1293.9, 2318.9 1277.9, 2316.4 1269.8 C 2316.0 1268.5, 2315.1 1266.8, 2314.4 1266 C 2313.7 1265.1, 2312.8 1262.7, 2312.4 1260.5 C 2312.0 1258.3, 2311.1 1254.7, 2310.3 1252.6 C 2309.6 1250.5, 2308.7 1243.1, 2308.4 1236.1 C 2307.1 1209.0, 2296.2 1191.9, 2274.5 1183.0 C 2266.7 1179.8, 2249.7 1179.5, 2242.8 1182.4 C 2231.9 1186.9, 2229.5 1188.4, 2223 1195 C 2216.6 1201.3, 2215.7 1202.7, 2210.1 1215 C 2207.5 1220.6, 2207.8 1240.7, 2210.6 1248.5 C 2215.2 1261.1, 2217.3 1264.2, 2229.5 1276.2 C 2240.5 1287.1, 2241.4 1288, 2242.4 1288 C 2242.8 1288, 2244.5 1289.0, 2246.3 1290.2 C 2251.3 1293.8, 2252.9 1294.6, 2263.6 1299.9 C 2269.2 1302.7, 2274.4 1305, 2275.1 1305 C 2275.9 1305, 2277.0 1305.4, 2277.6 1306.0 C 2278.2 1306.6, 2280.9 1307.7, 2283.6 1308.4 C 2289.1 1310.0, 2297.0 1312.5, 2301.5 1314.1 C 2306.0 1315.7, 2320.6 1318.8, 2329 1320.0 C 2333.1 1320.6, 2340.3 1321.7, 2345.1 1322.5 C 2358.4 1324.7, 2376.1 1324.4, 2393.3 1321.5 C 2401.4 1320.1, 2408.5 1318.7, 2409.1 1318.4 C 2409.6 1318.0, 2412.4 1317.1, 2415.3 1316.4 C 2425.3 1313.9, 2443.3 1306.0, 2452.4 1300.1 C 2454.6 1298.7, 2457.2 1297.0, 2458.1 1296.5 C 2462.9 1293.5, 2471.7 1287.2, 2475.3 1284.1 C 2487.5 1273.7, 2510.2 1249.2, 2517.2 1239 C 2518.2 1237.6, 2521.0 1233.8, 2523.4 1230.5 C 2525.9 1227.2, 2528.3 1223.8, 2528.6 1223 C 2529.0 1222.1, 2531.6 1218.1, 2534.4 1214 C 2537.2 1209.8, 2540.1 1205.3, 2540.8 1204 C 2541.5 1202.6, 2543.1 1199.7, 2544.5 1197.5 C 2548.0 1191.5, 2550.0 1187.9, 2557.6 1172.9 C 2563.8 1160.6, 2566.5 1154.9, 2570.5 1145.5 C 2571.3 1143.8, 2573.0 1139.9, 2574.4 1136.8 C 2575.8 1133.6, 2577.0 1130.5, 2577.0 1129.8 C 2577.0 1129.0, 2577.7 1127.6, 2578.5 1126.5 C 2579.3 1125.4, 2580.0 1123.9, 2580.0 1123.0 C 2580.0 1122.2, 2580.7 1120.1, 2581.6 1118.5 C 2583.1 1115.5, 2585.6 1108.9, 2588.5 1100.1 C 2589.3 1097.6, 2590.3 1095.2, 2590.8 1094.6 C 2591.3 1093.9, 2592.0 1092.1, 2592.3 1090.5 C 2592.7 1088.8, 2593.6 1086.1, 2594.4 1084.5 C 2595.1 1082.8, 2597.0 1078.1, 2598.5 1074 C 2600.0 1069.8, 2601.7 1064.9, 2602.5 1063 C 2603.2 1061.0, 2604.9 1056.1, 2606.4 1052 C 2607.9 1047.8, 2609.7 1043.1, 2610.5 1041.5 C 2611.2 1039.8, 2612.3 1036.8, 2612.9 1034.7 C 2613.6 1032.7, 2614.5 1030.7, 2615.0 1030.4 C 2615.5 1030.1, 2616 1029.0, 2616 1027.9 C 2616 1026.1, 2619.3 1016.6, 2622.5 1009.5 C 2623.2 1007.8, 2624.3 1004.8, 2624.9 1002.7 C 2625.6 1000.7, 2626.5 998.7, 2627.0 998.4 C 2627.5 998.1, 2628 997.0, 2628 995.9 C 2628 994.1, 2631.4 984.5, 2634.5 977.5 C 2635.2 975.8, 2636.1 973.3, 2636.5 972 C 2636.8 970.6, 2637.7 968.1, 2638.4 966.5 C 2639.2 964.8, 2641.0 960.1, 2642.5 956 C 2643.9 951.8, 2645.7 947.1, 2646.5 945.5 C 2647.2 943.8, 2648.1 941.3, 2648.5 940 C 2648.8 938.6, 2649.7 936.1, 2650.4 934.5 C 2651.2 932.8, 2653.0 928.1, 2654.5 924 C 2655.9 919.8, 2657.7 915.1, 2658.5 913.5 C 2659.2 911.8, 2660.3 908.6, 2660.9 906.2 C 2661.5 903.9, 2662.4 901.8, 2662.8 901.5 C 2663.3 901.2, 2664.0 899.5, 2664.3 897.7 C 2664.7 895.9, 2665.6 893.1, 2666.4 891.5 C 2667.1 889.8, 2669.0 885.1, 2670.5 881 C 2671.9 876.8, 2673.7 872.1, 2674.5 870.5 C 2675.2 868.8, 2676.1 866.3, 2676.5 865 C 2676.8 863.6, 2677.7 861.1, 2678.4 859.5 C 2679.2 857.8, 2681.0 853.1, 2682.5 849 C 2683.9 844.8, 2685.7 840.1, 2686.5 838.5 C 2687.2 836.8, 2688.3 833.6, 2688.9 831.2 C 2689.5 828.9, 2690.4 826.8, 2690.8 826.5 C 2691.3 826.2, 2692.0 824.5, 2692.3 822.7 C 2692.7 820.9, 2693.6 818.1, 2694.4 816.5 C 2695.1 814.8, 2697.0 810.1, 2698.5 806 C 2699.9 801.8, 2701.7 797.1, 2702.5 795.5 C 2703.2 793.8, 2704.1 791.3, 2704.5 790 C 2704.8 788.6, 2705.7 786.1, 2706.4 784.5 C 2707.2 782.8, 2709.0 778.1, 2710.5 774 C 2711.9 769.8, 2713.8 765.1, 2714.5 763.5 C 2715.3 761.8, 2716.2 759.1, 2716.6 757.5 C 2717.0 755.8, 2717.8 753.6, 2718.5 752.5 C 2719.2 751.4, 2720.1 748.9, 2720.5 747 C 2720.8 745.0, 2721.8 742.5, 2722.5 741.2 C 2723.3 740.0, 2724 738.4, 2724 737.7 C 2724 737.0, 2724.9 734.6, 2726 732.5 C 2727.1 730.3, 2728 728.0, 2728 727.3 C 2728 726.0, 2731.8 715.5, 2734.5 709.5 C 2735.2 707.8, 2736.3 704.8, 2736.9 702.7 C 2737.6 700.7, 2738.5 698.7, 2739.0 698.4 C 2739.5 698.1, 2740 697.0, 2740 695.9 C 2740 694.1, 2743.4 684.5, 2746.5 677.5 C 2747.2 675.8, 2748.1 673.3, 2748.5 672 C 2748.8 670.6, 2749.7 668.1, 2750.4 666.5 C 2751.2 664.8, 2753.0 660.1, 2754.5 656 C 2755.9 651.8, 2757.7 647.1, 2758.5 645.5 C 2759.2 643.8, 2760.1 641.3, 2760.5 640 C 2760.8 638.6, 2761.7 636.1, 2762.4 634.5 C 2763.2 632.8, 2765.0 628.1, 2766.5 624 C 2767.9 619.8, 2769.8 615.1, 2770.5 613.5 C 2771.3 611.8, 2772.2 609.1, 2772.6 607.5 C 2773.0 605.8, 2773.8 603.6, 2774.5 602.5 C 2775.2 601.4, 2776.1 599.4, 2776.5 598.1 C 2777.3 595.1, 2782.7 585.8, 2788.8 576.5 C 2794.3 568.0, 2811.2 550.9, 2819.5 545.4 C 2825.7 541.2, 2842.2 533, 2844.3 533 C 2845.0 533, 2848.2 532.2, 2851.5 531.4 C 2854.8 530.5, 2861.3 529.4, 2865.9 529.0 C 2873.6 528.3, 2874.6 527.9, 2877.1 525.1 C 2881.2 520.5, 2880.9 516.3, 2876.4 511.9 L 2872.8 508.5 2792.6 508.1 C 2739.1 507.9, 2711.3 508.2, 2708.9 508.9 C 2700.8 511.2, 2698.2 519.0, 2703.4 525.4 C 2705.5 527.9, 2706.7 528.4, 2713.1 529.0 C 2724.4 530.2, 2732.8 532.8, 2739.5 537.5 C 2745.1 541.4, 2752.9 550.9, 2752.9 553.7 C 2752.9 554.4, 2753.6 556.0, 2754.4 557.3 C 2758.8 564.0, 2756.5 593.2, 2750.5 606.5 C 2749.7 608.1, 2747.9 612.8, 2746.5 617 C 2745.0 621.1, 2743.2 625.8, 2742.4 627.5 C 2741.7 629.1, 2740.8 631.6, 2740.5 633 C 2740.1 634.3, 2739.2 636.8, 2738.5 638.5 C 2737.2 641.2, 2734.8 647.9, 2729.7 662 C 2728.6 665.0, 2727.1 668.8, 2726.4 670.5 C 2725.7 672.1, 2724.8 674.6, 2724.5 676 C 2724.1 677.3, 2723.2 679.8, 2722.5 681.5 C 2721.7 683.1, 2719.9 687.8, 2718.5 692 C 2717.0 696.1, 2715.1 700.8, 2714.4 702.5 C 2713.6 704.1, 2712.7 706.9, 2712.3 708.7 C 2712.0 710.5, 2711.3 712.2, 2710.8 712.5 C 2710.4 712.8, 2709.5 714.9, 2708.9 717.2 C 2708.3 719.6, 2707.2 722.8, 2706.5 724.5 C 2705.7 726.1, 2703.9 730.8, 2702.5 735 C 2701.0 739.1, 2699.2 743.8, 2698.4 745.5 C 2697.7 747.1, 2696.8 749.6, 2696.5 751 C 2696.1 752.3, 2695.2 754.8, 2694.5 756.5 C 2693.7 758.1, 2691.9 762.8, 2690.5 767 C 2689.0 771.1, 2687.2 775.8, 2686.4 777.5 C 2685.7 779.1, 2684.6 782.0, 2684.0 784 C 2682.2 790.5, 2678.8 799.4, 2677.9 800.4 C 2677.4 800.9, 2677 802.1, 2677 802.9 C 2677 803.8, 2676.1 806.3, 2675 808.5 C 2673.9 810.6, 2673 812.9, 2673 813.6 C 2673 814.9, 2669.1 825.4, 2666.4 831.5 C 2665.7 833.1, 2664.6 836.1, 2664.0 838.2 C 2663.3 840.2, 2662.4 842.2, 2661.9 842.5 C 2661.4 842.8, 2661 843.9, 2661 845.0 C 2661 846.8, 2657.5 856.4, 2654.4 863.5 C 2653.7 865.1, 2652.8 867.6, 2652.5 869 C 2652.1 870.3, 2651.2 872.8, 2650.5 874.5 C 2649.7 876.1, 2647.9 880.8, 2646.5 885 C 2645.0 889.1, 2643.1 893.8, 2642.4 895.5 C 2641.6 897.1, 2640.7 899.9, 2640.3 901.7 C 2640.0 903.5, 2639.3 905.2, 2638.8 905.5 C 2638.4 905.8, 2637.5 907.9, 2636.9 910.2 C 2636.3 912.6, 2635.2 915.8, 2634.5 917.5 C 2633.7 919.1, 2631.9 923.8, 2630.4 928 C 2624.1 945.4, 2622.1 948.0, 2620.1 941.2 C 2618.4 935.3, 2614.8 925.5, 2613.9 924.5 C 2613.5 923.9, 2612.8 921.8, 2612.4 919.7 C 2612.0 917.6, 2611.3 915.7, 2610.9 915.4 C 2610.4 915.1, 2609.5 913.0, 2608.9 910.7 C 2608.3 908.3, 2607.2 905.1, 2606.5 903.5 C 2605.7 901.8, 2603.9 897.1, 2602.5 893 C 2601.0 888.8, 2599.2 884.1, 2598.4 882.5 C 2597.7 880.8, 2596.8 878.3, 2596.5 877 C 2596.1 875.6, 2595.2 873.1, 2594.5 871.5 C 2591.4 864.4, 2588 854.8, 2588 853.0 C 2588 851.9, 2587.5 850.8, 2587.0 850.5 C 2586.5 850.2, 2585.6 848.2, 2584.9 846.2 C 2584.3 844.1, 2583.2 841.1, 2582.5 839.5 C 2579.3 832.3, 2576 822.8, 2576 821.0 C 2576 819.9, 2575.5 818.8, 2575.0 818.5 C 2574.5 818.2, 2573.6 816.2, 2572.9 814.2 C 2572.3 812.1, 2571.2 809.1, 2570.5 807.5 C 2569.7 805.8, 2567.9 801.1, 2566.4 797 C 2564.9 792.8, 2563.2 787.9, 2562.5 786 C 2561.7 784.0, 2560.0 779.1, 2558.5 775 C 2557.0 770.8, 2555.2 766.1, 2554.4 764.5 C 2553.7 762.8, 2552.8 760.3, 2552.5 759 C 2552.1 757.6, 2551.2 755.1, 2550.5 753.5 C 2549.7 751.8, 2547.9 747.1, 2546.5 743 C 2545.0 738.8, 2543.1 734.1, 2542.4 732.5 C 2541.6 730.8, 2540.7 728.0, 2540.3 726.2 C 2540.0 724.4, 2539.3 722.7, 2538.8 722.4 C 2538.4 722.1, 2537.5 720.0, 2536.9 717.7 C 2536.3 715.3, 2535.2 712.1, 2534.5 710.5 C 2533.7 708.8, 2531.9 704.1, 2530.5 700 C 2529.0 695.8, 2527.2 691.1, 2526.4 689.5 C 2525.7 687.8, 2524.8 685.3, 2524.5 684 C 2524.1 682.6, 2523.2 680.1, 2522.5 678.5 C 2521.2 675.7, 2518.8 669.0, 2513.7 655 C 2512.6 651.9, 2511.1 648.1, 2510.4 646.5 C 2509.7 644.8, 2508.8 642.3, 2508.5 641 C 2508.1 639.6, 2507.2 637.1, 2506.5 635.5 C 2505.7 633.8, 2503.9 629.1, 2502.5 625 C 2501.0 620.8, 2499.1 616.1, 2498.4 614.5 C 2497.6 612.8, 2496.7 610.1, 2496.3 608.5 C 2495.9 606.8, 2495.1 604.6, 2494.4 603.5 C 2493.7 602.4, 2492.9 599.7, 2492.5 597.5 C 2492.1 595.3, 2491.2 591.6, 2490.3 589.4 C 2488.2 583.6, 2488.9 564.3, 2491.5 557.5 C 2495.2 548.0, 2502.1 539.8, 2510.3 535.1 C 2515.2 532.3, 2528.0 529.0, 2533.9 528.9 C 2540.1 528.9, 2543.0 527.2, 2544.9 522.5 C 2547.0 517.6, 2545.6 513.1, 2541.3 510.2 C 2538.7 508.5, 2531.3 508.4, 2408.5 508.3 C 2337.0 508.2, 2277.5 508.4, 2276.4 508.8 M 2912.2 509.1 C 2910.6 509.9, 2909.8 511.7, 2908.9 515.8 C 2908.4 518.9, 2907.4 522.6, 2906.8 524 C 2906.2 525.3, 2905.1 528.9, 2904.4 532 C 2903.7 535.0, 2902.4 539.5, 2901.6 542 C 2900.8 544.4, 2899.2 549.8, 2898.0 554 C 2896.8 558.1, 2895.4 562.8, 2894.8 564.5 C 2894.2 566.1, 2893.1 569.7, 2892.4 572.5 C 2888.2 587.4, 2885.2 597.7, 2882.8 604.5 C 2882.3 606.1, 2881.2 609.7, 2880.5 612.5 C 2879.9 615.2, 2878.8 618.4, 2878.1 619.6 C 2877.5 620.8, 2877 624.0, 2877 626.6 C 2877 633.6, 2880.2 637, 2886.9 637 C 2892.7 637, 2895.7 634.9, 2896.9 630 C 2898.1 625.2, 2900.7 618.3, 2903.0 613.4 C 2904.1 611.1, 2905 609.1, 2905 608.7 C 2905 607.4, 2913.8 592.9, 2918.6 586.3 C 2930.6 570.1, 2952.8 551.1, 2969 543.4 C 2984.0 536.2, 2989.0 534.3, 2998.5 532.4 C 3002.3 531.6, 3007.5 530.5, 3010 530.0 C 3012.6 529.4, 3044.7 529.0, 3087.3 529.0 C 3159.2 529.0, 3160.2 529.0, 3167.3 531.1 C 3177.6 534.3, 3182.7 537.6, 3187.3 544.3 C 3198.1 560.2, 3194.0 581.7, 3174.4 611.0 C 3170.8 616.3, 3168 621.1, 3168 621.6 C 3168 622.2, 3167.1 623.5, 3166 624.5 C 3164.9 625.4, 3164 626.6, 3164 627.0 C 3164 627.4, 3161.3 631.8, 3158 636.8 C 3154.7 641.8, 3152 646.3, 3152 646.9 C 3152 647.5, 3151.5 648, 3150.9 648 C 3150.4 648, 3149.6 648.7, 3149.2 649.7 C 3148.9 650.7, 3147.8 652.6, 3146.9 654 C 3138.5 666.5, 3132 676.8, 3132 677.4 C 3132 677.8, 3130.4 680.0, 3128.5 682.4 C 3126.5 684.7, 3125 687.0, 3125 687.4 C 3125 687.8, 3121.1 694.0, 3116.5 701.0 C 3111.8 708.1, 3108 714.3, 3108 714.8 C 3108 715.3, 3107.3 716.0, 3106.5 716.3 C 3105.6 716.6, 3105 717.4, 3105 718.0 C 3105 718.5, 3104.1 720.3, 3103.1 721.7 C 3096.0 732.1, 3088 744.8, 3088 745.6 C 3088 746.2, 3087.1 747.5, 3086 748.5 C 3084.9 749.4, 3084 750.6, 3084 751.0 C 3084 751.5, 3081.3 755.8, 3078 760.7 C 3074.7 765.6, 3072 770.1, 3072 770.7 C 3072 771.3, 3071.3 772.0, 3070.5 772.3 C 3069.6 772.6, 3069 773.4, 3069 774.0 C 3069 774.6, 3067.8 776.6, 3066.5 778.4 C 3065.1 780.2, 3064 781.9, 3064 782.2 C 3064 782.5, 3059.6 789.2, 3054.3 797.1 C 3049.0 805.0, 3044.4 812.1, 3044.1 813.0 C 3043.7 813.8, 3040.0 819.7, 3035.7 826.2 C 3031.4 832.6, 3028 838.3, 3028 838.8 C 3028 839.3, 3027.3 840.0, 3026.5 840.3 C 3025.6 840.6, 3025 841.4, 3025 842.0 C 3025 842.5, 3024.1 844.3, 3023.1 845.7 C 3016.9 854.8, 3008 868.7, 3008 869.4 C 3008 869.8, 3006.4 872.0, 3004.5 874.4 C 3002.5 876.7, 3001 879.0, 3001 879.4 C 3001 879.8, 2997.1 886.0, 2992.5 893.0 C 2987.8 900.1, 2984 906.3, 2984 906.9 C 2984 907.5, 2983.5 908, 2982.9 908 C 2982.4 908, 2981.6 908.7, 2981.3 909.7 C 2980.9 910.7, 2976.9 917.1, 2972.3 924.0 C 2967.7 931.0, 2964 937.1, 2964 937.6 C 2964 938.2, 2963.1 939.5, 2962 940.5 C 2960.9 941.4, 2960 942.6, 2960 943.0 C 2960 943.5, 2957.3 947.8, 2954 952.7 C 2950.7 957.6, 2948 962.1, 2948 962.8 C 2948 963.4, 2947.5 964, 2946.9 964 C 2946.4 964, 2945.6 964.7, 2945.2 965.7 C 2944.9 966.7, 2943.6 968.8, 2942.3 970.5 C 2941.0 972.2, 2940 973.9, 2940 974.3 C 2940 974.6, 2937.4 978.6, 2934.3 983.1 C 2931.3 987.6, 2928.5 992.0, 2928.2 992.9 C 2927.8 993.8, 2925.9 996.6, 2923.8 999.3 C 2921.7 1002.0, 2920 1004.5, 2920 1004.9 C 2920 1005.4, 2916.4 1011.1, 2912 1017.8 C 2907.6 1024.4, 2904 1030.3, 2904 1030.9 C 2904 1031.5, 2903.5 1032, 2902.9 1032 C 2902.4 1032, 2901.6 1032.7, 2901.2 1033.7 C 2900.9 1034.7, 2899.8 1036.6, 2898.9 1038 C 2890.5 1050.5, 2884 1060.8, 2884 1061.4 C 2884 1061.8, 2882.4 1064.0, 2880.6 1066.3 C 2878.8 1068.6, 2877.0 1071.2, 2876.7 1072.0 C 2876.4 1072.9, 2873.6 1077.3, 2870.6 1081.8 C 2867.5 1086.3, 2865 1090.3, 2865 1090.5 C 2865 1090.8, 2864.0 1092.3, 2862.8 1093.9 C 2861.6 1095.5, 2861.0 1097.5, 2861.3 1098.4 C 2861.8 1099.8, 2883.7 1100, 3092.4 1100 L 3322.8 1100 3324.4 1097.7 C 3325.3 1096.5, 3326.7 1093.0, 3327.5 1090 C 3330.6 1078.9, 3333.1 1070.4, 3334.1 1067.5 C 3334.7 1065.8, 3335.7 1062.0, 3336.5 1059 C 3337.2 1055.9, 3338.5 1051.7, 3339.3 1049.5 C 3340.2 1047.3, 3340.9 1044.3, 3340.9 1042.9 C 3340.9 1041.5, 3341.4 1039.9, 3342.1 1039.2 C 3342.7 1038.6, 3343.8 1035.5, 3344.5 1032.3 C 3345.7 1026.8, 3347.7 1020.4, 3350.1 1013.5 C 3350.7 1011.8, 3351.7 1008.0, 3352.5 1005 C 3353.8 999.4, 3356.2 990.6, 3358.2 983.8 C 3360.0 977.4, 3354.5 969.9, 3348.0 970.0 C 3345.6 970.0, 3340 973.7, 3340 975.3 C 3340 976.1, 3339.3 977.2, 3338.6 977.8 C 3337.8 978.5, 3336.9 980.8, 3336.6 983.0 C 3336.2 985.2, 3335.0 988.7, 3333.9 990.7 C 3332.8 992.8, 3332 994.9, 3332 995.5 C 3332 996.0, 3330.6 999.0, 3329.0 1002.0 C 3327.3 1005.0, 3325.4 1008.6, 3324.7 1010 C 3317.9 1023.4, 3297.7 1044.5, 3280.4 1056.1 C 3270.9 1062.5, 3253.3 1071.2, 3247.5 1072.5 C 3245.8 1072.8, 3242.9 1073.7, 3241 1074.5 C 3239.0 1075.3, 3233.2 1076.4, 3228 1076.9 C 3215.4 1078.3, 3080.7 1078.3, 3071.2 1077.0 C 3057.1 1075.0, 3046.4 1065.4, 3044.1 1052.5 C 3043.5 1049.4, 3042.8 1046.5, 3042.5 1046.1 C 3041.7 1044.7, 3045.0 1027.6, 3047.1 1022.5 C 3048.9 1017.8, 3052.7 1010.1, 3056.1 1003.9 C 3056.8 1002.6, 3061.8 994.9, 3067.2 986.8 C 3072.6 978.8, 3077 971.8, 3077 971.2 C 3077 970.7, 3077.9 969.4, 3079 968.5 C 3080.1 967.5, 3081 966.3, 3081 965.9 C 3081 965.5, 3083.7 961.1, 3087 956.1 C 3090.3 951.1, 3093 946.6, 3093 946.0 C 3093 945.4, 3093.4 945, 3094.0 945 C 3094.5 945, 3095.3 944.2, 3095.7 943.2 C 3096.0 942.2, 3097.1 940.3, 3098.0 939 C 3106.2 926.7, 3113 916.2, 3113 915.6 C 3113 915.2, 3114.8 912.6, 3117 909.8 C 3119.2 907.0, 3121 904.4, 3121 904.0 C 3121 903.5, 3124.6 897.8, 3129 891.1 C 3133.4 884.5, 3137 878.6, 3137 878.0 C 3137 877.4, 3137.4 877, 3138.0 877 C 3138.5 877, 3139.3 876.2, 3139.7 875.2 C 3140.0 874.2, 3141.1 872.3, 3142.0 871 C 3150.2 858.7, 3157 848.2, 3157 847.6 C 3157 847.2, 3158.8 844.6, 3161 841.8 C 3163.2 839.0, 3165 836.4, 3165 836.0 C 3165 835.5, 3168.6 829.8, 3173 823.1 C 3177.4 816.5, 3181 810.7, 3181 810.1 C 3181 809.6, 3181.6 808.9, 3182.5 808.6 C 3183.3 808.3, 3184 807.5, 3184 806.9 C 3184 806.4, 3184.8 804.7, 3185.8 803.2 C 3191.8 794.4, 3201 780.2, 3201 779.6 C 3201 779.2, 3202.8 776.6, 3205 773.8 C 3207.2 771.0, 3209 768.4, 3209 768.0 C 3209 767.5, 3212.6 761.8, 3217 755.1 C 3221.4 748.5, 3225 742.7, 3225 742.1 C 3225 741.6, 3225.6 740.9, 3226.5 740.6 C 3227.3 740.3, 3228 739.5, 3228 738.9 C 3228 738.4, 3228.8 736.7, 3229.8 735.2 C 3235.8 726.4, 3245 712.2, 3245 711.6 C 3245 711.2, 3246.8 708.6, 3249 705.8 C 3251.2 703.0, 3253 700.4, 3253 700.0 C 3253 699.5, 3256.6 693.8, 3261 687.1 C 3265.4 680.5, 3269 674.6, 3269 674.0 C 3269 673.4, 3269.4 673, 3270.0 673 C 3270.5 673, 3271.3 672.2, 3271.7 671.2 C 3272.0 670.2, 3273.1 668.3, 3274.0 667 C 3282.4 654.4, 3289 644.1, 3289 643.5 C 3289 643.1, 3290.5 640.9, 3292.5 638.5 C 3294.4 636.2, 3296 633.9, 3296 633.5 C 3296 633.1, 3299.8 626.9, 3304.5 619.9 C 3309.1 612.8, 3313 606.6, 3313 606.1 C 3313 605.6, 3313.6 604.9, 3314.5 604.6 C 3315.3 604.3, 3316 603.5, 3316 602.9 C 3316 602.4, 3316.8 600.7, 3317.8 599.2 C 3324.0 590.1, 3333 576.2, 3333 575.5 C 3333 575.1, 3334.5 572.9, 3336.5 570.5 C 3338.4 568.2, 3340 565.9, 3340 565.5 C 3340 565.1, 3343.8 558.9, 3348.5 551.9 C 3353.1 544.8, 3357 538.6, 3357 538.1 C 3357 537.6, 3357.6 536.9, 3358.5 536.6 C 3359.3 536.3, 3360 535.5, 3360 534.9 C 3360 534.4, 3360.8 532.7, 3361.8 531.2 C 3372.2 515.9, 3375.7 509.9, 3374.6 509.2 C 3372.7 508.0, 2914.8 507.9, 2912.2 509.1"/><path class="lc" fill-rule="evenodd" d="M 3973.5 22.4 C 3962.5 27.5, 3959.1 29, 3957.7 29 C 3956.8 29, 3955.8 29.4, 3955.5 30.0 C 3955.1 30.5, 3952.8 31.5, 3950.4 32.1 C 3948.0 32.7, 3945.5 33.8, 3944.9 34.6 C 3944.2 35.3, 3943.2 36.0, 3942.6 36.0 C 3942.0 36.0, 3939.2 37.1, 3936.5 38.4 C 3933.7 39.8, 3931.1 40.9, 3930.6 40.9 C 3930.2 40.9, 3928.4 42.1, 3926.6 43.4 C 3924.8 44.8, 3920.1 47.5, 3916.0 49.5 C 3912.0 51.5, 3905.9 55.0, 3902.5 57.3 C 3892.7 63.8, 3886.7 67.4, 3884 68.3 C 3882.6 68.8, 3880.8 69.8, 3880 70.5 C 3879.1 71.2, 3877.6 72.0, 3876.5 72.3 C 3875.4 72.7, 3872.7 74.6, 3870.6 76.5 C 3868.4 78.5, 3865.7 80.5, 3864.6 81.1 C 3861.2 82.6, 3858.6 84.2, 3854.4 87.5 C 3852.2 89.2, 3847.8 92.1, 3844.5 94.0 C 3841.2 95.8, 3836.9 98.8, 3835.0 100.6 C 3833.1 102.4, 3830.2 104.2, 3828.5 104.5 C 3826.8 104.9, 3824.4 106.1, 3823.1 107.1 C 3821.8 108.1, 3820.3 109, 3819.8 109 C 3818.9 109, 3812.9 112.8, 3812 114.1 C 3811.7 114.4, 3809.0 116.3, 3806 118.2 C 3802.9 120.1, 3799.6 122.7, 3798.5 123.9 C 3797.4 125.2, 3794.0 127.8, 3791 129.8 C 3787.9 131.8, 3785.0 133.9, 3784.5 134.5 C 3783.9 135.1, 3781.0 137.2, 3778 139.2 C 3773.1 142.4, 3767.4 147.7, 3757.5 158.0 C 3753.9 161.7, 3754.1 161.5, 3742.5 170.9 C 3737.5 174.9, 3731.0 180.3, 3728 183.0 C 3720.3 189.8, 3710.2 198.2, 3707.6 199.9 C 3706.4 200.6, 3703.3 203.9, 3700.7 207.1 C 3698.1 210.2, 3692.9 215.3, 3689.2 218.3 C 3681.8 224.3, 3677.4 228.5, 3668.6 237.8 C 3665.4 241.2, 3662.1 244, 3661.3 244 C 3660.5 244, 3658.9 241.8, 3657.9 239.2 C 3655.4 233.4, 3651.8 225.9, 3650.5 224.1 C 3648.9 221.9, 3645.0 211.6, 3644.3 208 C 3644.0 206.0, 3643.3 204.0, 3642.8 203.3 C 3641.8 202.0, 3638.2 192.0, 3636.8 186.5 C 3636.3 184.3, 3635.0 180.6, 3633.9 178.4 C 3632.8 176.1, 3631.9 173.7, 3631.9 172.9 C 3631.9 172.1, 3631.2 170.6, 3630.4 169.5 C 3629.6 168.4, 3629 166.8, 3629 165.8 C 3629 164.9, 3627.3 162.0, 3625.2 159.3 C 3623.1 156.6, 3620.1 152.4, 3618.5 150 C 3612.1 140.4, 3598.1 128.5, 3587 123.2 C 3574.5 117.3, 3553.2 113.2, 3540.5 114.3 C 3529.9 115.3, 3516.6 117.5, 3514.2 118.8 C 3513.0 119.4, 3511.4 120, 3510.6 120 C 3508.7 120, 3505.6 121.3, 3500.5 124.4 C 3498.3 125.7, 3493.3 128.4, 3489.5 130.4 C 3479.7 135.4, 3470.2 141.3, 3466.6 144.7 C 3464.9 146.3, 3460.8 149.4, 3457.5 151.5 L 3451.5 155.5 3369.3 155.5 C 3287.3 155.5, 3282.3 155.6, 3285.3 158.7 C 3285.7 159.1, 3294.5 159.7, 3304.8 160.1 C 3315.0 160.6, 3328.2 161.6, 3334 162.4 C 3339.7 163.2, 3349 164.2, 3354.5 164.5 C 3360 164.9, 3366.9 165.7, 3370 166.5 C 3373.0 167.2, 3379.5 168.1, 3384.5 168.4 C 3389.4 168.8, 3396.6 169.7, 3400.5 170.4 C 3404.3 171.2, 3410.0 172.0, 3413.1 172.4 C 3416.1 172.7, 3420.2 173.6, 3422.1 174.3 C 3423.9 175.1, 3427.7 176.0, 3430.5 176.4 C 3443.7 178.2, 3447.8 180.3, 3463.9 192.9 C 3474.6 201.3, 3477.1 203.8, 3480.6 209.2 C 3481.9 211.3, 3485.1 215.3, 3487.7 218.2 C 3494.4 225.6, 3502.0 241.5, 3504.1 252.4 C 3504.7 255.1, 3505.7 258.6, 3506.5 260.0 C 3507.2 261.5, 3508.1 265.1, 3508.5 268.0 C 3508.8 271.0, 3509.7 275.7, 3510.4 278.5 C 3511.2 281.2, 3512.0 286.3, 3512.4 289.9 C 3512.8 293.4, 3513.7 297.5, 3514.4 298.9 C 3515.1 300.3, 3516.0 303.9, 3516.4 306.9 C 3516.9 309.8, 3517.7 313.6, 3518.4 315.4 C 3519.1 317.1, 3520.0 320.7, 3520.4 323.5 C 3520.8 326.2, 3521.7 329.4, 3522.4 330.5 C 3523.1 331.6, 3524.0 334.0, 3524.5 336.0 C 3524.9 337.9, 3525.8 340.8, 3526.5 342.4 C 3527.2 344.1, 3529.0 349.3, 3530.4 354 C 3531.8 358.6, 3534.0 364.5, 3535.2 367 C 3536.3 369.4, 3538.0 373.0, 3538.8 375 C 3544.8 389.7, 3560.1 410.3, 3570.0 417.1 C 3573.0 419.2, 3575.9 421.5, 3576.5 422.2 C 3577.6 423.7, 3595.7 436, 3596.8 436 C 3597.1 436, 3599.7 437.6, 3602.5 439.5 C 3607.0 442.8, 3609.6 444.1, 3622.5 449.9 C 3626.4 451.7, 3633.0 454.0, 3640 456.1 C 3641.9 456.6, 3645.3 458.0, 3647.5 459.0 C 3649.8 460.1, 3652.2 461, 3653.1 461 C 3653.9 461, 3656.3 461.9, 3658.5 463 C 3660.6 464.1, 3663.4 465, 3664.7 465 C 3666.0 465, 3668 465.4, 3669.0 466.0 C 3670.1 466.6, 3673.5 467.5, 3676.7 468.1 C 3679.9 468.6, 3683.4 469.7, 3684.7 470.5 C 3685.9 471.3, 3687.6 472, 3688.5 472 C 3691.3 472, 3705.3 477.1, 3708 479.1 C 3709.3 480.1, 3711.5 481.8, 3712.9 482.7 C 3714.2 483.7, 3717.4 486.6, 3720.0 489.3 C 3724.1 493.4, 3724.8 494.9, 3725.3 499.3 C 3726.1 505.5, 3724.0 519.2, 3720.5 531.5 C 3719.1 536.4, 3717.5 543.2, 3716.9 546.5 C 3716.3 549.8, 3715.2 554.2, 3714.4 556.4 C 3710.8 565.4, 3710.8 607.0, 3714.3 612.4 C 3715.2 613.8, 3716 615.4, 3716 616.1 C 3716 619.9, 3721.8 628.5, 3730.7 637.7 C 3740.3 647.8, 3743.5 649.7, 3744.6 646.2 C 3744.9 645.2, 3745.7 643.1, 3746.4 641.5 C 3748.0 637.7, 3750.8 629.6, 3752.1 624.7 C 3753.5 619.7, 3755.6 619.9, 3756.8 625.2 C 3757.3 627.5, 3758.2 630.8, 3758.8 632.5 C 3759.4 634.1, 3760.2 637.9, 3760.5 641.0 C 3761.0 646.1, 3761.5 647.0, 3767.2 653.0 C 3770.7 656.6, 3774.7 660.4, 3776.2 661.3 L 3779.0 663.0 3781.5 657.4 C 3782.8 654.2, 3784 651.3, 3784 650.8 C 3784 650.4, 3784.8 647.4, 3785.9 644.2 C 3787.0 641.0, 3788.3 633.5, 3788.9 627.5 C 3789.5 621.4, 3790.5 613.1, 3791.0 609 C 3792.1 599.1, 3792.1 553.4, 3790.9 544.5 C 3790.4 540.6, 3789.5 533.4, 3788.9 528.5 C 3788.3 523.5, 3787.2 517.4, 3786.5 515 C 3785.7 512.5, 3784.3 507.5, 3783.5 504 C 3777.4 478.9, 3775.2 471.0, 3774.1 469.7 C 3773.6 469.0, 3772.7 466.4, 3772.1 464 C 3770.8 458.3, 3767.6 449.3, 3765.6 445.5 C 3764.7 443.8, 3764.0 441.6, 3764.0 440.7 C 3764.0 439.7, 3763.3 437.9, 3762.6 436.7 C 3761.8 435.4, 3760.9 431.4, 3760.5 427.7 C 3760.1 422.8, 3759.0 419.4, 3756.9 415.7 C 3755.3 412.8, 3753.5 409.3, 3752.9 408.0 C 3752.3 406.6, 3751.2 404.8, 3750.5 404.0 C 3749.8 403.1, 3748.9 401.3, 3748.5 400 C 3747.7 397.6, 3741.7 384.6, 3732.3 365.5 C 3729.9 360.5, 3727.9 355.9, 3727.9 355.3 C 3727.9 354.7, 3727.3 353.6, 3726.4 352.9 C 3724.5 351.4, 3724.9 347.0, 3727 345.9 C 3727.8 345.5, 3731.4 344.4, 3735 343.5 C 3751.5 339.5, 3758.8 336.9, 3760.5 334.6 C 3761.1 333.7, 3763.2 332.7, 3765.1 332.3 C 3766.9 332.0, 3769.4 331.1, 3770.6 330.4 C 3771.7 329.7, 3774.3 328.8, 3776.3 328.4 C 3778.3 328.0, 3780.4 327.1, 3781.0 326.4 C 3781.6 325.7, 3783.8 324.8, 3786.0 324.4 C 3788.2 324.1, 3790.2 323.4, 3790.5 322.9 C 3790.8 322.4, 3792.9 321.5, 3795.2 320.9 C 3797.5 320.3, 3800.5 318.9, 3801.8 317.9 C 3803.1 316.8, 3805.0 316, 3805.9 316 C 3806.8 316, 3808.0 315.5, 3808.6 314.9 C 3809.2 314.3, 3811.7 313.4, 3814.1 312.8 C 3818.4 311.9, 3824.5 309.1, 3832.5 304.5 C 3834.7 303.2, 3839.6 300.5, 3843.5 298.4 C 3847.3 296.4, 3852.3 293.2, 3854.6 291.3 C 3856.9 289.5, 3859.0 288, 3859.3 288 C 3859.8 288, 3862.1 286.4, 3873.5 278.3 C 3876.2 276.4, 3879.8 273.5, 3881.5 272.0 C 3883.1 270.5, 3885.2 268.8, 3886.1 268.3 C 3890.6 265.9, 3925 232.9, 3925 231.0 C 3925 230.7, 3926.4 228.8, 3928.2 226.9 C 3930.1 225.0, 3933.3 220.8, 3935.5 217.6 C 3939.9 211.0, 3940.0 211.0, 3942.5 205.5 C 3943.5 203.3, 3945.9 199.2, 3947.9 196.5 C 3951.1 192.0, 3955.9 181.9, 3956.0 179.5 C 3956.0 178.9, 3957.1 176.2, 3958.5 173.5 C 3959.8 170.7, 3960.9 167.6, 3960.9 166.6 C 3960.9 165.6, 3961.7 162.6, 3962.6 160.0 C 3963.5 157.4, 3964.0 154.5, 3963.7 153.6 C 3962.8 151.5, 3957.9 151.5, 3952.5 153.6 C 3950.3 154.4, 3946.0 155.8, 3943 156.5 C 3928.3 160.2, 3914.8 164.4, 3910.6 166.5 C 3907.7 168.0, 3902.8 168.4, 3901.7 167.3 C 3901.3 167.0, 3906.6 161.3, 3913.3 154.5 C 3930.3 137.5, 3935.3 131.8, 3943.3 120 C 3949.1 111.3, 3953.6 105.1, 3955.4 103.4 C 3956.2 102.5, 3957 101.1, 3957 100.2 C 3957 99.3, 3957.6 97.9, 3958.3 97.0 C 3959.1 96.2, 3960.7 93.0, 3961.9 90 C 3963.1 86.9, 3964.9 82.7, 3965.9 80.5 C 3968.2 75.5, 3971.5 64.7, 3972.5 59.5 C 3972.9 57.3, 3973.8 54.3, 3974.5 52.9 C 3975.2 51.6, 3976.0 47.7, 3976.4 44.4 C 3976.8 41.2, 3977.8 35.0, 3978.6 30.7 C 3980.5 20.6, 3979.8 19.4, 3973.5 22.4"/></svg><span class="vh">Qualyz</span></a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#formations">Formations</a>
+      <a href="#deroulement">Déroulement</a>
+      <a href="#formateurs">Formateurs</a>
+      <a href="#questions">Questions</a>
+    </nav>
+    <div class="act">
+      <a class="tel" href="tel:+33744092364"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6.6 3.5 4.4 3.7c-.8.1-1.4.8-1.3 1.6.6 6 5.6 11 11.6 11.6.8.1 1.5-.5 1.6-1.3l.2-2.2c0-.5-.3-1-.8-1.2l-2.4-.9c-.4-.2-.9 0-1.2.3l-.9 1c-1.9-.9-3.4-2.4-4.3-4.3l1-.9c.3-.3.5-.8.3-1.2l-.9-2.4c-.2-.5-.7-.8-1.2-.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>07 44 09 23 64</a>
+      <a class="qz-btn qz-btn--primary" href="#contact">Être rappelé</a>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Ouvrir le menu"><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="sheet" id="menu-mobile" hidden>
+    <a href="#formations">Formations</a>
+    <a href="#deroulement">Déroulement</a>
+    <a href="#formateurs">Formateurs</a>
+    <a href="#questions">Questions</a>
+    <a class="qz-btn qz-btn--primary" href="#contact">Être rappelé en 15 min</a>
+    <a class="tel" href="tel:+33744092364">07 44 09 23 64, 7j/7</a>
+  </div>
+</header></div></div></div>
+<div class="qz-band"><div class="qz-cell" style="grid-column: span 12"><div data-s="prod-hero"><section class="hero" id="top">
+  <div class="qz-wrap grid">
+    <div class="copy">
+      <p class="pre">Formations des élus du CSE, partout en France</p>
+      <h1>Une formation qui part de vos vraies questions.</h1>
+      <p class="qz-lede">Avant la session, chaque élu nous dit ce qu’il vit sur le terrain. Le formateur construit la formation avec ces questions.</p>
+      <div class="ctas">
+        <a class="qz-btn qz-btn--primary" href="#formations">Voir les formations <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="qz-btn qz-btn--ghost" href="#contact">Être rappelé en 15 min</a>
+      </div>
+      <ul class="proof">
+        <li>Certifié Qualiopi</li>
+        <li>Financé par l’employeur ou le CSE</li>
+        <li>Conseillers disponibles 7j/7</li>
+      </ul>
+    </div>
+    <figure class="media">
+      <video autoplay muted loop playsinline preload="auto" poster="assets/img/metiers.jpg" src="assets/video/metiers.mp4" aria-hidden="true"></video>
+      <button class="pause" type="button" aria-pressed="false" aria-label="Mettre la vidéo en pause"><svg class="stop" viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/><rect x="9.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/></svg><svg class="play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 2.8v10.4c0 .6.7 1 1.2.6l8-5.2c.4-.3.4-.9 0-1.2l-8-5.2c-.5-.4-1.2 0-1.2.6Z" fill="currentColor"/></svg></button>
+      <figcaption class="cap">
+        <span class="lab">Des élus formés dans</span>
+        <span class="word"><span>l’industrie</span></span>
+        <span class="ticks" aria-hidden="true"><i data-on></i><i></i><i></i><i></i><i></i><i></i></span>
+      </figcaption>
+      <div class="m-photos" aria-hidden="true">
+        <img src="assets/img/atelier.jpg" alt="" loading="lazy" data-on>
+        <img src="assets/img/mains-calculatrice.webp" alt="" loading="lazy">
+        <img src="assets/img/surligneur.webp" alt="" loading="lazy">
+        <img src="assets/img/salle-floue.jpg" alt="" loading="lazy">
+        <img src="assets/img/metiers.jpg" alt="" loading="lazy">
+      </div>
+      <div class="m-brand" aria-hidden="true">
+        <img class="bq" src="assets/img/qualyz-q-sable.svg" alt="" width="800" height="1020">
+        <img class="bc" src="assets/img/qualyz-colibri-blanc.svg" alt="" width="740" height="690">
+      </div>
+      <form class="m-form" novalidate>
+        <p class="mt">On vous rappelle en 15 minutes</p>
+        <label><span>Nom</span><input name="nom" autocomplete="name" required></label>
+        <label><span>Téléphone</span><input name="tel" type="tel" inputmode="tel" autocomplete="tel" required></label>
+        <button class="qz-btn qz-btn--light" type="submit">Être rappelé</button>
+        <p class="mn" role="status">Démo hors ligne : rien n’est envoyé.</p>
+      </form>
+    </figure>
+  </div>
+</section></div></div></div>
+<div class="qz-band"><div class="qz-cell" style="grid-column: span 12"><div data-s="prod-logos"><section class="logos" aria-labelledby="logos-t">
+  <h2 class="t" id="logos-t">Leurs élus se sont formés avec Qualyz</h2>
+  <div class="rail">
+    <div class="track">
+      <ul class="set">
+        <li><img src="assets/img/onet.png" alt="Onet" style="--h:54"></li>
+        <li><img src="assets/img/leclerc.png" alt="E.Leclerc" style="--h:54"></li>
+        <li><img src="assets/img/fnac.png" alt="Fnac" style="--h:44"></li>
+        <li><img src="assets/img/carrefour.png" alt="Carrefour" style="--h:54"></li>
+        <li><img src="assets/img/intersport.png" alt="Intersport" style="--h:26"></li>
+        <li><img src="assets/img/defimat.png" alt="Défimat" style="--h:54"></li>
+        <li><img src="assets/img/hutchinson.png" alt="Hutchinson" style="--h:36"></li>
+        <li><img src="assets/img/stabilo.png" alt="Stabilo" style="--h:38"></li>
+        <li><img src="assets/img/uniqlo.png" alt="Uniqlo" style="--h:54"></li>
+        <li><img src="assets/img/connect.png" alt="Connect" style="--h:44"></li>
+      </ul>
+      <ul class="set" aria-hidden="true">
+        <li><img src="assets/img/onet.png" alt="" style="--h:54"></li>
+        <li><img src="assets/img/leclerc.png" alt="" style="--h:54"></li>
+        <li><img src="assets/img/fnac.png" alt="" style="--h:44"></li>
+        <li><img src="assets/img/carrefour.png" alt="" style="--h:54"></li>
+        <li><img src="assets/img/intersport.png" alt="" style="--h:26"></li>
+        <li><img src="assets/img/defimat.png" alt="" style="--h:54"></li>
+        <li><img src="assets/img/hutchinson.png" alt="" style="--h:36"></li>
+        <li><img src="assets/img/stabilo.png" alt="" style="--h:38"></li>
+        <li><img src="assets/img/uniqlo.png" alt="" style="--h:54"></li>
+        <li><img src="assets/img/connect.png" alt="" style="--h:44"></li>
+      </ul>
+    </div>
+  </div>
+</section></div></div></div>
+<div class="qz-band"><div class="qz-cell" style="grid-column: span 12"><div class="qz-variants" data-group="formations" id="formations"><div data-variant="prod-formations-liste" data-s="prod-formations-liste"><section class="fl">
+  <div class="qz-wrap">
+    <header class="head" data-reveal>
+      <h2 class="qz-h2">Les formations des élus du CSE</h2>
+      <p class="qz-lede">En intra dans votre entreprise ou en inter avec d’autres CSE, en salle ou à distance. Des groupes de 12 à 15 personnes au plus.</p>
+    </header>
+    <ol class="rows" data-reveal="stagger">
+      <li class="row"><a href="#contact" data-formation="SSCT"><span class="t">Formation SSCT<span class="tag">Obligatoire</span></span><span class="d">Prévenir les risques, analyser les conditions de travail, mener une enquête après un accident.</span><span class="m"><b>5 jours au premier mandat</b><span>Payée par l’employeur</span></span><span class="go"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+      <li class="row"><a href="#contact" data-formation="Économique"><span class="t">Formation économique<span class="tag">Obligatoire dès 50 salariés</span></span><span class="d">Lire les comptes, comprendre la BDESE, rendre un avis éclairé lors des consultations.</span><span class="m"><b>Jusqu’à 5 jours</b><span>Budget du CSE</span></span><span class="go"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+      <li class="row"><a href="#contact" data-formation="Référent harcèlement"><span class="t">Référent harcèlement<span class="tag">Un référent par CSE</span></span><span class="d">Repérer, prévenir et traiter le harcèlement sexuel et moral, accompagner les victimes.</span><span class="m"><b>1 jour</b><span>CSE ou employeur</span></span><span class="go"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+      <li class="row"><a href="#contact" data-formation="Secrétaire"><span class="t">Secrétaire du CSE</span><span class="d">Ordre du jour, procès-verbaux, relation avec l’employeur : le rôle pivot, pas à pas.</span><span class="m"><b>1 jour</b><span>CSE ou employeur</span></span><span class="go"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+      <li class="row"><a href="#contact" data-formation="Trésorier"><span class="t">Trésorier du CSE</span><span class="d">Budgets, comptabilité, activités sociales et culturelles : tenir les comptes sereinement.</span><span class="m"><b>1 jour</b><span>CSE ou employeur</span></span><span class="go"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+      <li class="row"><a href="#contact" data-formation="IA"><span class="t">L’IA pour le CSE<span class="tag">Nouveau</span></span><span class="d">Gagner du temps sur les PV, les synthèses et la veille, avec des outils simples et sûrs.</span><span class="m"><b>1 jour</b><span>CSE ou employeur</span></span><span class="go"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+    </ol>
+  </div>
+</section></div><div data-variant="prod-formations-bento" data-s="prod-formations-bento"><section class="fb">
+  <div class="qz-wrap">
+    <header class="head" data-reveal>
+      <h2 class="qz-h2">Les formations des élus du CSE</h2>
+      <p class="qz-lede">En intra dans votre entreprise ou en inter avec d’autres CSE, en salle ou à distance. Des groupes de 12 à 15 personnes au plus.</p>
+    </header>
+    <ul class="grid" data-reveal="stagger">
+      <li><a class="t big accent" href="#contact" data-formation="SSCT"><p class="tag">Obligatoire</p><h3>Formation SSCT</h3><p class="d">Prévenir les risques, analyser les conditions de travail, mener une enquête après un accident.</p><ul class="obj"><li>Analyser un poste de travail pour repérer les dangers et évaluer les risques</li><li>Participer à l’élaboration et au suivi du document unique (DUERP)</li><li>Être l’interlocuteur des salariés sur la santé et la sécurité</li></ul><p class="m">5 jours au premier mandat, payée par l’employeur</p><span class="go"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+      <li><a class="t wide signal" href="#contact" data-formation="Économique"><p class="tag">Obligatoire dès 50 salariés</p><h3>Formation économique</h3><p class="d">Lire les comptes, comprendre la BDESE, rendre un avis éclairé lors des consultations.</p><p class="m">Jusqu’à 5 jours, budget du CSE</p><span class="go"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+      <li><a class="t deep" href="#contact" data-formation="Référent harcèlement"><p class="tag">Un référent par CSE</p><h3>Référent harcèlement</h3><p class="d">Repérer, prévenir et traiter le harcèlement sexuel et moral, accompagner les victimes.</p><p class="m">1 jour, CSE ou employeur</p><span class="go"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+      <li><a class="t paper" href="#contact" data-formation="Secrétaire"><p class="tag"></p><h3>Secrétaire du CSE</h3><p class="d">Ordre du jour, procès-verbaux, relation avec l’employeur : le rôle pivot, pas à pas.</p><p class="m">1 jour, CSE ou employeur</p><span class="go"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+      <li><a class="t wide2 sea" href="#contact" data-formation="Trésorier"><p class="tag"></p><h3>Trésorier du CSE</h3><p class="d">Budgets, comptabilité, activités sociales et culturelles : tenir les comptes sereinement.</p><p class="m">1 jour, CSE ou employeur</p><span class="go"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+      <li><a class="t wide2 sand" href="#contact" data-formation="IA"><p class="tag">Nouveau</p><h3>L’IA pour le CSE</h3><p class="d">Gagner du temps sur les PV, les synthèses et la veille, avec des outils simples et sûrs.</p><p class="m">1 jour, CSE ou employeur</p><span class="go"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+    </ul>
+  </div>
+</section></div><div data-variant="prod-formations-programme" data-s="prod-formations-programme"><section class="fp">
+  <div class="qz-wrap">
+    <header class="head" data-reveal>
+      <h2 class="qz-h2">Les formations des élus du CSE</h2>
+      <p class="qz-lede">En intra dans votre entreprise ou en inter avec d’autres CSE, en salle ou à distance. Des groupes de 12 à 15 personnes au plus.</p>
+    </header>
+    <div class="filters" role="group" aria-label="Filtrer les formations">
+      <button type="button" data-cat="tout" aria-pressed="true">Toutes</button>
+      <button type="button" data-cat="oblig" aria-pressed="false">Obligatoires</button>
+      <button type="button" data-cat="role" aria-pressed="false">Pour un rôle au CSE</button>
+      <button type="button" data-cat="prev" aria-pressed="false">Prévention et santé</button>
+      <button type="button" data-cat="new" aria-pressed="false">Nouveaux sujets</button>
+    </div>
+    <ul class="list" data-reveal="stagger" aria-live="polite">
+      <li data-cats="oblig prev"><article class="b"><div class="top"><h3>Formation SSCT</h3><span class="tag">Obligatoire</span></div><p class="d">Prévenir les risques, analyser les conditions de travail, mener une enquête après un accident.</p><p class="lbl">Vous saurez :</p><ul class="obj"><li>Analyser un poste de travail pour repérer les dangers et évaluer les risques</li><li>Participer à l’élaboration et au suivi du document unique (DUERP)</li><li>Être l’interlocuteur des salariés sur la santé et la sécurité</li></ul><div class="foot"><p class="meta"><span><b>5 jours au premier mandat</b></span><span>Payée par l’employeur</span></p><a class="go" href="#contact" data-formation="SSCT">Demander le programme <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></article></li>
+      <li data-cats="oblig"><article class="b"><div class="top"><h3>Formation économique</h3><span class="tag">Obligatoire dès 50 salariés</span></div><p class="d">Lire les comptes, comprendre la BDESE, rendre un avis éclairé lors des consultations.</p><p class="lbl">Vous saurez :</p><ul class="obj"><li>Comprendre le rôle, les missions et le fonctionnement du CSE</li><li>Analyser les comptes, les budgets et les indicateurs de l’entreprise</li><li>Intervenir dans les consultations et dialoguer avec la direction</li></ul><div class="foot"><p class="meta"><span><b>Jusqu’à 5 jours</b></span><span>Budget du CSE</span></p><a class="go" href="#contact" data-formation="Économique">Demander le programme <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></article></li>
+      <li data-cats="prev"><article class="b"><div class="top"><h3>Référent harcèlement</h3><span class="tag">Un référent par CSE</span></div><p class="d">Repérer, prévenir et traiter le harcèlement sexuel et moral, accompagner les victimes.</p><p class="lbl">Vous saurez :</p><ul class="obj"><li>Identifier les situations de harcèlement sexuel et moral</li><li>Prévenir et gérer ces situations avec la bonne posture</li><li>Protéger les salariés et accompagner les victimes</li></ul><div class="foot"><p class="meta"><span><b>1 jour</b></span><span>CSE ou employeur</span></p><a class="go" href="#contact" data-formation="Référent harcèlement">Demander le programme <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></article></li>
+      <li data-cats="role"><article class="b"><div class="top"><h3>Secrétaire du CSE</h3></div><p class="d">Ordre du jour, procès-verbaux, relation avec l’employeur : le rôle pivot, pas à pas.</p><p class="lbl">Vous saurez :</p><ul class="obj"><li>Rédiger les procès-verbaux et tenir l’administratif de l’instance</li><li>Maîtriser les bases techniques et juridiques de la mission</li><li>Animer le collectif du CSE</li></ul><div class="foot"><p class="meta"><span><b>1 jour</b></span><span>CSE ou employeur</span></p><a class="go" href="#contact" data-formation="Secrétaire">Demander le programme <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></article></li>
+      <li data-cats="role"><article class="b"><div class="top"><h3>Trésorier du CSE</h3></div><p class="d">Budgets, comptabilité, activités sociales et culturelles : tenir les comptes sereinement.</p><p class="lbl">Vous saurez :</p><ul class="obj"><li>Gérer le budget de fonctionnement et celui des activités sociales et culturelles</li><li>Tenir la comptabilité et préparer le rapport annuel de gestion</li><li>Présenter les comptes aux élus et aux salariés</li></ul><div class="foot"><p class="meta"><span><b>1 jour</b></span><span>CSE ou employeur</span></p><a class="go" href="#contact" data-formation="Trésorier">Demander le programme <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></article></li>
+      <li data-cats="new"><article class="b"><div class="top"><h3>L’IA pour le CSE</h3><span class="tag">Nouveau</span></div><p class="d">Gagner du temps sur les PV, les synthèses et la veille, avec des outils simples et sûrs.</p><p class="lbl">Vous saurez :</p><ul class="obj"><li>Comprendre un outil d’IA et les données qu’il utilise</li><li>Repérer ses effets sur les métiers et les conditions de travail</li><li>Préparer les bonnes questions à poser à la direction</li></ul><div class="foot"><p class="meta"><span><b>1 jour</b></span><span>CSE ou employeur</span></p><a class="go" href="#contact" data-formation="IA">Demander le programme <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></article></li>
+    </ul>
+  </div>
+</section></div><div data-variant="prod-formations-parcours" data-s="prod-formations-parcours"><section class="fs">
+  <div class="qz-wrap">
+    <header class="head" data-reveal>
+      <h2 class="qz-h2">Quelle formation pour vous ?</h2>
+      <p class="qz-lede">Choisissez votre situation : on vous montre les formations conseillées et ce que vous saurez faire à la fin.</p>
+    </header>
+    <div class="box" data-reveal>
+      <div class="sits" role="tablist" aria-label="Votre situation" aria-orientation="vertical">
+        <button class="sit" type="button" role="tab" id="fs-t0" aria-controls="fs-p0" aria-selected="true" tabindex="0"><b>Je viens d’être élu</b><span>Les deux formations à suivre en premier, prévues par la loi.</span></button>
+        <button class="sit" type="button" role="tab" id="fs-t1" aria-controls="fs-p1" aria-selected="false" tabindex="-1"><b>Je suis secrétaire ou trésorier</b><span>Les outils et les réflexes du rôle, dès la première réunion.</span></button>
+        <button class="sit" type="button" role="tab" id="fs-t2" aria-controls="fs-p2" aria-selected="false" tabindex="-1"><b>Je veux mieux protéger les salariés</b><span>Repérer les risques et savoir agir quand une situation se dégrade.</span></button>
+        <button class="sit" type="button" role="tab" id="fs-t3" aria-controls="fs-p3" aria-selected="false" tabindex="-1"><b>Notre entreprise déploie de l’IA</b><span>Comprendre les outils pour en parler d’égal à égal avec la direction.</span></button>
+      </div>
+      <div class="panels">
+        <div class="panel" role="tabpanel" id="fs-p0" aria-labelledby="fs-t0" data-on><h3>Je viens d’être élu</h3><article class="rec"><div><span class="tag">Obligatoire</span><h4>Formation SSCT</h4><p class="d">Prévenir les risques, analyser les conditions de travail, mener une enquête après un accident.</p><p class="meta"><span><b>5 jours au premier mandat</b></span><span>Payée par l’employeur</span></p><a class="go" href="#contact" data-formation="SSCT">Demander le programme <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div><ul class="obj"><li>Analyser un poste de travail pour repérer les dangers et évaluer les risques</li><li>Participer à l’élaboration et au suivi du document unique (DUERP)</li><li>Être l’interlocuteur des salariés sur la santé et la sécurité</li></ul></article><article class="rec"><div><span class="tag">Obligatoire dès 50 salariés</span><h4>Formation économique</h4><p class="d">Lire les comptes, comprendre la BDESE, rendre un avis éclairé lors des consultations.</p><p class="meta"><span><b>Jusqu’à 5 jours</b></span><span>Budget du CSE</span></p><a class="go" href="#contact" data-formation="Économique">Demander le programme <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div><ul class="obj"><li>Comprendre le rôle, les missions et le fonctionnement du CSE</li><li>Analyser les comptes, les budgets et les indicateurs de l’entreprise</li><li>Intervenir dans les consultations et dialoguer avec la direction</li></ul></article></div>
+        <div class="panel" role="tabpanel" id="fs-p1" aria-labelledby="fs-t1"><h3>Je suis secrétaire ou trésorier</h3><article class="rec"><div><span class="tag"></span><h4>Secrétaire du CSE</h4><p class="d">Ordre du jour, procès-verbaux, relation avec l’employeur : le rôle pivot, pas à pas.</p><p class="meta"><span><b>1 jour</b></span><span>CSE ou employeur</span></p><a class="go" href="#contact" data-formation="Secrétaire">Demander le programme <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div><ul class="obj"><li>Rédiger les procès-verbaux et tenir l’administratif de l’instance</li><li>Maîtriser les bases techniques et juridiques de la mission</li><li>Animer le collectif du CSE</li></ul></article><article class="rec"><div><span class="tag"></span><h4>Trésorier du CSE</h4><p class="d">Budgets, comptabilité, activités sociales et culturelles : tenir les comptes sereinement.</p><p class="meta"><span><b>1 jour</b></span><span>CSE ou employeur</span></p><a class="go" href="#contact" data-formation="Trésorier">Demander le programme <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div><ul class="obj"><li>Gérer le budget de fonctionnement et celui des activités sociales et culturelles</li><li>Tenir la comptabilité et préparer le rapport annuel de gestion</li><li>Présenter les comptes aux élus et aux salariés</li></ul></article></div>
+        <div class="panel" role="tabpanel" id="fs-p2" aria-labelledby="fs-t2"><h3>Je veux mieux protéger les salariés</h3><article class="rec"><div><span class="tag">Un référent par CSE</span><h4>Référent harcèlement</h4><p class="d">Repérer, prévenir et traiter le harcèlement sexuel et moral, accompagner les victimes.</p><p class="meta"><span><b>1 jour</b></span><span>CSE ou employeur</span></p><a class="go" href="#contact" data-formation="Référent harcèlement">Demander le programme <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div><ul class="obj"><li>Identifier les situations de harcèlement sexuel et moral</li><li>Prévenir et gérer ces situations avec la bonne posture</li><li>Protéger les salariés et accompagner les victimes</li></ul></article><article class="rec"><div><span class="tag">Obligatoire</span><h4>Formation SSCT</h4><p class="d">Prévenir les risques, analyser les conditions de travail, mener une enquête après un accident.</p><p class="meta"><span><b>5 jours au premier mandat</b></span><span>Payée par l’employeur</span></p><a class="go" href="#contact" data-formation="SSCT">Demander le programme <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div><ul class="obj"><li>Analyser un poste de travail pour repérer les dangers et évaluer les risques</li><li>Participer à l’élaboration et au suivi du document unique (DUERP)</li><li>Être l’interlocuteur des salariés sur la santé et la sécurité</li></ul></article></div>
+        <div class="panel" role="tabpanel" id="fs-p3" aria-labelledby="fs-t3"><h3>Notre entreprise déploie de l’IA</h3><article class="rec"><div><span class="tag">Nouveau</span><h4>L’IA pour le CSE</h4><p class="d">Gagner du temps sur les PV, les synthèses et la veille, avec des outils simples et sûrs.</p><p class="meta"><span><b>1 jour</b></span><span>CSE ou employeur</span></p><a class="go" href="#contact" data-formation="IA">Demander le programme <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div><ul class="obj"><li>Comprendre un outil d’IA et les données qu’il utilise</li><li>Repérer ses effets sur les métiers et les conditions de travail</li><li>Préparer les bonnes questions à poser à la direction</li></ul></article></div>
+      </div>
+    </div>
+  </div>
+</section></div><div data-variant="prod-formations-illustre" data-s="prod-formations-illustre"><section class="fi">
+  <div class="qz-wrap">
+    <header class="head" data-reveal>
+      <h2 class="qz-h2">Les formations des élus du CSE</h2>
+      <p class="qz-lede">En intra dans votre entreprise ou en inter avec d’autres CSE, en salle ou à distance. Des groupes de 12 à 15 personnes au plus.</p>
+    </header>
+    <ul class="grid" data-reveal="stagger">
+      <li><article class="c"><div class="ph"><img src="assets/img/metiers.jpg" alt="" loading="lazy"><span class="tag">Obligatoire</span></div><div class="in"><h3>Formation SSCT</h3><p class="d">Prévenir les risques, analyser les conditions de travail, mener une enquête après un accident.</p><ul class="obj"><li>Analyser un poste de travail pour repérer les dangers et évaluer les risques</li><li>Participer à l’élaboration et au suivi du document unique (DUERP)</li><li>Être l’interlocuteur des salariés sur la santé et la sécurité</li></ul><div class="foot"><p class="meta"><span><b>5 jours au premier mandat</b></span><span>Payée par l’employeur</span></p><a class="go" href="#contact" data-formation="SSCT" aria-label="Demander le programme : Formation SSCT"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></article></li>
+      <li><article class="c"><div class="ph"><img src="assets/img/atelier.jpg" alt="" loading="lazy"><span class="tag">Obligatoire dès 50 salariés</span></div><div class="in"><h3>Formation économique</h3><p class="d">Lire les comptes, comprendre la BDESE, rendre un avis éclairé lors des consultations.</p><ul class="obj"><li>Comprendre le rôle, les missions et le fonctionnement du CSE</li><li>Analyser les comptes, les budgets et les indicateurs de l’entreprise</li><li>Intervenir dans les consultations et dialoguer avec la direction</li></ul><div class="foot"><p class="meta"><span><b>Jusqu’à 5 jours</b></span><span>Budget du CSE</span></p><a class="go" href="#contact" data-formation="Économique" aria-label="Demander le programme : Formation économique"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></article></li>
+      <li><article class="c"><div class="ph"><img src="assets/img/salle-floue.jpg" alt="" loading="lazy"><span class="tag">Un référent par CSE</span></div><div class="in"><h3>Référent harcèlement</h3><p class="d">Repérer, prévenir et traiter le harcèlement sexuel et moral, accompagner les victimes.</p><ul class="obj"><li>Identifier les situations de harcèlement sexuel et moral</li><li>Prévenir et gérer ces situations avec la bonne posture</li><li>Protéger les salariés et accompagner les victimes</li></ul><div class="foot"><p class="meta"><span><b>1 jour</b></span><span>CSE ou employeur</span></p><a class="go" href="#contact" data-formation="Référent harcèlement" aria-label="Demander le programme : Référent harcèlement"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></article></li>
+      <li><article class="c"><div class="ph"><img src="assets/img/surligneur.webp" alt="" loading="lazy"></div><div class="in"><h3>Secrétaire du CSE</h3><p class="d">Ordre du jour, procès-verbaux, relation avec l’employeur : le rôle pivot, pas à pas.</p><ul class="obj"><li>Rédiger les procès-verbaux et tenir l’administratif de l’instance</li><li>Maîtriser les bases techniques et juridiques de la mission</li><li>Animer le collectif du CSE</li></ul><div class="foot"><p class="meta"><span><b>1 jour</b></span><span>CSE ou employeur</span></p><a class="go" href="#contact" data-formation="Secrétaire" aria-label="Demander le programme : Secrétaire du CSE"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></article></li>
+      <li><article class="c"><div class="ph"><img src="assets/img/mains-calculatrice.webp" alt="" loading="lazy"></div><div class="in"><h3>Trésorier du CSE</h3><p class="d">Budgets, comptabilité, activités sociales et culturelles : tenir les comptes sereinement.</p><ul class="obj"><li>Gérer le budget de fonctionnement et celui des activités sociales et culturelles</li><li>Tenir la comptabilité et préparer le rapport annuel de gestion</li><li>Présenter les comptes aux élus et aux salariés</li></ul><div class="foot"><p class="meta"><span><b>1 jour</b></span><span>CSE ou employeur</span></p><a class="go" href="#contact" data-formation="Trésorier" aria-label="Demander le programme : Trésorier du CSE"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></article></li>
+      <li><article class="c"><div class="ph"><img src="assets/img/mains-notes.webp" alt="" loading="lazy"><span class="tag">Nouveau</span></div><div class="in"><h3>L’IA pour le CSE</h3><p class="d">Gagner du temps sur les PV, les synthèses et la veille, avec des outils simples et sûrs.</p><ul class="obj"><li>Comprendre un outil d’IA et les données qu’il utilise</li><li>Repérer ses effets sur les métiers et les conditions de travail</li><li>Préparer les bonnes questions à poser à la direction</li></ul><div class="foot"><p class="meta"><span><b>1 jour</b></span><span>CSE ou employeur</span></p><a class="go" href="#contact" data-formation="IA" aria-label="Demander le programme : L’IA pour le CSE"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></article></li>
+    </ul>
+  </div>
+</section></div></div></div></div>
+<div class="qz-band"><div class="qz-cell" style="grid-column: span 12"><div data-s="prod-deroulement"><section class="dr" id="deroulement">
+  <div class="qz-wrap">
+    <div class="head" data-reveal>
+      <h2 class="qz-h2">Comment se passe une formation</h2>
+    </div>
+    <div class="steps"><span class="line" aria-hidden="true"></span><ol class="list" data-reveal="stagger">
+      <li style="--k:0"><span class="n">1</span><h3>Un appel de 15 minutes</h3><p>Un conseiller vous dit ce qui s’applique à votre CSE.</p></li>
+      <li style="--k:1"><span class="n">2</span><h3>Un formulaire préalable</h3><p>Chaque élu indique ses questions. Le formateur adapte le contenu.</p></li>
+      <li style="--k:2"><span class="n">3</span><h3>La formation</h3><p>En salle dans votre ville ou en visioconférence, 12 à 15 personnes au plus.</p></li>
+      <li style="--k:3"><span class="n">4</span><h3>Le suivi</h3><p>Des rendez-vous après la formation, pour les doutes du mandat.</p></li>
+    </ol></div>
+  </div>
+</section></div></div></div>
+<div class="qz-band"><div class="qz-cell" style="grid-column: span 12"><div data-s="prod-qualiopi"><section class="qa" id="qualite">
+  <div class="qz-wrap grid">
+    <div data-reveal="stagger">
+      <h2 class="qz-h2">Une qualité certifiée selon le référentiel de l’État.</h2>
+      <p class="lede">Qualiopi est la certification nationale des organismes de formation. Elle conditionne l’accès aux financements publics et mutualisés.</p>
+      <ul class="pts">
+        <li><span><b>Audit indépendant</b> par un organisme certificateur accrédité, Activcert.</span></li>
+        <li><span><b>Catégorie certifiée :</b> actions de formation.</span></li>
+        <li><span><b>Prise en charge possible</b> par le budget du CSE ou votre OPCO.</span></li>
+      </ul>
+    </div>
+    <figure class="plate" data-reveal>
+      <img class="q" src="assets/img/qualiopi.png" alt="Qualiopi, processus certifié, République française" width="633" height="338" loading="lazy">
+      <figcaption>La certification qualité a été délivrée au titre de la catégorie d’action suivante : <b>actions de formation</b>.</figcaption>
+      <img class="d" src="assets/img/drieets.png" alt="Préfet de la région Île-de-France, DRIEETS" width="470" height="147" loading="lazy">
+    </figure>
+  </div>
+</section></div></div></div>
+<div class="qz-band"><div class="qz-cell" style="grid-column: span 12"><div class="qz-variants" data-group="formateurs" id="formateurs"><div data-variant="prod-formateurs" data-s="prod-formateurs"><section class="ft">
+  <div class="qz-wrap">
+    <header class="head" data-reveal>
+      <h2 class="qz-h2">Vos formateurs</h2>
+      <p class="qz-lede">Une ancienne élue, des formateurs venus des ressources humaines : ils connaissent le CSE de l’intérieur.</p>
+    </header>
+    <ul class="people" data-reveal="stagger">
+      <li>
+        <figure><img src="assets/img/lynda-quennehen-portrait.webp" alt="Portrait de Lynda Quennehen" loading="lazy" style="object-position: 50% 40%"></figure>
+        <h3>Lynda Quennehen</h3>
+        <p class="role">Plus de 12 ans auprès des CSE</p>
+        <p>Notre formatrice la plus expérimentée. Elle forme et accompagne des CSE tous les jours.</p>
+      </li>
+      <li>
+        <figure><img src="assets/img/nathalie-moralie-site.webp" alt="Portrait de Nathalie Moralie" loading="lazy"></figure>
+        <h3>Nathalie Moralie</h3>
+        <p class="role">Ancienne élue et secrétaire de CSE</p>
+        <p>Experte des procès-verbaux, de l’ordre du jour et des échanges avec l’employeur.</p>
+      </li>
+      <li>
+        <figure><img src="assets/img/sebastien-favreux-site.webp" alt="Portrait de Sébastien Favreux" loading="lazy"></figure>
+        <h3>Sébastien Favreux</h3>
+        <p class="role">Ancien formateur RH</p>
+        <p>Plus de 5 ans de formation auprès des CSE. Expert du DUERP, de la BDESE et des situations complexes.</p>
+      </li>
+    </ul>
+  </div>
+</section></div><div data-variant="prod-formateurs-arches" data-s="prod-formateurs-arches"><section class="fa">
+  <div class="qz-wrap">
+    <header class="head" data-reveal>
+      <h2 class="qz-h2">Vos formateurs</h2>
+      <p class="qz-lede">Une ancienne élue, des formateurs venus des ressources humaines : ils connaissent le CSE de l’intérieur.</p>
+    </header>
+    <ul class="people" data-reveal="stagger">
+      <li><figure class="frame"><img src="assets/img/lynda-quennehen-portrait.webp" alt="Portrait de Lynda Quennehen" loading="lazy" style="object-position: 50% 40%"></figure><h3>Lynda Quennehen</h3><p class="role">Plus de 12 ans auprès des CSE</p><p>Notre formatrice la plus expérimentée. Elle forme et accompagne des CSE tous les jours.</p></li>
+      <li><figure class="frame"><img src="assets/img/nathalie-moralie-site.webp" alt="Portrait de Nathalie Moralie" loading="lazy" style="object-position: 50% 20%"></figure><h3>Nathalie Moralie</h3><p class="role">Ancienne élue et secrétaire de CSE</p><p>Experte des procès-verbaux, de l’ordre du jour et des échanges avec l’employeur.</p></li>
+      <li><figure class="frame"><img src="assets/img/sebastien-favreux-site.webp" alt="Portrait de Sébastien Favreux" loading="lazy" style="object-position: 50% 22%"></figure><h3>Sébastien Favreux</h3><p class="role">Ancien formateur RH</p><p>Plus de 5 ans de formation auprès des CSE. Expert du DUERP, de la BDESE et des situations complexes.</p></li>
+    </ul>
+  </div>
+</section></div><div data-variant="prod-formateurs-vedette" data-s="prod-formateurs-vedette"><section class="fv">
+  <div class="qz-wrap box">
+    <div class="pics" data-reveal>
+      <img src="assets/img/lynda-quennehen-portrait.webp" alt="Portrait de Lynda Quennehen" loading="lazy" style="object-position: 50% 40%" data-on>
+      <img src="assets/img/nathalie-moralie-site.webp" alt="Portrait de Nathalie Moralie" loading="lazy" style="object-position: 50% 20%">
+      <img src="assets/img/sebastien-favreux-site.webp" alt="Portrait de Sébastien Favreux" loading="lazy" style="object-position: 50% 22%">
+    </div>
+    <div class="txt" data-reveal>
+      <h2 class="qz-h2">Vos formateurs</h2>
+      <div class="who" aria-live="polite">
+        <div data-on><h3>Lynda Quennehen</h3><p class="role">Plus de 12 ans auprès des CSE</p><p>Notre formatrice la plus expérimentée. Elle forme et accompagne des CSE tous les jours.</p></div>
+        <div><h3>Nathalie Moralie</h3><p class="role">Ancienne élue et secrétaire de CSE</p><p>Experte des procès-verbaux, de l’ordre du jour et des échanges avec l’employeur.</p></div>
+        <div><h3>Sébastien Favreux</h3><p class="role">Ancien formateur RH</p><p>Plus de 5 ans de formation auprès des CSE. Expert du DUERP, de la BDESE et des situations complexes.</p></div>
+      </div>
+      <div class="thumbs">
+        <button type="button" aria-label="Voir Lynda Quennehen" aria-current="true"><img src="assets/img/lynda-quennehen-portrait.webp" alt="" style="object-position: 50% 40%"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16" pathLength="100"/></svg></button>
+        <button type="button" aria-label="Voir Nathalie Moralie" aria-current="false"><img src="assets/img/nathalie-moralie-site.webp" alt="" style="object-position: 50% 20%"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16" pathLength="100"/></svg></button>
+        <button type="button" aria-label="Voir Sébastien Favreux" aria-current="false"><img src="assets/img/sebastien-favreux-site.webp" alt="" style="object-position: 50% 22%"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16" pathLength="100"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section></div></div></div></div>
+<div class="qz-band"><div class="qz-cell" style="grid-column: span 12"><div data-s="prod-questions"><section class="qs" id="questions">
+  <div class="qz-wrap grid">
+    <div class="side" data-reveal>
+      <h2 class="qz-h2">Vos questions, nos réponses</h2>
+      <p class="qz-lede">Une autre question ? Un conseiller vous répond 7j/7 au <a href="tel:+33744092364">07 44 09 23 64</a>.</p>
+    </div>
+    <div class="list" data-reveal="stagger">
+      <details name="faq" open><summary>Qui paie la formation ?<span class="ic" aria-hidden="true"></span></summary><div class="a"><p>L’employeur pour la formation SSCT. Le CSE pour la formation économique, sur son budget de fonctionnement. Votre OPCO peut aussi prendre en charge certaines formations.</p></div></details>
+      <details name="faq"><summary>L’élu perd-il du salaire pendant la formation ?<span class="ic" aria-hidden="true"></span></summary><div class="a"><p>Non. Le temps passé en formation est pris sur le temps de travail et rémunéré comme tel par l’employeur.</p></div></details>
+      <details name="faq"><summary>Combien de jours dure la formation SSCT ?<span class="ic" aria-hidden="true"></span></summary><div class="a"><p>5 jours minimum lors du premier mandat.</p></div></details>
+      <details name="faq"><summary>En salle ou à distance ?<span class="ic" aria-hidden="true"></span></summary><div class="a"><p>Les deux. En intra dans votre entreprise ou en inter avec d’autres CSE, en salle dans votre ville ou en visioconférence.</p></div></details>
+      <details name="faq"><summary>Combien de participants par groupe ?<span class="ic" aria-hidden="true"></span></summary><div class="a"><p>12 à 15 personnes au plus, pour que chacun puisse poser ses questions.</p></div></details>
+      <details name="faq"><summary>Et après la formation ?<span class="ic" aria-hidden="true"></span></summary><div class="a"><p>Des rendez-vous de suivi réguliers, pour mettre en pratique et lever les doutes du mandat.</p></div></details>
+    </div>
+  </div>
+</section></div></div></div>
+<div class="qz-band"><div class="qz-cell" style="grid-column: span 12"><div data-s="prod-contact"><section class="ct" id="contact">
+  <div class="qz-wrap grid">
+    <div data-reveal="stagger">
+      <h2 class="qz-h2">On vous rappelle en 15 minutes.</h2>
+      <p class="lede">Laissez votre numéro : un conseiller vous rappelle et vous dit ce qui s’applique à votre CSE. Vous pouvez aussi nous appeler directement.</p>
+      <a class="tel" href="tel:+33744092364"><span class="i"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6.6 3.5 4.4 3.7c-.8.1-1.4.8-1.3 1.6.6 6 5.6 11 11.6 11.6.8.1 1.5-.5 1.6-1.3l.2-2.2c0-.5-.3-1-.8-1.2l-2.4-.9c-.4-.2-.9 0-1.2.3l-.9 1c-1.9-.9-3.4-2.4-4.3-4.3l1-.9c.3-.3.5-.8.3-1.2l-.9-2.4c-.2-.5-.7-.8-1.2-.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>07 44 09 23 64</a>
+      <p class="small">Conseillers disponibles 7j/7.</p>
+    </div>
+    <div class="panel" data-reveal>
+      <form novalidate>
+        <h3>Être rappelé</h3>
+        <div class="row2">
+          <label class="f"><span>Nom</span><input name="nom" autocomplete="name" required aria-describedby="e-nom"><small class="err" id="e-nom">Indiquez votre nom.</small></label>
+          <label class="f"><span>Téléphone</span><input name="tel" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="e-tel"><small class="err" id="e-tel">Indiquez un numéro à 10 chiffres.</small></label>
+        </div>
+        <label class="f"><span>Entreprise <i>(facultatif)</i></span><input name="entreprise" autocomplete="organization"></label>
+        <label class="f"><span>Formation</span>
+          <select name="formation">
+            <option value="">Je ne sais pas encore</option>
+            <option value="SSCT">Formation SSCT</option>
+            <option value="Économique">Formation économique</option>
+            <option value="Référent harcèlement">Référent harcèlement</option>
+            <option value="Secrétaire">Secrétaire du CSE</option>
+            <option value="Trésorier">Trésorier du CSE</option>
+            <option value="IA">L’IA pour le CSE</option>
+          </select>
+        </label>
+        <button class="qz-btn qz-btn--primary" type="submit">Être rappelé en 15 min</button>
+        <p class="note">Démo hors ligne : aucune donnée n’est envoyée.</p>
+      </form>
+      <div class="ok" hidden role="status" aria-live="polite">
+        <svg viewBox="0 0 56 56" fill="none" aria-hidden="true"><circle cx="28" cy="28" r="24" stroke="#0C6A67" stroke-width="2.5"/><path d="m18 28.5 6.5 6.5L38 21.5" stroke="#0C6A67" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>C’est noté.</h3>
+        <p>Un conseiller vous rappelle au <b class="num"></b> dans les 15 prochaines minutes.</p>
+        <button class="again" type="button">Modifier ma demande</button>
+      </div>
+    </div>
+  </div>
+</section></div></div></div>
+<div class="qz-band"><div class="qz-cell" style="grid-column: span 12"><div data-s="prod-pied"><footer class="pf">
+  <div class="qz-wrap">
+    <div class="top">
+      <div class="id">
+        <img class="logo" src="assets/img/qualyz-logo-blanc.svg" alt="Qualyz" width="115" height="38">
+        <p>Formations des élus du CSE, en salle ou à distance, partout en France. 200 CSE accompagnés en 2026.</p>
+        <div class="q"><img src="assets/img/qualiopi.png" alt="Qualiopi, processus certifié, République française" width="75" height="40" loading="lazy"><span>Catégorie certifiée :<br>actions de formation</span></div>
+      </div>
+      <nav class="cols" aria-label="Pied de page">
+        <div><h3>Formations</h3><ul>
+          <li><a href="#formations">Formation SSCT</a></li>
+          <li><a href="#formations">Formation économique</a></li>
+          <li><a href="#formations">Référent harcèlement</a></li>
+          <li><a href="#formations">Secrétaire du CSE</a></li>
+          <li><a href="#formations">Trésorier du CSE</a></li>
+          <li><a href="#formations">L’IA pour le CSE</a></li>
+        </ul></div>
+        <div><h3>Qualyz</h3><ul>
+          <li><a href="#deroulement">Déroulement</a></li>
+          <li><a href="#qualite">Certification</a></li>
+          <li><a href="#formateurs">Formateurs</a></li>
+          <li><a href="#questions">Questions</a></li>
+        </ul></div>
+        <div><h3>Contact</h3><ul>
+          <li><a href="tel:+33744092364">07 44 09 23 64</a></li>
+          <li>7j/7</li>
+          <li><a href="#contact">Être rappelé</a></li>
+        </ul></div>
+      </nav>
+    </div>
+    <div class="bottom">
+      <p>Photographies : Mixkit (licence gratuite), en attendant les vôtres. Portraits : équipe Qualyz.</p>
+      <p>© 2026 Qualyz</p>
+    </div>
+  </div>
+</footer></div></div></div>
+<script>document.querySelectorAll('[data-slot] img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.querySelectorAll('video[autoplay]').forEach((v) => { v.removeAttribute('autoplay'); v.pause(); });
+(() => {
+  // Scroll reveal (styles in kits/_shared.css). Once played, the attribute is dropped so the block's own
+  // hover transitions are no longer overridden or delayed by the reveal rules.
+  const els = [...document.querySelectorAll('[data-reveal]')];
+  els.forEach((e) => { if (e.dataset.reveal === 'stagger') [...e.children].forEach((c, i) => c.style.setProperty('--i', Math.min(i, 8))); });
+  const done = (e) => { e.dataset.in = ''; setTimeout(() => { e.removeAttribute('data-reveal'); e.removeAttribute('data-in'); [...e.children].forEach((c) => c.style.removeProperty('--i')); }, 1600); };
+  if (!('IntersectionObserver' in window)) return els.forEach(done);
+  const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) { io.unobserve(en.target); done(en.target); } }), { rootMargin: '0px 0px -10% 0px' });
+  els.forEach((e) => io.observe(e));
+})();
+document.querySelectorAll('[data-s="prod-perso"]').forEach((root) => { const html = document.documentElement;
+const conf = JSON.parse((document.getElementById('qz-options') || {}).textContent || '{}');
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+const KEY = 'qz-perso';
+const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch { return {}; } };
+const save = (o) => { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch {} };
+const groups = conf.groups || [];
+
+// Every option is one data-* attribute on <html>. The first choice is the default (the base site).
+const OPTIONS = [
+  { key: 'palette', label: 'Couleurs', kind: 'palette', choices: (conf.palette || []).map((p) => [p.id, p.name, p.swatch]) },
+  { key: 'typo', label: 'Police des titres', kind: 'font', choices: (conf.typo || []).map((t) => [t.id, t.name, t.face, t.weight]) },
+  { key: 'scale', label: 'Taille des titres', choices: [['normal', 'Normale'], ['grand', 'Grande'], ['xl', 'Très grande']] },
+  { key: 'media', label: 'À côté du titre', col: true, choices: [['video', 'Vidéo des métiers'], ['photos', 'Photos qui défilent'], ['logo', 'Le Q et le colibri Qualyz'], ['rappel', 'Mini formulaire de rappel'], ['aucun', 'Rien : le titre seul, en grand']] },
+  { key: 'hero', label: 'Disposition du haut de page', col: true, choices: [['split', 'Texte et vidéo côte à côte'], ['plein', 'Vidéo plein écran, texte dessus'], ['verre', 'Texte sur verre dépoli'], ['cinema', 'Titre centré, vidéo cinéma']] },
+  ...groups.map((g) => ({ key: 'v-' + g.group, label: g.label, col: true, choices: g.variants.map((v) => [v.id, v.name]) })),
+  { key: 'motion', label: 'Animations', col: true, choices: [['sobre', 'Sobres'], ['premium', 'Premium : flou et profondeur'], ['spectacle', 'Spectacle : tout en mouvement']] },
+];
+const TOGGLES = [['intro', 'Intro : le Q se pose dans le logo'], ['filigrane', 'Grand Q qui grandit au défilement'], ['colibri', 'Colibri qui vole'], ['mascottes', 'Petit personnage qui dépasse du formulaire']];
+const defaults = Object.fromEntries([...OPTIONS.filter((o) => o.choices.length).map((o) => [o.key, o.key in (conf.kit || {}) ? conf.kit[o.key] : o.choices[0][0]]), ...TOGGLES.map(([k]) => [k, 'off'])]);
+const current = (k) => html.getAttribute('data-' + k) || defaults[k];
+
+const body = root.querySelector('.body');
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+body.innerHTML = OPTIONS.filter((o) => o.choices.length > 1).map((o) => `<fieldset><legend>${esc(o.label)}</legend><div class="opts${o.col || o.kind ? ' col' : ''}">${o.choices.map(([v, name, extra, w]) => {
+  const vis = o.kind === 'palette' ? `<span class="sw">${(extra || []).map((c) => `<i style="background:${esc(c)}"></i>`).join('')}</span>${esc(name)}`
+    : o.kind === 'font' ? `<span class="font" style="font-family:${esc(extra)};font-weight:${esc(w || 400)}">Qualyz</span>${esc(name)}` : esc(name);
+  return `<label class="opt"><input type="radio" name="qzp-${o.key}" value="${esc(v)}"${current(o.key) === v ? ' checked' : ''}><span>${vis}</span></label>`;
+}).join('')}</div></fieldset>`).join('') + `<fieldset><legend>Logo et personnages</legend>${TOGGLES.map(([k, l]) => `<label class="tog">${esc(l)}<input type="checkbox" name="qzp-${k}"${current(k) === 'on' ? ' checked' : ''}></label>`).join('')}</fieldset>`;
+
+const set = (k, v) => {
+  const o = load();
+  if (v === defaults[k] && !(k in (conf.kit || {}))) { html.removeAttribute('data-' + k); delete o[k]; }
+  else { html.setAttribute('data-' + k, v); o[k] = v; }
+  save(o);
+};
+body.addEventListener('change', (e) => {
+  const k = e.target.name.replace('qzp-', '');
+  set(k, e.target.type === 'checkbox' ? (e.target.checked ? 'on' : 'off') : e.target.value);
+  if (k === 'intro' && e.target.checked) playIntro();
+});
+
+// Open and close.
+const bubble = root.querySelector('.bubble'), panel = root.querySelector('.panel');
+const open = (on) => {
+  bubble.setAttribute('aria-expanded', String(on));
+  if (on) { panel.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => panel.setAttribute('data-open', ''))); panel.querySelector('input').focus({ preventScroll: true }); }
+  else { panel.removeAttribute('data-open'); setTimeout(() => { if (bubble.getAttribute('aria-expanded') === 'false') panel.hidden = true; }, 230); }
+};
+bubble.addEventListener('click', () => open(bubble.getAttribute('aria-expanded') !== 'true'));
+root.querySelector('.x').addEventListener('click', () => { open(false); bubble.focus(); });
+addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) { open(false); bubble.focus(); } });
+
+const done = root.querySelector('.done');
+root.querySelector('.copy').addEventListener('click', async () => {
+  const lines = OPTIONS.filter((o) => o.choices.length > 1).map((o) => { const c = o.choices.find(([v]) => v === current(o.key)); return `${o.label} : ${c ? c[1] : current(o.key)}`; })
+    .concat(TOGGLES.map(([k, l]) => `${l} : ${current(k) === 'on' ? 'oui' : 'non'}`));
+  const text = 'Ma combinaison Qualyz\n' + lines.join('\n');
+  try { await navigator.clipboard.writeText(text); done.textContent = 'Copié. Collez-le dans la conversation.'; }
+  catch { prompt('Copiez ce texte :', text); }
+});
+root.querySelector('.reset').addEventListener('click', () => { save({}); location.reload(); });
+root.querySelector('.replay').addEventListener('click', () => playIntro(true));
+
+/* ---------- Effects engine (styles in kits/_options.css) ---------- */
+const logo = document.querySelector('[data-s="prod-en-tete"] .logo');
+const qPath = logo && logo.querySelector('.lq');
+const qSvg = (cls) => qPath ? `<svg class="${cls || ''}" viewBox="0 230 800 1020" fill="currentColor" aria-hidden="true">${qPath.outerHTML.replace('class="lq"', '')}</svg>` : '';
+
+// Intro: the Q appears out of a blur, then flies into the header logo.
+function playIntro(force) {
+  if (!logo || (!force && current('intro') !== 'on')) return;
+  if (calm) return;
+  scrollTo({ top: 0, behavior: 'instant' });
+  const ov = document.createElement('div'); ov.className = 'qz-intro'; ov.innerHTML = '<div class="bg"></div>' + qSvg();
+  document.body.append(ov); html.classList.add('qz-intro-run'); html.classList.remove('qz-intro-land');
+  const q = ov.querySelector('svg'), bg = ov.querySelector('.bg');
+  const ease = 'cubic-bezier(0.23, 1, 0.32, 1)', move = 'cubic-bezier(0.77, 0, 0.175, 1)';
+  q.animate([{ opacity: 0, filter: 'blur(24px)', transform: 'scale(0.7)' }, { opacity: 1, filter: 'blur(0)', transform: 'scale(1)' }], { duration: 800, easing: ease, fill: 'forwards' }).finished.then(() => new Promise((r) => setTimeout(r, 250))).then(() => {
+    const a = q.getBoundingClientRect(), b = qPath.getBoundingClientRect();
+    const s = b.height / a.height, dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = b.top + b.height / 2 - (a.top + a.height / 2);
+    bg.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, delay: 250, easing: ease, fill: 'forwards' });
+    return q.animate([{ transform: 'none' }, { transform: `translate(${dx}px, ${dy}px) scale(${s})` }], { duration: 950, easing: move, fill: 'forwards' }).finished;
+  }).then(() => { html.classList.add('qz-intro-land'); html.classList.remove('qz-intro-run'); ov.remove(); setTimeout(() => html.classList.remove('qz-intro-land'), 900); });
+}
+if (current('intro') === 'on') playIntro();
+
+// Giant Q behind the hero.
+const hero = document.getElementById('top');
+let fil = null;
+if (hero && qPath) { fil = document.createElement('div'); fil.className = 'qz-filigrane'; fil.setAttribute('aria-hidden', 'true'); fil.innerHTML = qSvg(); hero.prepend(fil); }
+
+// Progress bar and scroll-driven values, one rAF per frame.
+const bar = document.createElement('div'); bar.className = 'qz-progress'; document.body.append(bar);
+let ticking = false;
+const onScroll = () => {
+  ticking = false; const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
+  bar.style.setProperty('--p', max > 0 ? (y / max).toFixed(4) : 0);
+  if (fil && !calm && y < innerHeight * 1.5) fil.style.setProperty('--sy', Math.round(y));
+};
+addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+onScroll();
+
+// Cursor light on [data-spot] and magnetic buttons (premium and spectacle only, fine pointers only).
+const lively = () => /premium|spectacle/.test(current('motion'));
+if (fine && !calm) {
+  document.addEventListener('pointermove', (e) => {
+    if (!lively()) return;
+    const spot = e.target.closest('[data-spot]');
+    if (spot) { const r = spot.getBoundingClientRect(); spot.style.setProperty('--mx', (e.clientX - r.left) + 'px'); spot.style.setProperty('--my', (e.clientY - r.top) + 'px'); }
+    const btn = e.target.closest('.qz-btn');
+    if (btn) { const r = btn.getBoundingClientRect(); btn.style.setProperty('--bx', ((e.clientX - r.left - r.width / 2) * 0.18).toFixed(1) + 'px'); btn.style.setProperty('--by', ((e.clientY - r.top - r.height / 2) * 0.3).toFixed(1) + 'px'); }
+  }, { passive: true });
+  document.addEventListener('pointerout', (e) => { const btn = e.target.closest && e.target.closest('.qz-btn'); if (btn && !btn.contains(e.relatedTarget)) { btn.style.removeProperty('--bx'); btn.style.removeProperty('--by'); } });
+}
+
+// Spectacle: section titles resolve word by word.
+const heads = [...document.querySelectorAll('.qz-h2')];
+heads.forEach((h) => {
+  if (h.querySelector('.qz-w')) return;
+  h.setAttribute('aria-label', h.textContent.trim());
+  h.innerHTML = h.textContent.trim().split(/\s+/).map((w, i) => `<span class="qz-w" aria-hidden="true" style="--wi:${i}">${esc(w)}</span>`).join(' ');
+  h.classList.add('qz-words');
+});
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -12% 0px' });
+  heads.forEach((h) => io.observe(h));
+} else heads.forEach((h) => h.classList.add('is-in'));
+
+// Characters: hairline strokes, flat fills, eyes that follow the cursor.
+const eye = (x, y, r, d) => `<g class="eye" style="--d:${d}s"><circle class="white" cx="${x}" cy="${y}" r="${r}"/><circle class="pupil" cx="${x}" cy="${y}" r="${(r * 0.45).toFixed(1)}"/></g>`;
+const CHARS = {
+  contact: `<g class="body"><path class="b f-accent" d="M10 122c0-36 22-60 50-60s50 24 50 60"/>${eye(46, 92, 9, 0.6)}${eye(74, 92, 9, 0.7)}<path class="s" d="M54 108q6 4 12 0"/><ellipse class="b f-accent" cx="22" cy="120" rx="9" ry="6"/><ellipse class="b f-accent" cx="98" cy="120" rx="9" ry="6"/></g>`,
+};
+const SLOTS = [['contact', '#contact', 'append']];
+const marks = [];
+SLOTS.forEach(([k, sel]) => {
+  const host = document.querySelector(sel); if (!host) return;
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 120 122'); svg.setAttribute('class', `qz-m m-${k}${k === 'contact' ? ' m-coucou' : ''}`); svg.setAttribute('aria-hidden', 'true');
+  svg.innerHTML = CHARS[k]; host.append(svg); marks.push(svg);
+});
+const coucou = document.querySelector('.m-coucou');
+if (coucou && 'IntersectionObserver' in window) new IntersectionObserver(([en]) => coucou.classList.toggle('is-in', en.isIntersecting), { rootMargin: '0px 0px -15% 0px' }).observe(coucou);
+if (fine && !calm) {
+  let raf = 0, px = 0, py = 0;
+  document.addEventListener('pointermove', (e) => { px = e.clientX; py = e.clientY; if (raf || current('mascottes') !== 'on') return; raf = requestAnimationFrame(() => {
+    raf = 0;
+    document.querySelectorAll('.qz-m .eye').forEach((g) => { const r = g.getBoundingClientRect(); if (!r.width) return; const dx = px - (r.left + r.width / 2), dy = py - (r.top + r.height / 2), d = Math.hypot(dx, dy) || 1, m = Math.min(3, d / 40); g.querySelector('.pupil').style.transform = `translate(${(dx / d * m).toFixed(2)}px, ${(dy / d * m).toFixed(2)}px)`; });
+  }); }, { passive: true });
+} });
+document.querySelectorAll('[data-s="prod-en-tete"]').forEach((root) => { const hd = root.querySelector('.hd'), burger = root.querySelector('.burger'), sheet = root.querySelector('.sheet');
+if (!document.documentElement.classList.contains('qz-js')) return;
+let lastY = scrollY, ticking = false;
+const isOpen = () => burger.getAttribute('aria-expanded') === 'true';
+const onScroll = () => {
+  const y = scrollY;
+  hd.toggleAttribute('data-scrolled', y > 8);
+  // Hide while reading downwards, come back as soon as the visitor scrolls up.
+  if (!isOpen() && !hd.contains(document.activeElement)) {
+    if (y > 520 && y > lastY + 6) hd.setAttribute('data-hidden', '');
+    else if (y < lastY - 6 || y < 520) hd.removeAttribute('data-hidden');
+  }
+  lastY = y; ticking = false;
+};
+addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+hd.addEventListener('focusin', () => hd.removeAttribute('data-hidden'));
+onScroll();
+
+const setMenu = (open) => {
+  burger.setAttribute('aria-expanded', String(open));
+  burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+  hd.toggleAttribute('data-menu', open);
+  document.documentElement.style.overflow = open ? 'hidden' : '';
+  if (open) { sheet.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => sheet.setAttribute('data-open', ''))); }
+  else { sheet.removeAttribute('data-open'); setTimeout(() => { if (!isOpen()) sheet.hidden = true; }, 230); }
+};
+burger.addEventListener('click', () => setMenu(!isOpen()));
+sheet.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) { setMenu(false); burger.focus(); } });
+matchMedia('(min-width: 921px)').addEventListener('change', (m) => { if (m.matches && isOpen()) setMenu(false); });
+
+// Underline the section being read.
+const links = [...root.querySelectorAll('.nav a')];
+const targets = links.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+if ('IntersectionObserver' in window && targets.length) {
+  const io = new IntersectionObserver((es) => es.forEach((en) => {
+    if (!en.isIntersecting) return;
+    links.forEach((a) => a.getAttribute('href') === '#' + en.target.id ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current'));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  targets.forEach((t) => io.observe(t));
+} });
+document.querySelectorAll('[data-s="prod-hero"]').forEach((root) => { const js = document.documentElement.classList.contains('qz-js');
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const media = root.querySelector('.media'), video = root.querySelector('video'), pause = root.querySelector('.pause');
+const word = root.querySelector('.word'), ticks = [...root.querySelectorAll('.ticks i')];
+
+// Title: each word rises out of its own mask, once, on arrival.
+const h1 = root.querySelector('h1');
+if (js && !calm) {
+  const words = h1.textContent.trim().split(/\s+/);
+  h1.setAttribute('aria-label', h1.textContent.trim());
+  h1.innerHTML = words.map((w) => `<span class="w" aria-hidden="true"><span>${w}</span></span>`).join(' ');
+  h1.querySelectorAll('.w > span').forEach((s, i) => s.animate(
+    [{ transform: 'translateY(108%)' }, { transform: 'translateY(0)' }],
+    { duration: 1000, delay: 120 + i * 55, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' }));
+  root.querySelectorAll('.pre, .qz-lede, .ctas, .proof').forEach((el, i) => el.animate(
+    [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }],
+    { duration: 900, delay: (i === 0 ? 0 : 380) + i * 90, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' }));
+}
+requestAnimationFrame(() => requestAnimationFrame(() => media.setAttribute('data-on', '')));
+
+// Caption follows the six scenes of metiers.mp4 (cuts measured on the file).
+const scenes = [[0, 'l’industrie'], [3, 'le bâtiment'], [5.6, 'l’agroalimentaire'], [8, 'l’énergie'], [11, 'la logistique'], [13, 'les services']];
+let current = 0;
+const show = (i) => {
+  if (i === current) return;
+  current = i;
+  ticks.forEach((t, k) => t.toggleAttribute('data-on', k === i));
+  const old = word.querySelector('span'), next = document.createElement('span');
+  next.textContent = scenes[i][1];
+  word.append(next);
+  if (calm) { old.remove(); return; }
+  const o = { duration: 550, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' };
+  old.animate([{ transform: 'none', opacity: 1 }, { transform: 'translateY(-100%)', opacity: 0 }], o).onfinish = () => old.remove();
+  next.animate([{ transform: 'translateY(100%)', opacity: 0 }, { transform: 'none', opacity: 1 }], o);
+};
+// Scroll: parallax of the video (premium, spectacle) and the cinema frame growing to full width.
+let tick = false;
+const onScroll = () => {
+  tick = false; const r = media.getBoundingClientRect(), h = innerHeight;
+  const motion = document.documentElement.getAttribute('data-motion'), layout = document.documentElement.getAttribute('data-hero');
+  if (!calm && (motion === 'premium' || motion === 'spectacle') && r.bottom > 0) { media.style.setProperty('--py', (Math.max(-r.top, -h) * 0.18).toFixed(1) + 'px'); media.style.setProperty('--vs', '1.12'); }
+  else { media.style.removeProperty('--py'); media.style.removeProperty('--vs'); }
+  if (layout === 'cinema') media.style.setProperty('--grow', calm ? 1 : Math.min(1, Math.max(0, 1 - (r.top - 80) / (h * 0.6))).toFixed(3));
+};
+addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(onScroll); } }, { passive: true });
+new MutationObserver(onScroll).observe(document.documentElement, { attributes: true, attributeFilter: ['data-motion', 'data-hero'] });
+onScroll();
+
+video.addEventListener('timeupdate', () => {
+  const t = video.currentTime; let i = 0;
+  scenes.forEach(([s], k) => { if (t >= s) i = k; });
+  show(i);
+});
+
+// Pause button (moving image longer than 5 s), and no decoding while off-screen.
+const mediaKind = () => document.documentElement.getAttribute('data-media') || 'video';
+const photos = [...root.querySelectorAll('.m-photos img')]; let ph = 0, phTimer = 0;
+const runPhotos = () => { clearInterval(phTimer); if (mediaKind() !== 'photos' || calm) return; phTimer = setInterval(() => { photos[ph].removeAttribute('data-on'); ph = (ph + 1) % photos.length; photos[ph].setAttribute('data-on', ''); }, 5000); };
+const mediaSync = () => { if (mediaKind() !== 'video') video.pause(); else if (!userPaused) video.play().catch(() => {}); runPhotos(); };
+new MutationObserver(mediaSync).observe(document.documentElement, { attributes: true, attributeFilter: ['data-media'] });
+const mf = root.querySelector('.m-form');
+mf.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const n = mf.elements.nom, t = mf.elements.tel, okN = n.value.trim().length > 1, okT = t.value.replace(/\D/g, '').replace(/^33/, '0').length === 10;
+  n.setAttribute('aria-invalid', String(!okN)); t.setAttribute('aria-invalid', String(!okT));
+  const msg = mf.querySelector('.mn');
+  if (!okN || !okT) { msg.textContent = !okN ? 'Indiquez votre nom.' : 'Indiquez un numéro à 10 chiffres.'; (okN ? t : n).focus(); return; }
+  msg.textContent = 'C’est noté : un conseiller vous rappelle dans les 15 prochaines minutes.';
+  mf.querySelector('button').disabled = true;
+});
+let userPaused = calm;
+const sync = () => { pause.setAttribute('aria-pressed', String(userPaused)); pause.setAttribute('aria-label', userPaused ? 'Lire la vidéo' : 'Mettre la vidéo en pause'); };
+sync();
+pause.addEventListener('click', () => { userPaused = !userPaused; userPaused ? video.pause() : video.play().catch(() => {}); sync(); });
+mediaSync();
+if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => {
+  if (userPaused || mediaKind() !== 'video') return;
+  en.isIntersecting ? video.play().catch(() => {}) : video.pause();
+}).observe(media); });
+document.querySelectorAll('[data-s="prod-formations-liste"]').forEach((root) => { root.querySelectorAll('[data-formation]').forEach((a) => a.addEventListener('click', () => {
+  document.dispatchEvent(new CustomEvent('qz:formation', { detail: a.dataset.formation }));
+})); });
+document.querySelectorAll('[data-s="prod-formations-bento"]').forEach((root) => { root.querySelectorAll('[data-formation]').forEach((a) => a.addEventListener('click', () => {
+  document.dispatchEvent(new CustomEvent('qz:formation', { detail: a.dataset.formation }));
+}));
+if (matchMedia('(hover: hover) and (pointer: fine)').matches) root.addEventListener('pointermove', (e) => {
+  const t = e.target.closest('.t'); if (!t) return; const r = t.getBoundingClientRect();
+  t.style.setProperty('--mx', (e.clientX - r.left) + 'px'); t.style.setProperty('--my', (e.clientY - r.top) + 'px');
+}, { passive: true }); });
+document.querySelectorAll('[data-s="prod-formations-programme"]').forEach((root) => { root.querySelectorAll('[data-formation]').forEach((a) => a.addEventListener('click', () => {
+  document.dispatchEvent(new CustomEvent('qz:formation', { detail: a.dataset.formation }));
+}));
+const btns = [...root.querySelectorAll('.filters button')], items = [...root.querySelectorAll('.list > li')];
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+btns.forEach((b) => b.addEventListener('click', () => {
+  btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  const c = b.dataset.cat;
+  items.forEach((li, i) => {
+    const show = c === 'tout' || li.dataset.cats.split(' ').includes(c);
+    const was = !li.hidden; li.hidden = !show;
+    if (show && !calm) li.animate([{ opacity: 0, transform: 'translateY(12px)', filter: 'blur(6px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 450, delay: was ? 0 : i * 40, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' });
+  });
+})); });
+document.querySelectorAll('[data-s="prod-formations-parcours"]').forEach((root) => { root.querySelectorAll('[data-formation]').forEach((a) => a.addEventListener('click', () => {
+  document.dispatchEvent(new CustomEvent('qz:formation', { detail: a.dataset.formation }));
+}));
+const tabs = [...root.querySelectorAll('.sit')], panels = [...root.querySelectorAll('.panel')];
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pick = (i, focus) => {
+  tabs.forEach((t, k) => { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+  panels.forEach((p, k) => p.toggleAttribute('data-on', k === i));
+  if (focus) tabs[i].focus();
+  if (!calm) [...panels[i].querySelectorAll('.rec')].forEach((r, k) => r.animate([{ opacity: 0, transform: 'translateY(14px)', filter: 'blur(6px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 500, delay: k * 80, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' }));
+};
+tabs.forEach((t, i) => t.addEventListener('click', () => pick(i)));
+root.querySelector('.sits').addEventListener('keydown', (e) => {
+  const i = tabs.indexOf(document.activeElement); if (i < 0) return;
+  const n = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+  if (n) { e.preventDefault(); pick((i + n + tabs.length) % tabs.length, true); }
+}); });
+document.querySelectorAll('[data-s="prod-formations-illustre"]').forEach((root) => { root.querySelectorAll('[data-formation]').forEach((a) => a.addEventListener('click', () => {
+  document.dispatchEvent(new CustomEvent('qz:formation', { detail: a.dataset.formation }));
+})); });
+document.querySelectorAll('[data-s="prod-deroulement"]').forEach((root) => { const steps = root.querySelector('.steps');
+if (!('IntersectionObserver' in window)) { steps.classList.add('is-drawn'); return; }
+const io = new IntersectionObserver(([en]) => { if (en.isIntersecting) { steps.classList.add('is-drawn'); io.disconnect(); } }, { rootMargin: '0px 0px -20% 0px' });
+io.observe(steps); });
+document.querySelectorAll('[data-s="prod-formateurs-vedette"]').forEach((root) => { const sec = root.querySelector('.fv'), imgs = [...root.querySelectorAll('.pics img')], who = [...root.querySelectorAll('.who > div')], th = [...root.querySelectorAll('.thumbs button')];
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let cur = 0, timer = 0;
+const show = (i) => {
+  cur = i;
+  [imgs, who].forEach((l) => l.forEach((el, k) => el.toggleAttribute('data-on', k === i)));
+  th.forEach((b, k) => { b.setAttribute('aria-current', String(k === i)); const c = b.querySelector('circle'); c.style.animation = 'none'; c.getBoundingClientRect(); c.style.animation = ''; });
+  restart();
+};
+const restart = () => { clearTimeout(timer); if (!calm && !sec.classList.contains('paused')) timer = setTimeout(() => show((cur + 1) % imgs.length), 7000); };
+th.forEach((b, i) => b.addEventListener('click', () => show(i)));
+sec.addEventListener('pointerenter', () => { sec.classList.add('paused'); clearTimeout(timer); });
+sec.addEventListener('pointerleave', () => { sec.classList.remove('paused'); restart(); });
+sec.addEventListener('focusin', () => { sec.classList.add('paused'); clearTimeout(timer); });
+if (calm) sec.classList.add('paused');
+if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { if (en.isIntersecting) restart(); else clearTimeout(timer); }).observe(sec); else restart(); });
+document.querySelectorAll('[data-s="prod-contact"]').forEach((root) => { const form = root.querySelector('form'), ok = root.querySelector('.ok'), select = form.elements.formation;
+const digits = (v) => v.replace(/\D/g, '').replace(/^33/, '0');
+const rules = { nom: (v) => v.trim().length > 1, tel: (v) => digits(v).length === 10 };
+const check = (input) => { const good = rules[input.name](input.value); input.closest('.f').toggleAttribute('data-bad', !good); input.setAttribute('aria-invalid', String(!good)); return good; };
+// Validate on leaving a field, then live once it has been flagged.
+Object.keys(rules).forEach((n) => { const i = form.elements[n]; i.addEventListener('blur', () => i.value && check(i)); i.addEventListener('input', () => i.closest('.f').hasAttribute('data-bad') && check(i)); });
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const bad = Object.keys(rules).map((n) => form.elements[n]).filter((i) => !check(i));
+  if (bad.length) { bad[0].focus(); return; }
+  const btn = form.querySelector('[type=submit]'); btn.setAttribute('aria-busy', 'true'); btn.textContent = 'Envoi…';
+  setTimeout(() => {
+    const d = digits(form.elements.tel.value);
+    root.querySelector('.num').textContent = d.replace(/(\d{2})(?=\d)/g, '$1 ');
+    form.hidden = true; ok.hidden = false; btn.removeAttribute('aria-busy'); btn.textContent = 'Être rappelé en 15 min';
+    ok.querySelector('h3').setAttribute('tabindex', '-1'); ok.querySelector('h3').focus({ preventScroll: true });
+  }, 700);
+});
+root.querySelector('.again').addEventListener('click', () => { ok.hidden = true; form.hidden = false; form.elements.nom.focus(); });
+document.addEventListener('qz:formation', (e) => {
+  select.value = e.detail; ok.hidden = true; form.hidden = false;
+  select.classList.add('flash'); requestAnimationFrame(() => requestAnimationFrame(() => select.classList.remove('flash')));
+}); });</script>
+</body>
+</html>
