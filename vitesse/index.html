@@ -7,6 +7,11 @@
 <script src="../shared/live.js"></script>
 <script src="manifest.js"></script>
 <style>
+.race-wide { width: min(100% - 24px, 1800px); margin-inline: auto; }
+.race-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.race:fullscreen { width: 100vw; height: 100vh; border-radius: 0; overflow: auto; align-content: start; }
+.race:fullscreen .screen { aspect-ratio: auto; height: calc(100vh - 220px); }
+.race:fullscreen .screen iframe { height: calc((100vh - 246px) / var(--s, 1)); }
 .race { display: grid; gap: 18px; padding: clamp(20px, 3vw, 32px); border-radius: var(--radius); background: var(--card); }
 .race-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
 .race-top p { color: var(--ink-2); max-width: 52ch; }
@@ -59,18 +64,19 @@ h2.sec { font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem); margin-bottom: 18px; }
     <p class="lede">Deux versions de la même boutique en ligne : même texte, mêmes photos. La seule différence, c’est le travail d’optimisation, sur le serveur et dans le navigateur.</p>
   </section>
 
-  <section class="race" aria-labelledby="race-title">
+  </main>
+  <div class="race-wide"><section class="race" aria-labelledby="race-title">
     <div class="race-top">
-      <p id="race-title">On charge la version lente, puis la version rapide, ici, dans votre navigateur. Rien n’est pré-enregistré.</p>
-      <button class="btn btn-ink go-btn" id="go" type="button" data-mirror>Lancer la course</button>
+      <p id="race-title">On charge la version rapide, puis la version lente, chacune seule, ici, dans votre navigateur. Rien n’est pré-enregistré.</p>
+      <div class="race-btns"><button class="btn btn-line" id="full" type="button" data-mirror>Plein écran</button><button class="btn btn-ink go-btn" id="go" type="button" data-mirror>Lancer la course</button></div>
     </div>
     <div class="lanes">
-      <div class="lane" data-k="lente"><div class="lane-head"><b>Version lente</b><span class="state">prête</span></div><div class="clock">0,00 s</div><div class="screen"><div class="idle">En attente</div></div></div>
       <div class="lane" data-k="rapide"><div class="lane-head"><b>Version rapide</b><span class="state">prête</span></div><div class="clock">0,00 s</div><div class="screen"><div class="idle">En attente</div></div></div>
+      <div class="lane" data-k="lente"><div class="lane-head"><b>Version lente</b><span class="state">prête</span></div><div class="clock">0,00 s</div><div class="screen"><div class="idle">En attente</div></div></div>
     </div>
-  </section>
-
-  <section class="verdict" id="verdict" aria-live="polite">
+  </section></div>
+  <div class="wrap">
+  <section class="verdict" id="verdict" aria-live="polite" style="margin-top:clamp(28px,4vw,48px)">
     <h2 id="vtitle"></h2>
     <ul class="cmp" id="cmp"></ul>
     <p class="note">Temps mesuré à l’instant sur votre appareil ; il varie selon la connexion. Le poids et le nombre de fichiers, eux, ne changent pas.</p>
@@ -87,16 +93,16 @@ h2.sec { font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem); margin-bottom: 18px; }
       <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></span><b>Rien ne bloque la page</b><p>Aucun script extérieur ne fige l’affichage pendant qu’il se charge.</p><span class="was">Avant : un widget d’avis qui bloquait tout.</span></li>
     </ul>
   </section>
-</main>
+</div>
 <footer class="wrap foot"><span>Boutique fictive créée pour la démonstration. Photos : Unsplash.</span><a class="crumb" href="../">← Tous les projets</a></footer>
 <script>
 (function () {
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var lanes = { lente: $('[data-k="lente"]'), rapide: $('[data-k="rapide"]') };
-  var res = {}, raf = 0, t0 = 0, cur = null, timeout = 0;
+  var res = {}, raf = 0, t0 = 0, cur = null, timeout = 0, loaded = {};
   var fmt = function (ms) { return (ms / 1000).toFixed(2).replace('.', ',') + ' s'; };
   var mo = function (b) { return b > 1e6 ? (b / 1e6).toFixed(1).replace('.', ',') + ' Mo' : Math.round(b / 1000) + ' ko'; };
-  function fit() { document.querySelectorAll('.screen iframe').forEach(function (f) { f.style.transform = 'scale(' + (f.parentElement.clientWidth / 1280) + ')'; }); }
+  function fit() { document.querySelectorAll('.screen iframe').forEach(function (f) { var s = f.parentElement.clientWidth / 1280; f.style.transform = 'scale(' + s + ')'; f.style.setProperty('--s', s); }); }
   addEventListener('resize', fit);
   function tick() { if (cur) $('.clock', lanes[cur]).textContent = fmt(performance.now() - t0); raf = requestAnimationFrame(tick); }
   function start(k) {
@@ -104,6 +110,7 @@ h2.sec { font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem); margin-bottom: 18px; }
     var l = lanes[k], scr = $('.screen', l);
     $('.state', l).textContent = 'chargement…';
     scr.innerHTML = '<iframe title="Version ' + k + ' de la boutique" src="shop/' + k + '.html?r=' + Date.now() + '"></iframe>';
+    var fr = $('iframe', scr); loaded[k] = new Promise(function (ok) { fr.addEventListener('load', ok, { once: true }); setTimeout(ok, 20000); });
     fit();
     clearTimeout(timeout);
     timeout = setTimeout(function () { done(k, null); }, 30000);
@@ -116,7 +123,7 @@ h2.sec { font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem); margin-bottom: 18px; }
     cur = null; // stop the live clock before writing the measured time
     $('.clock', lanes[k]).textContent = fmt(ms);
     $('.state', lanes[k]).textContent = 'tout est affiché';
-    if (k === 'lente') setTimeout(function () { start('rapide'); }, 500);
+    if (k === 'rapide') { $('.state', lanes.lente).textContent = 'attend que la rapide ait tout fini'; loaded.rapide.then(function () { setTimeout(function () { start('lente'); }, 400); }); }
     else { cancelAnimationFrame(raf); verdict(); $('#go').disabled = false; $('#go').textContent = 'Relancer la course'; }
   }
   addEventListener('message', function (e) {
@@ -140,10 +147,16 @@ h2.sec { font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem); margin-bottom: 18px; }
   $('#go').addEventListener('click', function () {
     res = {}; $('#verdict').classList.remove('on');
     this.disabled = true; this.textContent = 'Course en cours…';
-    Object.keys(lanes).forEach(function (k) { $('.clock', lanes[k]).textContent = '0,00 s'; $('.state', lanes[k]).textContent = k === 'rapide' ? 'attend son tour' : 'chargement…'; $('.screen', lanes[k]).innerHTML = '<div class="idle">' + (k === 'rapide' ? 'Attend la fin de la première' : '') + '</div>'; });
+    Object.keys(lanes).forEach(function (k) { $('.clock', lanes[k]).textContent = '0,00 s'; $('.state', lanes[k]).textContent = k === 'lente' ? 'attend son tour' : 'chargement…'; $('.screen', lanes[k]).innerHTML = '<div class="idle">' + (k === 'lente' ? 'Attend la fin de la première' : '') + '</div>'; });
     cancelAnimationFrame(raf); raf = requestAnimationFrame(tick);
-    start('lente');
+    start('rapide');
   });
+  // Large screen: the race takes the whole display (Fullscreen API), Esc to leave.
+  var race = $('.race');
+  $('#full').addEventListener('click', function () {
+    if (document.fullscreenElement) document.exitFullscreen(); else if (race.requestFullscreen) race.requestFullscreen().catch(function () {});
+  });
+  document.addEventListener('fullscreenchange', function () { $('#full').textContent = document.fullscreenElement ? 'Quitter le plein écran' : 'Plein écran'; setTimeout(fit, 50); });
 })();
 </script>
 </body>
