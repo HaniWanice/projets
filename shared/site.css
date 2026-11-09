@@ -1,0 +1,56 @@
+/* Shared look of the demo shell (home, admin, project intros). Projects keep their own styles. */
+@font-face { font-family: 'Bricolage Grotesque'; font-weight: 400 800; font-display: swap; src: url(fonts/BricolageGrotesque.woff2) format('woff2'); }
+@font-face { font-family: 'Instrument Sans'; font-weight: 400 700; font-display: swap; src: url(fonts/InstrumentSans.woff2) format('woff2'); }
+
+:root {
+  --paper: #F5F2EC; --card: #FFFFFF; --ink: #15191F; --ink-2: #4A515C; --muted: #6B7280; --rule: #E3DED4;
+  --accent: #E4572E; --accent-ink: #FFFFFF; --accent-soft: #FBE3D9; --sage: #5E8C6A; --sage-soft: #DCEBDF;
+  --blue: #2F6FEB; --blue-soft: #DDE8FD; --amber: #C98A12; --amber-soft: #F8EAC8;
+  --display: 'Bricolage Grotesque', 'Instrument Sans', system-ui, sans-serif;
+  --body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --radius: 22px; --ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --max: 1160px; --gutter: clamp(20px, 5vw, 48px);
+}
+*, ::before, ::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; overflow-x: clip; }
+body { background: var(--paper); color: var(--ink); font: 400 17px/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+::selection { background: var(--accent-soft); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; margin: 0; text-wrap: balance; overflow-wrap: break-word; }
+p { margin: 0; text-wrap: pretty; }
+
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; text-decoration: none; }
+.brand i { width: 28px; height: 28px; border-radius: 9px; background: var(--ink); display: grid; place-items: center; color: var(--paper); font-style: normal; font-size: 0.9rem; }
+.top nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.top nav a { padding: 8px 14px; border-radius: 999px; color: var(--ink-2); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: background-color 200ms ease, color 200ms ease; }
+.top nav a:hover { background: var(--card); color: var(--ink); }
+.top nav a[aria-current="page"] { background: var(--ink); color: var(--paper); }
+
+.btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border: 1px solid transparent; border-radius: 999px; font: 600 1rem var(--body); text-decoration: none; cursor: pointer; transition: transform 160ms var(--ease), background-color 200ms ease, border-color 200ms ease; }
+.btn:active { transform: scale(0.97); }
+.btn-ink { background: var(--ink); color: var(--paper); }
+.btn-line { background: transparent; color: var(--ink); border-color: var(--rule); }
+.btn svg { width: 18px; height: 18px; transition: transform 250ms var(--ease); }
+@media (hover: hover) { .btn-ink:hover { background: #2a313b; } .btn-line:hover { border-color: var(--ink); } .btn:hover svg { transform: translateX(3px); } }
+
+.tag { display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 999px; background: var(--card); color: var(--ink-2); font-size: 0.85rem; font-weight: 600; }
+.lede { font-size: clamp(1.08rem, 1rem + 0.4vw, 1.3rem); color: var(--ink-2); max-width: 58ch; }
+
+/* Intro band at the top of each project section page. */
+.intro { padding-block: clamp(28px, 5vw, 64px) clamp(28px, 4vw, 48px); display: grid; gap: 18px; }
+.intro h1 { font-size: clamp(2.4rem, 1.4rem + 4vw, 4.6rem); }
+.crumb { color: var(--muted); font-weight: 600; font-size: 0.95rem; text-decoration: none; }
+.crumb:hover { color: var(--ink); }
+.points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 8px 0 0; padding: 0; list-style: none; }
+.points li { padding: 18px 20px; border-radius: 18px; background: var(--card); }
+.points b { display: block; font-family: var(--display); font-size: 1.15rem; letter-spacing: -0.02em; margin-bottom: 4px; }
+.points span { color: var(--ink-2); font-size: 0.95rem; }
+@media (max-width: 760px) { .points { grid-template-columns: minmax(0, 1fr); } }
+
+.foot { padding-block: 48px 64px; color: var(--muted); font-size: 0.92rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; border-top: 1px solid var(--rule); margin-top: 64px; }
+
+@media (prefers-reduced-motion: reduce) { *, ::before, ::after { transition-duration: 1ms !important; animation-duration: 1ms !important; } }

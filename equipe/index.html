@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr" data-project="equipe">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ToDo Smart Équipe · Hani Wanice</title>
+<link rel="stylesheet" href="../shared/site.css">
+<link rel="stylesheet" href="app.css">
+<script src="../shared/live.js"></script>
+</head>
+<body>
+<header class="app-top">
+  <a class="logo" href="../" title="Retour aux projets"><i>✓</i>ToDo Smart Équipe</a>
+  <nav class="views" id="views" role="tablist" aria-label="Vues">
+    <button type="button" role="tab" data-v="board" aria-selected="true">Tâches</button>
+    <button type="button" role="tab" data-v="agenda" aria-selected="false">Rendez-vous</button>
+    <button type="button" role="tab" data-v="activity" aria-selected="false">Activité</button>
+  </nav>
+  <span class="spacer"></span>
+  <span class="sync" id="sync" data-s="connecting"><i></i><span>Connexion…</span></span>
+  <div class="people" id="people" aria-label="Qui est en ligne"></div>
+  <label class="me" data-no-mirror><span id="meAv"></span><select id="meSel" aria-label="Vous êtes"></select></label>
+</header>
+
+<main>
+  <section class="view" id="v-board" data-no-mirror>
+    <div class="view-head">
+      <div><h1>Les tâches de l’équipe</h1><p>Glissez une carte d’une colonne à l’autre. Tout le monde voit le changement en direct.</p></div>
+      <div class="filters" id="filters"></div>
+      <button class="btn primary" id="newTask" type="button"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>Nouvelle tâche</button>
+    </div>
+    <div class="board" id="board"></div>
+  </section>
+
+  <section class="view" id="v-agenda" hidden>
+    <div class="view-head">
+      <div><h1 id="weekLabel">Cette semaine</h1><p>Cliquez sur un créneau libre pour planifier. Un conflit d’agenda est signalé tout de suite.</p></div>
+      <div class="week-nav"><button class="btn" id="prevW" type="button" aria-label="Semaine précédente">←</button><button class="btn" id="todayW" type="button">Aujourd’hui</button><button class="btn" id="nextW" type="button" aria-label="Semaine suivante">→</button></div>
+      <button class="btn primary" id="newEvent" type="button" data-no-mirror><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>Nouveau rendez-vous</button>
+    </div>
+    <div class="cal" id="cal" data-no-mirror></div>
+  </section>
+
+  <section class="view" id="v-activity" hidden>
+    <div class="view-head"><div><h1>Activité</h1><p>Qui a fait quoi, au fil de l’eau.</p></div><button class="btn danger" id="reset" type="button" hidden data-no-mirror>Remettre les données de démo</button></div>
+    <ul class="feed" id="feed"></ul>
+  </section>
+</main>
+
+<dialog id="dlgTask"><form class="dlg" id="formTask" method="dialog">
+  <h2 id="tTitle">Nouvelle tâche</h2>
+  <label>Titre<input name="title" required maxlength="140" autocomplete="off"></label>
+  <label>Détails<textarea name="desc" maxlength="1500"></textarea></label>
+  <div class="row3">
+    <label>Responsable<select name="who"><option value="amaury">Amaury</option><option value="hani">Hani</option><option value="lynda">Lynda</option><option value="nathalie">Nathalie</option><option value="sebastien">Sébastien</option></select></label>
+    <label>Échéance<input name="due" type="date"></label>
+    <label>État<select name="status"><option value="todo">À faire</option><option value="doing">En cours</option><option value="done">Terminé</option></select></label>
+  </div>
+  <label>Catégorie<select name="label"><option>Formation</option><option>Commercial</option><option>Administratif</option><option>Qualiopi</option><option>Site</option></select></label>
+  <div class="dlg-foot"><button class="btn danger" type="button" id="tDel">Supprimer</button><span class="spacer"></span><button class="btn" value="cancel">Annuler</button><button class="btn primary" value="ok">Enregistrer</button></div>
+</form></dialog>
+
+<dialog id="dlgEvent"><form class="dlg" id="formEvent" method="dialog">
+  <h2 id="eTitle">Nouveau rendez-vous</h2>
+  <label>Objet<input name="title" required maxlength="140" autocomplete="off"></label>
+  <div class="row3"><label>Jour<input name="date" type="date" required></label><label>Début<input name="start" type="time" step="900" required></label><label>Fin<input name="end" type="time" step="900" required></label></div>
+  <label>Lieu<input name="place" maxlength="80" placeholder="Visio, téléphone, en salle…"></label>
+  <div><label>Participants</label><div class="who" id="eWho"></div></div>
+  <p class="warn" id="eWarn" hidden></p>
+  <div class="dlg-foot"><button class="btn danger" type="button" id="eDel">Annuler le rendez-vous</button><span class="spacer"></span><button class="btn" value="cancel">Fermer</button><button class="btn primary" value="ok">Enregistrer</button></div>
+</form></dialog>
+
+<dialog id="dlgWho"><div class="dlg">
+  <h2>Qui êtes-vous ?</h2>
+  <p style="margin:0;color:var(--ink-2)">Pour que l’équipe voie qui fait quoi. Vous pourrez changer en haut à droite.</p>
+  <div class="who" id="whoPick" style="gap:8px"></div>
+</div></dialog>
+
+<div class="toast" id="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>

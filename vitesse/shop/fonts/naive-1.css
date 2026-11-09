@@ -1,0 +1,11 @@
+/* Version NAÏVE : trois familles, trois feuilles de style chaînées par @import.
+   Le navigateur ne découvre la deuxième qu'après avoir téléchargé la première, et la
+   troisième qu'après la deuxième : trois allers-retours avant d'afficher quoi que ce soit.
+   Pas de font-display (donc texte invisible jusqu'au chargement de la police), pas de
+   préchargement, pas de police de secours ajustée. */
+@import url("naive-2.css");
+
+@font-face {
+  font-family: "Gambarino";
+  src: url("gambarino.woff2") format("woff2");
+}

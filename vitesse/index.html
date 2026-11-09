@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="fr" data-project="vitesse">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Le même site, lent puis rapide · Hani Wanice</title>
+<link rel="stylesheet" href="../shared/site.css">
+<script src="../shared/live.js"></script>
+<script src="manifest.js"></script>
+<style>
+.race { display: grid; gap: 18px; padding: clamp(20px, 3vw, 32px); border-radius: var(--radius); background: var(--card); }
+.race-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.race-top p { color: var(--ink-2); max-width: 52ch; }
+.go-btn { min-height: 56px; padding: 0 28px; font-size: 1.08rem; }
+.go-btn[disabled] { opacity: .55; cursor: default; }
+.lanes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.lane { display: grid; gap: 12px; }
+.lane-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.lane-head b { font-family: var(--display); font-size: 1.35rem; letter-spacing: -0.02em; }
+.lane[data-k="lente"] .lane-head b { color: var(--accent); }
+.lane[data-k="rapide"] .lane-head b { color: var(--sage); }
+.clock { font: 700 clamp(2rem, 1.4rem + 2vw, 3rem)/1 var(--display); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.state { color: var(--muted); font-size: 0.9rem; font-weight: 600; }
+.screen { position: relative; aspect-ratio: 16 / 10; border-radius: 14px; overflow: hidden; background: var(--paper); border: 1px solid var(--rule); }
+.screen::before { content: ""; position: absolute; inset: 0 0 auto; height: 26px; background: #ECE8E0; z-index: 1; }
+.screen::after { content: "● ● ●"; position: absolute; top: 6px; left: 12px; z-index: 2; font-size: 10px; letter-spacing: 3px; color: #C9C2B6; }
+.screen iframe { position: absolute; top: 26px; left: 0; width: 1280px; height: 800px; border: 0; transform-origin: 0 0; background: #fff; }
+.screen .idle { position: absolute; inset: 26px 0 0; display: grid; place-items: center; color: var(--muted); font-weight: 600; }
+.verdict { display: none; gap: 18px; padding: clamp(20px, 3vw, 32px); border-radius: var(--radius); background: var(--ink); color: var(--paper); }
+.verdict.on { display: grid; }
+.verdict h2 { font-size: clamp(1.8rem, 1.2rem + 2vw, 3rem); }
+.verdict h2 em { font-style: normal; color: #7FD69A; }
+.cmp { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.cmp li { display: grid; grid-template-columns: minmax(150px, 1fr) minmax(0, 2.2fr); gap: 16px; align-items: center; }
+.cmp .lbl { color: rgb(245 242 236 / .75); font-size: 0.95rem; }
+.bars { display: grid; gap: 6px; }
+.bar { display: grid; grid-template-columns: 70px minmax(0, 1fr) 90px; gap: 10px; align-items: center; font-size: 0.88rem; }
+.bar span:first-child { color: rgb(245 242 236 / .7); }
+.bar i { display: block; height: 10px; border-radius: 6px; background: var(--accent); transform-origin: left; transform: scaleX(var(--w, 0)); transition: transform 900ms var(--ease); }
+.bar.fast i { background: #7FD69A; }
+.bar b { text-align: right; font-variant-numeric: tabular-nums; }
+.note { color: rgb(245 242 236 / .6); font-size: 0.88rem; }
+.fixes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
+.fixes li { padding: 22px; border-radius: 18px; background: var(--card); display: grid; gap: 8px; align-content: start; }
+.fixes .ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--sage-soft); color: var(--sage); }
+.fixes .ic svg { width: 22px; height: 22px; }
+.fixes b { font-family: var(--display); font-size: 1.15rem; letter-spacing: -0.02em; }
+.fixes p { color: var(--ink-2); font-size: 0.95rem; }
+.fixes .was { color: var(--muted); font-size: 0.85rem; }
+section + section { margin-top: clamp(28px, 4vw, 48px); }
+h2.sec { font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem); margin-bottom: 18px; }
+@media (max-width: 860px) { .lanes, .fixes { grid-template-columns: minmax(0, 1fr); } .cmp li { grid-template-columns: minmax(0, 1fr); gap: 8px; } }
+</style>
+</head>
+<body>
+<header class="wrap top"><a class="brand" href="../"><i>H</i>Hani Wanice</a><a class="crumb" href="../">← Tous les projets</a></header>
+<main class="wrap">
+  <section class="intro">
+    <h1>Le même site, lent puis rapide</h1>
+    <p class="lede">Deux versions de la même boutique en ligne : même texte, mêmes photos. La seule différence, c’est le travail d’optimisation, sur le serveur et dans le navigateur.</p>
+  </section>
+
+  <section class="race" aria-labelledby="race-title">
+    <div class="race-top">
+      <p id="race-title">On charge la version lente, puis la version rapide, ici, dans votre navigateur. Rien n’est pré-enregistré.</p>
+      <button class="btn btn-ink go-btn" id="go" type="button" data-mirror>Lancer la course</button>
+    </div>
+    <div class="lanes">
+      <div class="lane" data-k="lente"><div class="lane-head"><b>Version lente</b><span class="state">prête</span></div><div class="clock">0,00 s</div><div class="screen"><div class="idle">En attente</div></div></div>
+      <div class="lane" data-k="rapide"><div class="lane-head"><b>Version rapide</b><span class="state">prête</span></div><div class="clock">0,00 s</div><div class="screen"><div class="idle">En attente</div></div></div>
+    </div>
+  </section>
+
+  <section class="verdict" id="verdict" aria-live="polite">
+    <h2 id="vtitle"></h2>
+    <ul class="cmp" id="cmp"></ul>
+    <p class="note">Temps mesuré à l’instant sur votre appareil ; il varie selon la connexion. Le poids et le nombre de fichiers, eux, ne changent pas.</p>
+  </section>
+
+  <section>
+    <h2 class="sec">Ce que j’ai changé</h2>
+    <ul class="fixes">
+      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg></span><b>Des photos à la bonne taille</b><p>Chaque image est réduite à la taille où elle s’affiche, dans un format moderne et léger.</p><span class="was">Avant : les originaux de 2000 pixels.</span></li>
+      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="4" y="4" width="16" height="6" rx="1.5"/><rect x="4" y="14" width="16" height="6" rx="1.5"/><path d="M8 7h.01M8 17h.01"/></svg></span><b>La page est préparée sur le serveur</b><p>Le serveur envoie la page déjà remplie : le visiteur la voit tout de suite.</p><span class="was">Avant : une page vide que le navigateur remplissait lui-même.</span></li>
+      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h6"/></svg></span><b>Seulement les données utiles</b><p>On envoie les 16 produits affichés, et le calcul « prix médian » est fait une fois pour toutes.</p><span class="was">Avant : les 8 000 produits du catalogue, recalculés à chaque visite.</span></li>
+      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><b>Plus d’attente en cascade</b><p>Tout arrive en même temps, au lieu d’attendre chaque élément l’un après l’autre.</p><span class="was">Avant : catalogue, puis avis, puis articles.</span></li>
+      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 19V5h7a4 4 0 0 1 0 8H6"/></svg></span><b>Des polices chargées en avance</b><p>Le texte s’affiche tout de suite, la police arrive juste après.</p><span class="was">Avant : trois fichiers enchaînés avant d’afficher un mot.</span></li>
+      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></span><b>Rien ne bloque la page</b><p>Aucun script extérieur ne fige l’affichage pendant qu’il se charge.</p><span class="was">Avant : un widget d’avis qui bloquait tout.</span></li>
+    </ul>
+  </section>
+</main>
+<footer class="wrap foot"><span>Boutique fictive créée pour la démonstration. Photos : Unsplash.</span><a class="crumb" href="../">← Tous les projets</a></footer>
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var lanes = { lente: $('[data-k="lente"]'), rapide: $('[data-k="rapide"]') };
+  var res = {}, raf = 0, t0 = 0, cur = null, timeout = 0;
+  var fmt = function (ms) { return (ms / 1000).toFixed(2).replace('.', ',') + ' s'; };
+  var mo = function (b) { return b > 1e6 ? (b / 1e6).toFixed(1).replace('.', ',') + ' Mo' : Math.round(b / 1000) + ' ko'; };
+  function fit() { document.querySelectorAll('.screen iframe').forEach(function (f) { f.style.transform = 'scale(' + (f.parentElement.clientWidth / 1280) + ')'; }); }
+  addEventListener('resize', fit);
+  function tick() { if (cur) $('.clock', lanes[cur]).textContent = fmt(performance.now() - t0); raf = requestAnimationFrame(tick); }
+  function start(k) {
+    cur = k; t0 = performance.now();
+    var l = lanes[k], scr = $('.screen', l);
+    $('.state', l).textContent = 'chargement…';
+    scr.innerHTML = '<iframe title="Version ' + k + ' de la boutique" src="shop/' + k + '.html?r=' + Date.now() + '"></iframe>';
+    fit();
+    clearTimeout(timeout);
+    timeout = setTimeout(function () { done(k, null); }, 30000);
+  }
+  function done(k, m) {
+    if (cur !== k) return;
+    clearTimeout(timeout);
+    var ms = m && m.ready ? m.ready : performance.now() - t0;
+    res[k] = { ms: ms, tbt: m ? m.tbt : 0 };
+    cur = null; // stop the live clock before writing the measured time
+    $('.clock', lanes[k]).textContent = fmt(ms);
+    $('.state', lanes[k]).textContent = 'tout est affiché';
+    if (k === 'lente') setTimeout(function () { start('rapide'); }, 500);
+    else { cancelAnimationFrame(raf); verdict(); $('#go').disabled = false; $('#go').textContent = 'Relancer la course'; }
+  }
+  addEventListener('message', function (e) {
+    var d = e.data; if (!d || d.source !== 'vitesse' || !d.m) return;
+    if (!d.final) done(d.m.kind, d.m);
+    else if (res[d.m.kind]) res[d.m.kind].tbt = d.m.tbt;
+  });
+  function row(label, a, b, fa, fb) {
+    var max = Math.max(a, b) || 1;
+    return '<li><span class="lbl">' + label + '</span><div class="bars"><div class="bar"><span>Lente</span><i style="--w:' + (a / max) + '"></i><b>' + fa + '</b></div><div class="bar fast"><span>Rapide</span><i style="--w:' + Math.max(0.02, b / max) + '"></i><b>' + fb + '</b></div></div></li>';
+  }
+  function verdict() {
+    var M = window.MANIFEST, a = res.lente, b = res.rapide;
+    var x = a.ms / Math.max(1, b.ms), w = M.lente.bytes / M.rapide.bytes;
+    $('#vtitle').innerHTML = x >= 1.3 ? 'La version rapide affiche tout son contenu <em>' + (x > 20 ? 'plus de 20 fois' : x.toFixed(1).replace('.', ',') + ' fois') + ' plus vite</em>.' : 'La version rapide télécharge <em>' + Math.round(w) + ' fois moins</em> de données.';
+    $('#cmp').innerHTML = row('Temps avant que tout soit visible', a.ms, b.ms, fmt(a.ms), fmt(b.ms)) +
+      row('Poids téléchargé', M.lente.bytes, M.rapide.bytes, mo(M.lente.bytes), mo(M.rapide.bytes)) +
+      row('Produits envoyés au navigateur', M.rows, M.shown, M.rows.toLocaleString('fr-FR'), String(M.shown));
+    $('#verdict').classList.add('on');
+  }
+  $('#go').addEventListener('click', function () {
+    res = {}; $('#verdict').classList.remove('on');
+    this.disabled = true; this.textContent = 'Course en cours…';
+    Object.keys(lanes).forEach(function (k) { $('.clock', lanes[k]).textContent = '0,00 s'; $('.state', lanes[k]).textContent = k === 'rapide' ? 'attend son tour' : 'chargement…'; $('.screen', lanes[k]).innerHTML = '<div class="idle">' + (k === 'rapide' ? 'Attend la fin de la première' : '') + '</div>'; });
+    cancelAnimationFrame(raf); raf = requestAnimationFrame(tick);
+    start('lente');
+  });
+})();
+</script>
+</body>
+</html>

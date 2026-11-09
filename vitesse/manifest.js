@@ -1,0 +1,1 @@
+window.MANIFEST={"lente":{"bytes":11648290,"requests":35},"rapide":{"bytes":809662,"requests":30},"rows":8000,"shown":16};

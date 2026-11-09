@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Admin, projets de Hani</title>
+<link rel="stylesheet" href="shared/site.css">
+<script src="shared/live.js"></script>
+<style>
+main { display: grid; gap: 20px; padding-bottom: 80px; }
+.panel { padding: clamp(22px, 3vw, 32px); border-radius: var(--radius); background: var(--card); display: grid; gap: 16px; }
+.panel h2 { font-size: 1.6rem; }
+.panel p.help { color: var(--ink-2); font-size: 0.95rem; }
+.status { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.92rem; }
+.status i { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); }
+.status[data-s="synced"] i { background: var(--sage); } .status[data-s="error"] i { background: var(--accent); } .status[data-s="connecting"] i { background: var(--amber); }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid var(--rule); }
+.row:first-of-type { border-top: 0; }
+.row b { display: block; font-size: 1.05rem; }
+.row span { color: var(--muted); font-size: 0.9rem; }
+.row a { color: var(--blue); font-weight: 600; font-size: 0.9rem; }
+.sw { appearance: none; flex: none; position: relative; width: 58px; height: 34px; margin: 0; border-radius: 999px; background: var(--rule); cursor: pointer; transition: background-color 200ms ease; }
+.sw::after { content: ""; position: absolute; top: 4px; left: 4px; width: 26px; height: 26px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgb(0 0 0/.2); transition: transform 250ms var(--ease); }
+.sw:checked { background: var(--sage); } .sw:checked::after { transform: translateX(24px); }
+.sw.live:checked { background: var(--accent); }
+.sw:disabled { opacity: .5; cursor: default; }
+input.code { width: 100%; height: 50px; padding: 0 16px; border: 1px solid var(--rule); border-radius: 14px; font: 500 1rem var(--body); background: var(--paper); }
+.big { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px; border-radius: 18px; background: var(--accent-soft); }
+.big b { font-size: 1.25rem; font-family: var(--display); letter-spacing: -0.02em; }
+.link { display: flex; gap: 8px; flex-wrap: wrap; }
+.link input { flex: 1; min-width: 220px; height: 46px; padding: 0 14px; border: 1px solid var(--rule); border-radius: 12px; font: 500 0.95rem var(--body); background: var(--paper); }
+.msg { min-height: 1lh; font-size: 0.9rem; color: var(--sage); font-weight: 600; }
+.msg.err { color: var(--accent); }
+</style>
+</head>
+<body data-no-mirror>
+<header class="wrap top">
+  <a class="brand" href="./"><i>H</i>Administration</a>
+  <span class="status" id="status" data-s="local"><i></i><span>Hors ligne</span></span>
+</header>
+<main class="wrap">
+  <section class="panel" id="login" hidden>
+    <h2>Code administrateur</h2>
+    <p class="help">À coller une seule fois sur cet appareil (il est dans le fichier <b>notes/code-admin.txt</b>, jamais publié). Sans ce code, cette page ne peut rien changer.</p>
+    <form id="loginForm" class="link"><input class="code" id="code" autocomplete="off" spellcheck="false" placeholder="Coller le code ici" required><button class="btn btn-ink" type="submit">Valider</button></form>
+    <p class="msg" id="loginMsg"></p>
+  </section>
+
+  <section class="panel" id="live">
+    <h2>Présenter en direct</h2>
+    <div class="big"><div><b>Diffuser mon écran</b><br><span class="help">Les visiteurs suivent votre navigation, vos défilements, vos clics et les réglages du site Qualyz.</span></div><input type="checkbox" class="sw live" id="cast" aria-label="Diffuser en direct"></div>
+    <div class="link"><input id="viewer" readonly aria-label="Lien à envoyer"><button class="btn btn-line" type="button" id="copy">Copier le lien</button></div>
+    <p class="msg" id="castMsg"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Projets visibles</h2>
+    <p class="help">Décochez un projet pour le cacher chez tous les visiteurs, même s’ils ont reçu le lien avant. La mise à jour est immédiate.</p>
+    <div id="rows"></div>
+    <p class="msg" id="cfgMsg"></p>
+  </section>
+</main>
+<script>
+var P = [['vitesse', 'Le même site, lent puis rapide', 'vitesse/'], ['equipe', 'ToDo Smart Équipe', 'equipe/'], ['prospection', 'Prospection CSE et emails', 'prospection/'], ['qualyz', 'Refonte du site Qualyz', 'qualyz/']];
+var $ = function (s) { return document.querySelector(s); };
+var STATUS = { local: 'Hors ligne (rien ne se synchronise)', connecting: 'Connexion…', synced: 'Synchronisé', error: 'Erreur : règles Firestore à publier ?' };
+HW.onStatus(function (s) { $('#status').dataset.s = s; $('#status span').textContent = STATUS[s] || s; });
+$('#viewer').value = HW.root;
+$('#copy').addEventListener('click', function () { navigator.clipboard.writeText(HW.root).then(function () { $('#castMsg').textContent = 'Lien copié.'; }); });
+
+$('#login').hidden = HW.isAdmin;
+$('#loginForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var d = $('#code').value.trim().replace(/\s/g, '');
+  crypto.subtle.importKey('jwk', { kty: 'EC', crv: 'P-256', x: 'OLispJTFSzX5XONBGA48KNdicApGbW5h632Yoagk6nA', y: 'gGHwckU44bvu5u6mJRT71sOf3CZvh1UXi9IvBqn-_gI', d: d }, { name: 'ECDSA', namedCurve: 'P-256' }, false, ['sign'])
+    .then(function () { localStorage.setItem('hw.admin.d', d); location.reload(); })
+    .catch(function () { $('#loginMsg').textContent = 'Code invalide.'; $('#loginMsg').className = 'msg err'; });
+});
+
+var cast = $('#cast');
+cast.disabled = !HW.isAdmin;
+cast.checked = HW.isBroadcasting();
+cast.addEventListener('change', function () {
+  HW.setBroadcast(cast.checked);
+  $('#castMsg').textContent = cast.checked ? 'Diffusion active : ouvrez un projet, les visiteurs vous suivent.' : 'Diffusion coupée.';
+});
+
+function render(cfg) {
+  $('#rows').innerHTML = P.map(function (p) {
+    var on = !cfg.visible || cfg.visible[p[0]] !== false;
+    return '<div class="row"><div><b>' + p[1] + '</b><a href="' + p[2] + '">Ouvrir</a></div><input type="checkbox" class="sw" data-p="' + p[0] + '"' + (on ? ' checked' : '') + (HW.isAdmin ? '' : ' disabled') + ' aria-label="Afficher ' + p[1] + '"></div>';
+  }).join('');
+}
+HW.onConfig(render);
+$('#rows').addEventListener('change', function (e) {
+  var visible = {};
+  document.querySelectorAll('#rows .sw').forEach(function (s) { visible[s.dataset.p] = s.checked; });
+  var m = $('#cfgMsg'); m.className = 'msg'; m.textContent = 'Enregistrement…';
+  HW.setConfig({ visible: visible, at: Date.now() }).then(function () { m.textContent = 'Enregistré : les visiteurs voient le changement.'; })
+    .catch(function (err) { m.className = 'msg err'; m.textContent = 'Échec : ' + (err && err.message || err) + '. Les règles Firestore sont-elles publiées ?'; });
+});
+</script>
+</body>
+</html>

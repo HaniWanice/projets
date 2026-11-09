@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr" data-project="prospection">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prospection CSE et emails · Hani Wanice</title>
+<link rel="stylesheet" href="../shared/site.css">
+<script src="../shared/live.js"></script>
+<style>
+.tool { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(24px, 4vw, 56px); align-items: center; padding: clamp(22px, 3vw, 36px); border-radius: var(--radius); background: var(--card); }
+.tool h2 { font-size: clamp(1.9rem, 1.3rem + 2vw, 2.9rem); margin-bottom: 14px; }
+.tool p { color: var(--ink-2); margin-bottom: 12px; }
+.tool .shot { border-radius: 14px; overflow: hidden; box-shadow: 0 20px 50px -30px rgb(21 25 31 / .5); border: 1px solid var(--rule); }
+.tool .shot img { display: block; width: 100%; height: auto; }
+.list { margin: 6px 0 22px; padding: 0; list-style: none; display: grid; gap: 8px; }
+.list li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; }
+.list li::before { content: ""; width: 22px; height: 22px; border-radius: 50%; background: var(--sage-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='m6.5 11.4 3 2.9 6-6.3' fill='none' stroke='%235E8C6A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat; }
+.story { margin-top: clamp(28px, 4vw, 48px); padding: clamp(22px, 3vw, 36px); border-radius: var(--radius); background: var(--ink); color: var(--paper); display: grid; gap: 22px; }
+.story h2 { font-size: clamp(1.9rem, 1.3rem + 2vw, 2.9rem); }
+.story h2 em { font-style: normal; color: #FFB59C; }
+.story > p { color: rgb(245 242 236 / .78); max-width: 62ch; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.kpis div { padding: 18px; border-radius: 16px; background: rgb(255 255 255 / .07); }
+.kpis b { display: block; font: 700 clamp(2rem, 1.4rem + 2vw, 2.8rem)/1 var(--display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.kpis span { color: rgb(245 242 236 / .75); font-size: 0.9rem; }
+.flow { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; counter-reset: f; }
+.flow li { position: relative; counter-increment: f; padding: 16px 14px; border-radius: 16px; background: rgb(255 255 255 / .07); font-size: 0.92rem; color: rgb(245 242 236 / .8); }
+.flow li::before { content: counter(f); display: grid; place-items: center; width: 28px; height: 28px; margin-bottom: 10px; border-radius: 9px; background: #FFB59C; color: var(--ink); font-weight: 700; }
+.flow b { display: block; color: var(--paper); margin-bottom: 4px; }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; margin-top: 18px; }
+.box { padding: clamp(20px, 3vw, 30px); border-radius: var(--radius); background: var(--card); display: grid; gap: 12px; align-content: start; }
+.box h3 { font-size: 1.5rem; }
+.mail { padding: 18px; border-radius: 14px; background: var(--paper); font: 400 0.93rem/1.6 var(--body); white-space: pre-line; color: var(--ink); }
+.mail .v { padding: 1px 7px; border-radius: 6px; background: var(--amber-soft); color: #7A4D00; font-weight: 600; }
+.mail .subj { display: block; margin-bottom: 10px; font-weight: 700; }
+@media (max-width: 960px) { .tool, .cols { grid-template-columns: minmax(0, 1fr); } .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<header class="wrap top"><a class="brand" href="../"><i>H</i>Hani Wanice</a><a class="crumb" href="../">← Tous les projets</a></header>
+<main class="wrap">
+  <section class="intro">
+    <h1>Trouver les CSE qui votent en 2027, puis leur écrire</h1>
+    <p class="lede">Deux outils qui travaillent ensemble : le premier repère les entreprises dont le CSE va être renouvelé, le second les contacte par email, proprement et automatiquement.</p>
+  </section>
+
+  <section class="tool">
+    <div>
+      <h2>Mandat : le calendrier des élections CSE</h2>
+      <p>À partir des procès-verbaux d’élection publiés par le ministère du Travail, l’outil calcule le mois probable de la prochaine élection de chaque établissement.</p>
+      <ul class="list">
+        <li>Qui renouvelle son CSE, et quand</li>
+        <li>Le numéro du standard et le site de l’entreprise</li>
+        <li>Un suivi des appels : à appeler, rappelé, devis envoyé</li>
+        <li>Export vers Excel, agenda ou fiche contact</li>
+      </ul>
+      <a class="btn btn-ink" href="mandat/">Ouvrir l’outil <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <a class="shot" href="mandat/" aria-label="Ouvrir Mandat"><img src="../shared/shots/mandat.webp" alt="Mandat : liste des établissements qui renouvellent leur CSE, avec le mois estimé" loading="lazy"></a>
+  </section>
+
+  <section class="story">
+    <h2>C’est ce système qui a <em>écrit à Qualyz</em>.</h2>
+    <p>Pour la campagne CSE, chaque entreprise a reçu un message personnalisé, à un rythme prudent. Les réponses ont été lues automatiquement, et j’ai validé chaque réponse humaine moi-même.</p>
+    <div class="kpis">
+      <div><b>49</b><span>emails envoyés du 2 au 6 novembre</span></div>
+      <div><b>3</b><span>entreprises intéressées, dont Qualyz</span></div>
+      <div><b>0</b><span>email rejeté ou signalé comme indésirable</span></div>
+      <div><b>10/10</b><span>note de délivrabilité (mail-tester)</span></div>
+    </div>
+    <ol class="flow">
+      <li><b>Trouver</b>Les entreprises ciblées, dans des sources publiques.</li>
+      <li><b>Vérifier</b>Une adresse publiée sur leur site, jamais inventée.</li>
+      <li><b>Écrire</b>Un message adapté à chaque métier, avec un exemple réel.</li>
+      <li><b>Envoyer doucement</b>5 le premier jour, puis 5 de plus par jour.</li>
+      <li><b>Lire les réponses</b>Toutes les 15 minutes, automatiquement.</li>
+      <li><b>Répondre</b>Brouillon préparé, envoyé seulement après mon accord.</li>
+    </ol>
+  </section>
+
+  <div class="cols">
+    <section class="box">
+      <h3>Un exemple de premier message</h3>
+      <p style="color:var(--ink-2)">Les zones surlignées changent pour chaque destinataire.</p>
+      <div class="mail"><span class="subj">Objet : Nouveaux élus CSE en 2027 dans votre région</span>Bonjour,
+
+J’ai daté la prochaine élection CSE de chaque établissement à partir des procès-verbaux publiés par le ministère du Travail. Dans votre zone (<span class="v">région</span>), <span class="v">nombre</span> établissements qui ont déjà des élus renouvellent leur CSE au premier semestre 2027.
+
+Un exemple : <span class="v">un établissement réel, anonymisé</span>.
+
+Pour <span class="v">nom de l’organisme</span>, cela permet de savoir quelles entreprises auront de nouveaux élus à former en SSCT, et à quel moment.
+
+Voulez-vous que je vous envoie un tableau de 50 établissements du premier semestre 2027 ?
+
+Hani WANICE
+
+Si ce sujet ne vous concerne pas, répondez simplement « non » et je ne vous écrirai plus.</div>
+    </section>
+    <section class="box">
+      <h3>Les garde-fous</h3>
+      <ul class="list">
+        <li>Domaine configuré pour être reconnu comme fiable par Gmail et Outlook (SPF, DKIM, DMARC)</li>
+        <li>Jamais plus de 15 emails par jour, espacés de plusieurs minutes</li>
+        <li>Envois seulement en heures de bureau, jamais les jours fériés</li>
+        <li>Arrêt automatique au moindre signal : erreur, rejet, plainte</li>
+        <li>Un refus en un mot, respecté pour toujours</li>
+        <li>Aucune donnée personnelle d’élu : seulement les coordonnées publiques des entreprises</li>
+      </ul>
+    </section>
+  </div>
+</main>
+<footer class="wrap foot"><span>Données : procès-verbaux d’élections professionnelles (ministère du Travail), registres publics des entreprises.</span><a class="crumb" href="../">← Tous les projets</a></footer>
+</body>
+</html>
